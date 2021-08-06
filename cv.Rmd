@@ -1,0 +1,21 @@
+---
+title: "Cullen Molitor"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+ggplot2::ggplot(data = diamonds, aes(x = carat, y = price, color = cut)) +
+  ggplot2::geom_point()
+```
+
+# Education
+
+# Employment
+
+# Publications
+
+# Awards
