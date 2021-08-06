@@ -1,19 +1,18 @@
 ---
 title: "Cullen Molitor"
-description: |
-  Welcome to the website. I hope you enjoy it!
+image: "www/yukon.png"
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/"
+  - label: Twitter
+    url: "https://twitter.com/"
+  - label: GitHub
+    url: "https://github.com/cullen-molitor"
+  - label: Email
+    url: "mailto:cullen.molitor@gmail.com"
+output:
+  postcards::jolla
 site: distill::distill_website
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
-
-```
-
-![](www/yukon.png)
+ 
+Profile information
