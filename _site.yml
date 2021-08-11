@@ -9,6 +9,11 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
+    - text: "Blog"
+      href: blog.html
     - text: "CV"
       href: cv.html
+collections:
+  cv: 
+    categories: true
 output: distill::distill_article

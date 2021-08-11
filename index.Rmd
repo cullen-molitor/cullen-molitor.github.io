@@ -2,17 +2,15 @@
 title: "Cullen Molitor"
 image: "www/yukon.png"
 links:
-  - label: LinkedIn
-    url: "https://linkedin.com/"
-  - label: Twitter
-    url: "https://twitter.com/"
   - label: GitHub
     url: "https://github.com/cullen-molitor"
   - label: Email
     url: "mailto:cullen.molitor@gmail.com"
+  - label: KFM App
+    url: "http://34.94.133.101/"
 output:
   postcards::jolla
 site: distill::distill_website
 ---
  
-Profile information
+ 

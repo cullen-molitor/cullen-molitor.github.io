@@ -1,10 +1,11 @@
 ---
 title: "About this site"
 description: |
-  Some additional details about the website
+  Some additional details about the website 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+I am a marine ecologist with expertise in long term monitoring of kelp forest environments in California. I graduated from Humboldt State University in 2014 where I studied history, mathematics, and scientific diving. I am currently a candidate in the Master of Environmental Data Science program at the Bren School of Environmental Science and Management. I previously worked five seasons with Channel Islands National Park's Kelp Forest Monitoring Program (KFM) where I participated in underwater surveys of kelp forest communities. Through this work I developed my skills in field subtidal field methods, data collection, data quality control, and database management. I enrolled in the MEDS program to learn data processing, data modeling, and data presentation to inform our understanding of community ecology. I am interested in how ecological communities change in response to environmental stressors such as climate patterns, fishing pressure, and disease events. 
