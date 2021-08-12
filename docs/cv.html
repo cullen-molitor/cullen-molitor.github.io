@@ -627,6 +627,316 @@
           padding-top: 60px;
         }
         </style>
+        <style type="text/css">
+        /* base variables */
+
+        /* Edit the CSS properties in this file to create a custom
+           Distill theme. Only edit values in the right column
+           for each row; values shown are the CSS defaults.
+           To return any property to the default,
+           you may set its value to: unset
+           All rows must end with a semi-colon.                      */
+
+        /* Optional: embed custom fonts here with `@import`          */
+        /* This must remain at the top of this file.                 */
+
+
+
+        html {
+          /*-- Main font sizes --*/
+          --title-size:      50px;
+          --body-size:       1.06rem;
+          --code-size:       14px;
+          --aside-size:      12px;
+          --fig-cap-size:    13px;
+          /*-- Main font colors --*/
+          --title-color:     #000000;
+          --header-color:    rgba(0, 0, 0, 0.8);
+          --body-color:      rgba(0, 0, 0, 0.8);
+          --aside-color:     rgba(0, 0, 0, 0.6);
+          --fig-cap-color:   rgba(0, 0, 0, 0.6);
+          /*-- Specify custom fonts ~~~ must be imported above   --*/
+          --heading-font:    sans-serif;
+          --mono-font:       monospace;
+          --body-font:       sans-serif;
+          --navbar-font:     sans-serif;  /* websites + blogs only */
+        }
+
+        /*-- ARTICLE METADATA --*/
+        d-byline {
+          --heading-size:    0.6rem;
+          --heading-color:   rgba(0, 0, 0, 0.5);
+          --body-size:       0.8rem;
+          --body-color:      rgba(0, 0, 0, 0.8);
+        }
+
+        /*-- ARTICLE TABLE OF CONTENTS --*/
+        .d-contents {
+          --heading-size:    18px;
+          --contents-size:   13px;
+        }
+
+        /*-- ARTICLE APPENDIX --*/
+        d-appendix {
+          --heading-size:    15px;
+          --heading-color:   rgba(0, 0, 0, 0.65);
+          --text-size:       0.8em;
+          --text-color:      rgba(0, 0, 0, 0.5);
+        }
+
+        /*-- WEBSITE HEADER + FOOTER --*/
+        /* These properties only apply to Distill sites and blogs  */
+
+        .distill-site-header {
+          --title-size:       18px;
+          --text-color:       rgba(255, 255, 255, 0.8);
+          --text-size:        15px;
+          --hover-color:      white;
+          --bkgd-color:       #0F2E3D;
+        }
+
+        .distill-site-footer {
+          --text-color:       rgba(255, 255, 255, 0.8);
+          --text-size:        15px;
+          --hover-color:      white;
+          --bkgd-color:       #0F2E3D;
+        }
+
+        /*-- Additional custom styles --*/
+        /* Add any additional CSS rules below                      */
+        </style>
+        <style type="text/css">
+        /* base variables */
+
+        /* Edit the CSS properties in this file to create a custom
+           Distill theme. Only edit values in the right column
+           for each row; values shown are the CSS defaults.
+           To return any property to the default,
+           you may set its value to: unset
+           All rows must end with a semi-colon.                      */
+
+        /* Optional: embed custom fonts here with `@import`          */
+        /* This must remain at the top of this file.                 */
+
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+        html {
+          /*-- Main font sizes --*/
+          --title-size:      50px;
+          --body-size:       1.06rem;
+          --code-size:       14px;
+          --aside-size:      12px;
+          --fig-cap-size:    13px;
+          /*-- Main font colors --*/
+          --title-color:     #000000;
+          --header-color:    rgba(0, 0, 0, 0.8);
+          --body-color:      rgba(0, 0, 0, 0.8);
+          --aside-color:     rgba(0, 0, 0, 0.6);
+          --fig-cap-color:   rgba(0, 0, 0, 0.6);
+          /*-- Specify custom fonts ~~~ must be imported above   --*/
+          --heading-font:    Ubuntu;
+          --mono-font:       monospace;
+          --body-font:       Ubuntu;
+          --navbar-font:     Ubuntu;  /* websites + blogs only */
+        }
+
+        /*-- ARTICLE METADATA --*/
+        d-byline {
+          --heading-size:    0.6rem;
+          --heading-color:   rgba(0, 0, 0, 0.5);
+          --body-size:       0.8rem;
+          --body-color:      rgba(0, 0, 0, 0.8);
+        }
+
+        /*-- ARTICLE TABLE OF CONTENTS --*/
+        .d-contents {
+          --heading-size:    18px;
+          --contents-size:   13px;
+        }
+
+        /*-- ARTICLE APPENDIX --*/
+        d-appendix {
+          --heading-size:    15px;
+          --heading-color:   rgba(0, 0, 0, 0.65);
+          --text-size:       0.8em;
+          --text-color:      rgba(0, 0, 0, 0.5);
+        }
+
+        /*-- WEBSITE HEADER + FOOTER --*/
+        /* These properties only apply to Distill sites and blogs  */
+
+        .distill-site-header {
+          --title-size:       18px;
+          --text-color:       rgba(255, 255, 255, 0.8);
+          --text-size:        15px;
+          --hover-color:      white;
+          --bkgd-color:       #0F2E3D;
+        }
+
+        .distill-site-footer {
+          --text-color:       rgba(255, 255, 255, 0.8);
+          --text-size:        15px;
+          --hover-color:      white;
+          --bkgd-color:       #0F2E3D;
+        }
+
+        /*-- Additional custom styles --*/
+        /* Add any additional CSS rules below                      */
+        </style>
+        <style type="text/css">
+        /* base style */
+
+        /* FONT FAMILIES */
+
+        :root {
+          --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+          --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+          --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body,
+        .posts-list .post-preview p,
+        .posts-list .description p {
+          font-family: var(--body-font), var(--body-default);
+        }
+
+        h1, h2, h3, h4, h5, h6,
+        .posts-list .post-preview h2,
+        .posts-list .description h2 {
+          font-family: var(--heading-font), var(--heading-default);
+        }
+
+        d-article div.sourceCode code,
+        d-article pre code {
+          font-family: var(--mono-font), var(--mono-default);
+        }
+
+
+        /*-- TITLE --*/
+        d-title h1,
+        .posts-list > h1 {
+          color: var(--title-color, black);
+        }
+
+        d-title h1 {
+          font-size: var(--title-size, 50px);
+        }
+
+        /*-- HEADERS --*/
+        d-article h1,
+        d-article h2,
+        d-article h3,
+        d-article h4,
+        d-article h5,
+        d-article h6 {
+          color: var(--header-color, rgba(0, 0, 0, 0.8));
+        }
+
+        /*-- BODY --*/
+        d-article > p,  /* only text inside of <p> tags */
+        d-article > ul, /* lists */
+        d-article > ol {
+          color: var(--body-color, rgba(0, 0, 0, 0.8));
+          font-size: var(--body-size, 1.06rem);
+        }
+
+
+        /*-- CODE --*/
+        d-article div.sourceCode code,
+        d-article pre code {
+          font-size: var(--code-size, 14px);
+        }
+
+        /*-- ASIDE --*/
+        d-article aside {
+          font-size: var(--aside-size, 12px);
+          color: var(--aside-color, rgba(0, 0, 0, 0.6));
+        }
+
+        /*-- FIGURE CAPTIONS --*/
+        figure .caption,
+        figure figcaption,
+        .figure .caption {
+          font-size: var(--fig-cap-size, 13px);
+          color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+        }
+
+        /*-- METADATA --*/
+        d-byline h3 {
+          font-size: var(--heading-size, 0.6rem);
+          color: var(--heading-color, rgba(0, 0, 0, 0.5));
+        }
+
+        d-byline {
+          font-size: var(--body-size, 0.8rem);
+          color: var(--body-color, rgba(0, 0, 0, 0.8));
+        }
+
+        d-byline a,
+        d-article d-byline a {
+          color: var(--body-color, rgba(0, 0, 0, 0.8));
+        }
+
+        /*-- TABLE OF CONTENTS --*/
+        .d-contents nav h3 {
+          font-size: var(--heading-size, 18px);
+        }
+
+        .d-contents nav a {
+          font-size: var(--contents-size, 13px);
+        }
+
+        /*-- APPENDIX --*/
+        d-appendix h3 {
+          font-size: var(--heading-size, 15px);
+          color: var(--heading-color, rgba(0, 0, 0, 0.65));
+        }
+
+        d-appendix {
+          font-size: var(--text-size, 0.8em);
+          color: var(--text-color, rgba(0, 0, 0, 0.5));
+        }
+
+        d-appendix d-footnote-list a.footnote-backlink {
+          color: var(--text-color, rgba(0, 0, 0, 0.5));
+        }
+
+        /*-- WEBSITE HEADER + FOOTER --*/
+        .distill-site-header .title {
+          font-size: var(--title-size, 18px);
+          font-family: var(--navbar-font), var(--heading-default);
+        }
+
+        .distill-site-header a,
+        .nav-dropdown .nav-dropbtn {
+          font-family: var(--navbar-font), var(--heading-default);
+        }
+
+        .nav-dropdown .nav-dropbtn {
+          color: var(--text-color, rgba(255, 255, 255, 0.8));
+          font-size: var(--text-size, 15px);
+        }
+
+        .distill-site-header a:hover,
+        .nav-dropdown:hover .nav-dropbtn {
+          color: var(--hover-color, white);
+        }
+
+        .distill-site-header {
+          font-size: var(--text-size, 15px);
+          color: var(--text-color, rgba(255, 255, 255, 0.8));
+          background-color: var(--bkgd-color, #0F2E3D);
+        }
+
+        .distill-site-footer {
+          font-size: var(--text-size, 15px);
+          color: var(--text-color, rgba(255, 255, 255, 0.8));
+          background-color: var(--bkgd-color, #0F2E3D);
+        }
+
+        .distill-site-footer a:hover {
+          color: var(--hover-color, white);
+        }</style>
         <script src="cv_files/header-attrs-2.10/header-attrs.js"></script>
         <link href="cv_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
         <link href="cv_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
@@ -635,6 +945,7 @@
         <script src="cv_files/paged-0.15/js/paged.js"></script>
         <script src="cv_files/paged-0.15/js/hooks.js"></script>
     
+        <link rel="stylesheet" href="override.css" type="text/css" />
     
   </head>
   <body>
@@ -729,6 +1040,7 @@
 <li>A</li>
 <li>B</li>
 <li>C</li>
+<li>D</li>
 </ul>
 </div>
 </div>
@@ -742,60 +1054,36 @@
 <li>A</li>
 <li>B</li>
 <li>C</li>
+<li>D</li>
 </ul>
 </div>
 </div>
 </div>
-<div id="research-experience" class="section level2" data-icon="laptop">
-<h2>Research Experience</h2>
-<div id="graduate-research-assistant" class="section level3">
-<h3>Graduate Research Assistant</h3>
-<p>Beijing Institute of Genomics, Chinese Academy of Sciences</p>
-<p>Beijing, China</p>
-<p>2011 - 2014</p>
+<div id="volunteer-experience" class="section level2" data-icon="people-carry">
+<h2>Volunteer Experience</h2>
+<div id="data-scientist" class="section level3">
+<h3>Data Scientist</h3>
+<p>Channel Islands National Park</p>
+<p>Santa Barbara CA</p>
+<p>2019 - Now</p>
 <ul>
-<li>Performed computational biology research towards understanding regulation of alternative splicing in human and mouse transcriptome.</li>
-<li>Found EGFR pathway related mutations, aimed to understand the impacts of cancer mutations on EGFR signaling pathway.</li>
+<li>Working for the Education program to provide education tools for kelp forest ecology.</li>
+<li>Building and maintaining a shiny web application for data visualization and exploration</li>
+<li><a href="https://app-4oc2gi4bqq-uw.a.run.app/">KFM Shiny app</a> (work in progress)</li>
 </ul>
 </div>
-<div id="bioinformatican" class="section level3">
-<h3>Bioinformatican</h3>
-<p>My Health Gene Technology Co., Ltd.</p>
-<p>Beijing, China</p>
-<p>2015 - 2016</p>
+<div id="dive-instructor" class="section level3">
+<h3>Dive Instructor</h3>
+<p>Humboldt State University</p>
+<p>Arcata CA</p>
+<p>2014 - 2017</p>
 <ul>
-<li>Investigated how cancer cells spread to other parts of the body at the single cell level.</li>
-</ul>
-</div>
-<div id="visiting-scientist" class="section level3">
-<h3>Visiting Scientist</h3>
-<p>University of Alabama at Birmingham</p>
-<p>AL, USA</p>
-<p>2016 - 2018</p>
-<ul>
-<li>Investigated the role of mitochondria in development of cancer.</li>
-<li>Investigated the evolution of genome architecture and its role in important evolutionary events.</li>
-<li>Detected thrombotic thrombocytopenic purpura related mutations in mutiple patients’ blood genome.</li>
+<li>Teaching and assisting scuba classes for the Scientific Diving Program at HSU</li>
 </ul>
 </div>
 </div>
-<div id="teaching-experience" class="section level2" data-icon="chalkboard-teacher">
-<h2>Teaching Experience</h2>
-<div id="introduction-to-r-language-for-beginners." class="section level3">
-<h3>Introduction to R Language for Beginners.</h3>
-<p>Instructor of R and Data Mining Training Courses at SupStat Inc.</p>
-<p>Beijing, China</p>
-<p>2014</p>
-</div>
-<div id="computational-biology-and-bioinformatics." class="section level3">
-<h3>Computational Biology and Bioinformatics.</h3>
-<p>Teaching assistant of GBS CB2-201 courses at UAB</p>
-<p>AL, USA</p>
-<p>2016 - 2017</p>
-</div>
-</div>
-<div id="selected-publications-and-posters" class="section level2" data-icon="file">
-<h2>Selected Publications and Posters</h2>
+<div id="selected-publications" class="section level2" data-icon="file">
+<h2>Selected Publications</h2>
 <div id="genetic-and-epigenetic-signals-are-found-predictive-to-the-distribution-of-intra-individual-divergence-of-alternative-splicing." class="section level3">
 <h3>Genetic and epigenetic signals are found predictive to the distribution of intra-individual divergence of alternative splicing.</h3>
 <p>Poster for 2013 International Conference of Genomics</p>

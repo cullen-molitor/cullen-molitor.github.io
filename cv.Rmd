@@ -8,7 +8,11 @@ date: 08-10-2021
 output:
   pagedown::html_resume:
     self_contained: false
+    css: 
+      - override.css
+      - resume
 ---
+
 Aside
 ================================================================================
 
@@ -111,63 +115,32 @@ Ventura CA
 - D
 :::
 
-Research Experience {data-icon=laptop}
+Volunteer Experience {data-icon=people-carry}
 --------------------------------------------------------------------------------
 
-### Graduate Research Assistant
+### Data Scientist
 
-Beijing Institute of Genomics, Chinese Academy of Sciences
+Channel Islands National Park
 
-Beijing, China
+Santa Barbara CA
 
-2011 - 2014
+2019 - Now
 
-- Performed computational biology research towards understanding regulation of alternative splicing in human and mouse transcriptome.
-- Found EGFR pathway related mutations, aimed to understand the impacts of cancer mutations on EGFR signaling pathway.
+- Working for the Education program to provide education tools for kelp forest ecology.
+- Building and maintaining a shiny web application for data visualization and exploration
+- [KFM Shiny app](https://app-4oc2gi4bqq-uw.a.run.app/) (work in progress)
 
-### Bioinformatican
+### Dive Instructor
 
-My Health Gene Technology Co., Ltd.
+Humboldt State University
 
-Beijing, China
+Arcata CA
 
-2015 - 2016
+2014 - 2017
 
-- Investigated how cancer cells spread to other parts of the body at the single cell level.
+- Teaching and assisting scuba classes for the Scientific Diving Program at HSU
 
-### Visiting Scientist
-
-University of Alabama at Birmingham
-
-AL, USA
-
-2016 - 2018
-
-- Investigated the role of mitochondria in development of cancer.
-- Investigated the evolution of genome architecture and its role in important evolutionary events.
-- Detected thrombotic thrombocytopenic purpura related mutations in mutiple patients' blood genome.
-
-Teaching Experience {data-icon=chalkboard-teacher}
---------------------------------------------------------------------------------
-
-### Introduction to R Language for Beginners.
-
-Instructor of R and Data Mining Training Courses at SupStat Inc.
-
-Beijing, China
-
-2014
-
-### Computational Biology and Bioinformatics.
-
-Teaching assistant of GBS CB2-201 courses at UAB
-
-AL, USA
-
-2016 - 2017
-
-
-Selected Publications and Posters {data-icon=file}
+Selected Publications {data-icon=file}
 --------------------------------------------------------------------------------
 
 ### Genetic and epigenetic signals are found predictive to the distribution of intra-individual divergence of alternative splicing.
