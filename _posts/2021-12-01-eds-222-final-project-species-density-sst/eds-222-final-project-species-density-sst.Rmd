@@ -9,18 +9,9 @@ date: 2021-12-01
 output:
   distill::distill_article:
     self_contained: false
+    code_folding: hide
+    toc: true
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(here)
-library(broom)
-library(tsibble)
-library(dLagM)
-library(arrow)
-library(lubridate)
-```
 
 # Motivation
 
@@ -35,6 +26,7 @@ The impetus of this analysis is to investigate which species are sensitive to ei
 
 
 # Data
+
 - Describe your data. Where did you access it? What are its spatial and temporal features? 
 What are its limitations? What do you know about the sampling strategy and what biases 
 that may introduce? If helpful, you can use a histogram, scatterplot, or summary statistics 
@@ -44,30 +36,18 @@ The Kelp Forest Monitoring (KFM) program at Channel Islands National Park has be
 
 Using species density, we can see the trends observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events. recruitment of certain species either increases or decreases. 
 
+```{r data}
+knitr::opts_chunk$set(echo = TRUE)
+# Load libraries
+library(tidyverse)
+library(here)
+library(broom)
+library(tsibble)
+library(dLagM)
+library(arrow)
+library(lubridate)
 
-
-
-
-- Clearly describe your analysis plan. What is your analysis plan? Why did you choose 
-this analysis, given your data and question? What are the limitations?  
-
-- Summarize your results visually and in words. Show us your results in figure(s) and/or 
-table(s) that are carefully labeled and captioned. Describe in the text (and orally when 
-presenting) what you found, and how these results either do or do not help you answer 
-your question.  
-
-- What might you do next? One short analysis cannot fully answer an interesting scientific 
-question. If you had time to collect more data or conduct more analysis, what would help 
-you answer this question better?  
-
-
-
-
-
-- Look at distribution of cumulative effects (maybe overlay significant effects)
-
-
-```{r data, include=FALSE}
+# Load and Tidy Data
 oni_yearly <- read.table( # Read in  ONI to be added to all data
   "https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/detrend.nino34.ascii.txt",
   header = T) %>%
@@ -86,23 +66,22 @@ oni_yearly <- read.table( # Read in  ONI to be added to all data
                 SST_Anom_4 = lag(SST_Anom, n = 4),
                 SST_Anom_5 = lag(SST_Anom, n = 5))
 
-Species_Info <- readr::read_csv(
-  "Species_Complete.csv"
-  )
+Species_Info <- readr::read_csv("Species_Complete.csv")
 
-Site_Info <- readr::read_csv(
-  "Site_Info.csv"
-  )
+Site_Info <- readr::read_csv("Site_Info.csv")
 
-```
-
-```{r}
 density <- arrow::read_feather("Density.feather") %>%
   dplyr::filter(Classification != "Fish",
                 !CommonName %in% c("wakame, adult", "wakame, juvenile", "white abalone")) %>% 
   dplyr::left_join(oni_yearly)
 ```
 
+# Analysis  
+
+- Clearly describe your analysis plan. What is your analysis plan? Why did you choose 
+this analysis, given your data and question? What are the limitations?  
+
+## Model
 ```{r}
 Results_lag <- density %>% 
   dplyr::group_by(ScientificName) %>% 
@@ -123,6 +102,13 @@ Results_filtered <- Results_lag %>%
                 p.value = round(p.value, 3),
                 p.value = ifelse(p.value < 0.001, "< 0.001", as.character(p.value))) 
 ```
+
+# Results
+
+- Summarize your results visually and in words. Show us your results in figure(s) and/or 
+table(s) that are carefully labeled and captioned. Describe in the text (and orally when 
+presenting) what you found, and how these results either do or do not help you answer 
+your question.  
 
 ```{r}
 prop <- Results_lag %>% 
@@ -185,7 +171,11 @@ ggplot(data = prop, aes(x = est_sum)) +
 
 ```
 
+# Future Work
 
+- What might you do next? One short analysis cannot fully answer an interesting scientific 
+question. If you had time to collect more data or conduct more analysis, what would help 
+you answer this question better? 
 
 
 
