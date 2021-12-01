@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,7 +77,7 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
@@ -85,39 +85,40 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
-  <!--radix_placeholder_meta_tags-->
-<title>My Website: My first Blog Post</title>
 
-<meta property="description" itemprop="description" content="Important stuff"/>
+  <!--radix_placeholder_meta_tags-->
+<title>My Website: EDS 222 Final Project - Species Density ~ SST</title>
+
+<meta property="description" itemprop="description" content="A short description of the post."/>
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-08-10"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-08-10"/>
-<meta name="article:author" content="Unknown"/>
+<meta property="article:published" itemprop="datePublished" content="2021-12-01"/>
+<meta property="article:created" itemprop="dateCreated" content="2021-12-01"/>
+<meta name="article:author" content="Cullen Molitor"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="My Website: My first Blog Post"/>
+<meta property="og:title" content="My Website: EDS 222 Final Project - Species Density ~ SST"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="Important stuff"/>
+<meta property="og:description" content="A short description of the post."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="My Website"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="My Website: My first Blog Post"/>
-<meta property="twitter:description" content="Important stuff"/>
+<meta property="twitter:title" content="My Website: EDS 222 Final Project - Species Density ~ SST"/>
+<meta property="twitter:description" content="A short description of the post."/>
 
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["My first Blog Post"]},{"type":"character","attributes":{},"value":["Important stuff"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Unknown"]}]}]},{"type":"character","attributes":{},"value":["08-10-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["EDS 222 Final Project - Species Density ~ SST"]},{"type":"character","attributes":{},"value":["A short description of the post."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Cullen Molitor"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2021-12-01"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"NULL"}
+  {"type":"character","attributes":{},"value":["Density.feather","eds-222-final-project-species-density-sst_files/figure-html5/unnamed-chunk-4-1.png","Site_Info.csv","Species_Complete.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -463,7 +464,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1870,7 +1871,10 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2351,8 +2355,8 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2372,7 +2376,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"My first Blog Post","description":"Important stuff","authors":[{"author":"Unknown","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-08-10T00:00:00.000-07:00","citationText":"Unknown, 2021"}
+{"title":"EDS 222 Final Project - Species Density ~ SST","description":"A short description of the post.","authors":[{"author":"Cullen Molitor","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-12-01T00:00:00.000-08:00","citationText":"Molitor, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2397,21 +2401,139 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>My first Blog Post</h1>
+<h1>EDS 222 Final Project - Species Density ~ SST</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Important stuff</p></p>
+<p><p>A short description of the post.</p></p>
 </div>
 
 <div class="d-byline">
-  Unknown  
+  Cullen Molitor true 
   
-<br/>08-10-2021
+<br/>2021-12-01
 </div>
 
 <div class="d-article">
-<p>Distill is a publication format for scientific and technical writing, native to the web.</p>
-<p>Learn more about using Distill at <a href="https://rstudio.github.io/distill" class="uri">https://rstudio.github.io/distill</a>.</p>
+<h1 id="motivation">Motivation</h1>
+<ul>
+<li>Motivate your question. Why is this important? Is there existing evidence on this question? If so, why is it inconclusive? If not, why not?</li>
+</ul>
+<p>California’s Northern Channel Islands sit at the transition between two biogeographic provinces, the cold-water North Pacific and the warmer Gulf of California to the south. San Miguel and Santa Rosa Islands have species representative of the colder North Pacific province while Anacapa and Santa Barbara Islands sit firmly in the warmer Gulf of California province. Santa Cruz Island lies in the transition zone with the western end of the island favoring North Pacific species and the eastern end favoring Gulf of California species. This makes the Northern Channel Islands a unique place to study how species distributions respond to ocean temperatures.</p>
+<p>The water temperatures of the Southern California Bight (SCB) and the Channel Islands are influenced by the El Niño Southern Oscillation (ENSO). ENSO to sea surface temperatures (SST) from.</p>
+<p>The impetus of this analysis is to investigate which species are sensitive to either warm-water or cold-water events. Using a series of dynamic linear model with lag independent variables (SST anomalies)</p>
+<h1 id="data">Data</h1>
+<ul>
+<li>Describe your data. Where did you access it? What are its spatial and temporal features? What are its limitations? What do you know about the sampling strategy and what biases that may introduce? If helpful, you can use a histogram, scatterplot, or summary statistics table to describe your data.</li>
+</ul>
+<p>The Kelp Forest Monitoring (KFM) program at Channel Islands National Park has been collecting abundance and size distribution data of more than 150 species for nearly 40 years (sampled annually) of 37 sites at the five Islands in the National Park.</p>
+<p>Using species density, we can see the trends observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events. recruitment of certain species either increases or decreases.</p>
+<ul>
+<li><p>Clearly describe your analysis plan. What is your analysis plan? Why did you choose this analysis, given your data and question? What are the limitations?</p></li>
+<li><p>Summarize your results visually and in words. Show us your results in figure(s) and/or table(s) that are carefully labeled and captioned. Describe in the text (and orally when presenting) what you found, and how these results either do or do not help you answer your question.</p></li>
+<li><p>What might you do next? One short analysis cannot fully answer an interesting scientific question. If you had time to collect more data or conduct more analysis, what would help you answer this question better?</p></li>
+<li><p>Look at distribution of cumulative effects (maybe overlay significant effects)</p></li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>density</span> <span class='op'>&lt;-</span> <span class='fu'>arrow</span><span class='fu'>::</span><span class='fu'><a href='https://arrow.apache.org/docs/r//reference/read_feather.html'>read_feather</a></span><span class='op'>(</span><span class='st'>"Density.feather"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Classification</span> <span class='op'>!=</span> <span class='st'>"Fish"</span>,
+                <span class='op'>!</span><span class='va'>CommonName</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wakame, adult"</span>, <span class='st'>"wakame, juvenile"</span>, <span class='st'>"white abalone"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>oni_yearly</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>Results_lag</span> <span class='op'>&lt;-</span> <span class='va'>density</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>ScientificName</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>
+    <span class='fu'>generics</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span>
+      <span class='fu'>stats</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>
+        <span class='va'>Mean_Density</span> <span class='op'>~</span> <span class='va'>SST_Anom</span> <span class='op'>+</span> <span class='va'>SST_Anom_1</span> <span class='op'>+</span> <span class='va'>SST_Anom_2</span> <span class='op'>+</span> <span class='va'>SST_Anom_3</span> <span class='op'>+</span> <span class='va'>SST_Anom_4</span> <span class='op'>+</span> <span class='va'>SST_Anom_5</span>
+        <span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='co'># tidyr::drop_na(p.value) %&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>!=</span> <span class='st'>"(Intercept)"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p.value</span> <span class='op'>&lt;=</span> <span class='fl'>.05</span>, <span class='st'>"yes"</span>, <span class='st'>"no"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>Results_filtered</span> <span class='op'>&lt;-</span> <span class='va'>Results_lag</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>p.value</span> <span class='op'>&lt;=</span> <span class='fl'>.05</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='co'># dplyr::arrange(p.value) %&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>statistic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>statistic</span>, <span class='fl'>3</span><span class='op'>)</span>,
+                p.value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>p.value</span>, <span class='fl'>3</span><span class='op'>)</span>,
+                p.value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p.value</span> <span class='op'>&lt;</span> <span class='fl'>0.001</span>, <span class='st'>"&lt; 0.001"</span>, <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>p.value</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prop</span> <span class='op'>&lt;-</span> <span class='va'>Results_lag</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>ScientificName</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>est_sum <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>)</span><span class='op'>)</span> 
+  
+
+<span class='va'>total</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>Results_lag</span><span class='op'>$</span><span class='va'>ScientificName</span><span class='op'>)</span>
+<span class='va'>warm</span> <span class='op'>&lt;-</span> <span class='va'>Results_lag</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>estimate</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='co'># distinct(CommonName) %&gt;% </span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>ScientificName</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>cold</span> <span class='op'>&lt;-</span> <span class='va'>Results_lag</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>estimate</span> <span class='op'>&lt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='co'># distinct(CommonName) %&gt;% </span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>ScientificName</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>prop</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>est_sum</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="eds-222-final-project-species-density-sst_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># for (sp in unique(Results_filtered$CommonName)) {</span>
+<span class='co'>#   p &lt;- density %&gt;% </span>
+<span class='co'>#     filter(CommonName == sp) %&gt;% </span>
+<span class='co'>#     ggplot(aes(y = Mean_Density)) +</span>
+<span class='co'>#     # geom_point() +</span>
+<span class='co'>#     geom_smooth(aes(x = SST_Anom), se = F, method = lm, formula = "y~x",color = "red") +</span>
+<span class='co'>#     geom_smooth(aes(x = SST_Anom_1), se = F, method = lm, formula = "y~x", color = "blue") +</span>
+<span class='co'>#     geom_smooth(aes(x = SST_Anom_2), se = F, method = lm, formula = "y~x", color = "green") +</span>
+<span class='co'>#     geom_smooth(aes(x = SST_Anom_3), se = F, method = lm, formula = "y~x", color = "black") +</span>
+<span class='co'>#     geom_smooth(aes(x = SST_Anom_4), se = F, method = lm, formula = "y~x", color = "purple") +</span>
+<span class='co'>#     labs(title = sp) +</span>
+<span class='co'>#     theme_classic()</span>
+<span class='co'>#   </span>
+<span class='co'>#   print(p)</span>
+<span class='co'># }</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># for (sp in unique(Results_filtered$CommonName)) {</span>
+<span class='co'>#   p &lt;- Results_lag %&gt;% </span>
+<span class='co'>#     filter(CommonName == sp) %&gt;% </span>
+<span class='co'>#     ggplot() +</span>
+<span class='co'>#     geom_line(aes(x = term, y = estimate, color = CommonName, group = CommonName), show.legend = F) +</span>
+<span class='co'>#     geom_point(aes(x = term, y = estimate, shape = significant), size = 4) +</span>
+<span class='co'>#     labs(title = sp) +</span>
+<span class='co'>#     theme_classic()</span>
+<span class='co'>#   </span>
+<span class='co'>#   print(p)</span>
+<span class='co'># }</span>
+</code></pre>
+</div>
+</div>
+<h1 id="literature-cited">Literature Cited</h1>
+<p>Costello, M.J., Tsai, P., Wong, P.S. et al. Marine biogeographic realms and species endemicity. Nat Commun 8, 1057 (2017). <a href="https://doi.org/10.1038/s41467-017-01121-2" class="uri">https://doi.org/10.1038/s41467-017-01121-2</a></p>
+<p>Ryan Freidman</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
