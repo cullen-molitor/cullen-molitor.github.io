@@ -11,17 +11,20 @@ output:
     self_contained: false
     code_folding: hide
     toc: true
+always_allow_html: yes
 ---
+$$\\[1.5in]$$
+
+Photo: Cullen Molitor conducting surveys at Admirals Reef, Anacapa Island.  
+Photo credit: Shaun Wolfe, Our World Underwater Scholarship Society (OWUSS) 2017 National Park Service Intern.
 \newpage
 ```{r include=FALSE}
-knitr::opts_chunk$set(echo = T, message = F, warning = F)
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
 ```
-
-# EDS 222 Final Project 
 
 # Motivation
   
-California's Northern Channel Islands sit at the transition between two biogeographic provinces, the cold-water North Pacific and the warm-water Gulf of California to the south. San Miguel and Santa Rosa Islands have species representative of the North Pacific province while Anacapa and Santa Barbara Islands sit firmly in the Gulf of California province. Santa Cruz Island lies in the transition zone with the western end of the island favoring North Pacific species and the eastern end favoring Gulf of California species. This makes the Northern Channel Islands a unique place to study how species distributions respond to ocean temperatures. 
+California's Northern Channel Islands sit at the transition between two biogeographic provinces, the cold-water North Pacific and the warm-water Gulf of California. San Miguel and Santa Rosa Islands have species representative of the North Pacific province while Anacapa and Santa Barbara Islands sit firmly in the Gulf of California province. Santa Cruz Island lies in the transition zone with the western end of the island favoring North Pacific species and the eastern end favoring Gulf of California species. This makes the Northern Channel Islands a unique place to study how species distribution and recruitment respond to ocean temperatures.   
 
 <!-- # ```{r} -->
 <!-- # knitr::include_graphics("biogeo.png") -->
@@ -42,57 +45,52 @@ The Kelp Forest Monitoring (KFM) program at Channel Islands National Park has be
 
 The fish data is collected in (#$/m^3$). In order to assure that all data are in the same units, only measurements of invertebrate and algae density (#$/m^2$) are retained. This takes the total number of species with density data from 151 down to 35. 
 
-Using species density, we can see the trends observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density. recruitment of certain species either increases or decreases. 
+Using species density, we can idenstify trends in abundance observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density. Below we read in ENSO data and calculate yearly mean anomalies before making 5 years worth of lag columns. We then load in the species density data and filter out fish and 2 other species which are exceedingly rare and do not have enough data to model. This leaves us with 33 species to model. 
 
-```{r data, echo=FALSE}
+```{r data}
 # Load libraries
 library(tidyverse)
 library(here)
-library(broom)
-library(tsibble)
-library(dLagM)
-library(arrow)
 library(lubridate)
+library(broom)
+library(arrow)
 
 # Load and Tidy Data
-oni_yearly <- read.table( # Read in  ONI to be added to all data
-  "https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/detrend.nino34.ascii.txt",
-  header = T) %>%
-  dplyr::mutate(Date = as.Date(ISOdate(YR, MON, 1)),
-                DateStart = as.Date(ISOdate(YR, MON, 1)),
-                DateEnd = ceiling_date(DateStart, "month")) %>%
-  dplyr::rename(SST_Anom = ANOM,
-                Month = MON,
-                SurveyYear = YR) %>% 
-  dplyr::select(SurveyYear, Month, Date, DateStart, DateEnd, SST_Anom) %>% 
+oni_yearly <-  # Read in Oceanic Nino Index region 3.4 data
+  read.table(
+    "https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/detrend.nino34.ascii.txt",
+    header = T) %>%
+  # rename YR for joining tables
+  dplyr::rename(SurveyYear = YR) %>% 
   dplyr::group_by(SurveyYear) %>% 
-  dplyr::summarise(SST_Anom = mean(SST_Anom)) %>% 
+  # Calculate yearly SST Anom
+  dplyr::summarise(SST_Anom = mean(ANOM)) %>% 
+  # Create lagged SST
   dplyr::mutate(SST_Anom_1 = lag(SST_Anom, n = 1),
                 SST_Anom_2 = lag(SST_Anom, n = 2),
                 SST_Anom_3 = lag(SST_Anom, n = 3),
                 SST_Anom_4 = lag(SST_Anom, n = 4),
                 SST_Anom_5 = lag(SST_Anom, n = 5))
 
-Species_Info <- readr::read_csv("Species_Complete.csv")
 
-Site_Info <- readr::read_csv("Site_Info.csv")
-
-density <- arrow::read_feather("Density.feather") %>%
+density <-  # Read in Density data
+  arrow::read_feather("Density.feather") %>%
   dplyr::filter(Classification != "Fish",
-                !CommonName %in% c("wakame, adult", "wakame, juvenile", "white abalone")) %>% 
+                !CommonName %in% c("wakame, adult", 
+                                   "wakame, juvenile", 
+                                   "white abalone")) %>% 
   dplyr::left_join(oni_yearly)
 ```
 <hr>  
-
 # Analysis  
 
-- Clearly describe your analysis plan. What is your analysis plan? Why did you choose 
-this analysis, given your data and question? What are the limitations?  
+This analysis will use a general model formula of lm(Mean_Density ~ SST_Anom + SST_Anom_1 + SST_Anom_2 + SST_Anom_3 + SST_Anom_4 + SST_Anom_5) applied to density data grouped by each species scientific name. These five lag periods will show how a species is affected within a the same year, and for the next five years following anomalous warm or cold water. We expect recruitment of certain species either increases or decreases following warmer than usual or colder than usual ocean temperatures. Given what we know about the life cycle of many marine species, it is not unreasonable to assume these effects would not be detected by non-invasive sampling techniques for 1-5 years following anomalous temperatures.
 
-## Model
+This analysis is simplified to detect trends in a large number of species and does not take into account the effect of biogeography. This also does not consider the impact of Marine protected areas (MPAs) which potentially buffering the ecological community from the effects of abiotic factors such as SST. MPAs could also have an effect from increased predation to some of these species, potentially limiting their abundance.
 
-text
-```{r , echo=FALSE}
+The cumulative effect on all species will be plotted. Then the results will be filtered to only include significant affects and sorted by the estimated slope of their relationship. The two species with the most positive slope and the two with the most negative slope will have their coefficients plotted over the lag periods. 
+
+```{r }
 Results_lag <- density %>% 
   dplyr::group_by(ScientificName) %>%
   dplyr::summarise(
@@ -100,14 +98,14 @@ Results_lag <- density %>%
       stats::lm(
         Mean_Density ~ SST_Anom + SST_Anom_1 + SST_Anom_2 + SST_Anom_3 + SST_Anom_4 + SST_Anom_5
         ))) %>% 
-  # tidyr::drop_na(p.value) %>%
   dplyr::filter(term != "(Intercept)") %>% 
   dplyr::mutate(significant = ifelse(p.value <= .05, "yes", "no"))
+```
 
+```{r}
 Results_filtered <- Results_lag %>%
   dplyr::filter(p.value <= .05) %>% 
   dplyr::arrange(estimate) %>%
-  # dplyr::arrange(p.value) %>%
   dplyr::mutate(statistic = round(statistic, 3),
                 p.value = round(p.value, 3),
                 p.value = ifelse(p.value < 0.001, "< 0.001", as.character(p.value))) 
@@ -120,34 +118,20 @@ table(s) that are carefully labeled and captioned. Describe in the text (and ora
 presenting) what you found, and how these results either do or do not help you answer 
 your question.  
 
-```{r , echo=FALSE}
-prop <- Results_lag %>% 
-  group_by(ScientificName) %>%
-  summarise(est_sum =  sum(estimate)) 
-  
+```{r}
+library(plotly)
+p <- ggplot(data = Results_lag, aes(x = estimate, fill = significant)) +
+  geom_density(alpha = .5) +
+  xlim(c(-.5, .5)) +
+  scale_y_continuous(expand = c(0, NA)) +
+  theme_classic()
 
-total <- length(Results_lag$ScientificName)
-warm <- Results_lag %>%
-  filter(estimate > 0) %>% 
-  # distinct(CommonName) %>% 
-  pull(ScientificName) %>% 
-  length()
-cold <- Results_lag %>%
-  filter(estimate < 0) %>% 
-  # distinct(CommonName) %>% 
-  pull(ScientificName) %>% 
-  length()
+# ggplotly(p)
+print(p)
 ```
 
 
-```{r, echo=FALSE}
-ggplot(data = prop, aes(x = est_sum)) +
-  geom_density() +
-  xlim(c(-2, 2))
-```
-
-
-```{r , echo=FALSE}
+```{r }
 # for (sp in unique(Results_filtered$CommonName)) {
 #   p <- density %>% 
 #     filter(CommonName == sp) %>% 
@@ -166,7 +150,7 @@ ggplot(data = prop, aes(x = est_sum)) +
 ```
 
 
-```{r , echo=FALSE}
+```{r }
 # for (sp in unique(Results_filtered$CommonName)) {
 #   p <- Results_lag %>% 
 #     filter(CommonName == sp) %>% 
