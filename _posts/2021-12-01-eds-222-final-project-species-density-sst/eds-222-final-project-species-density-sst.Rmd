@@ -1,16 +1,17 @@
 ---
 title: |
- Species Density ~ SST
+ ![](bands.jpg)
+ 
+ Species Density ~ SST + lag(SST)
 author: "Cullen Molitor"
 date: 2021-12-01
 output:
+  pdf_document: default
   distill::distill_article:
     self_contained: false
     code_folding: hide
     toc: true
-  pdf_document: default
 ---
-![](bands.jpg)
 \newpage
 ```{r include=FALSE}
 knitr::opts_chunk$set(echo = T, message = F, warning = F)
@@ -19,30 +20,31 @@ knitr::opts_chunk$set(echo = T, message = F, warning = F)
 # EDS 222 Final Project 
 
 # Motivation
-
+  
 California's Northern Channel Islands sit at the transition between two biogeographic provinces, the cold-water North Pacific and the warm-water Gulf of California to the south. San Miguel and Santa Rosa Islands have species representative of the North Pacific province while Anacapa and Santa Barbara Islands sit firmly in the Gulf of California province. Santa Cruz Island lies in the transition zone with the western end of the island favoring North Pacific species and the eastern end favoring Gulf of California species. This makes the Northern Channel Islands a unique place to study how species distributions respond to ocean temperatures. 
 
-```{r}
-knitr::include_graphics("biogeo.png")
-```
-<!-- ![](biogeo.png) -->
+<!-- # ```{r} -->
+<!-- # knitr::include_graphics("biogeo.png") -->
+<!-- # ``` -->
+![](biogeo.png)
 \begin{itemize}
-  \item[] Figure 1. The Southern California Bight (SCB) shown with a composite sea surface temperatures (SST) color gradient for 2009. This SST is typical of the region and illustrates the transition between the North Pacific and Gulf of California biogegeographic provinces (Image taken from [Freedman 2020](https://www.nature.com/articles/s41598-020-77885-3)).  
+  \item[] Figure 1. The Southern California Bight (SCB) shown with a composite sea surface temperatures (SST) color gradient for 2009. This SST is typical of the region and illustrates the transition between the North Pacific and Gulf of California biogegeographic provinces (Image taken from Freedman 2020).  
 \end{itemize}
 
 The El Niño Southern Oscillation ([ENSO](https://www.climate.gov/news-features/blogs/enso/what-el-ni%C3%B1o%E2%80%93southern-oscillation-enso-nutshell)) is measured primarily by the Oceanic Niño Index which calculates an [anomaly value](https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_change.shtml) for each month going back to 1950. These values are derived from SST in the equatorial pacific ($\pm5^{\circ}$ latitude, $120^{\circ}-170^{\circ}W$ longitude). The oscillation seen in SST of this region is responsible for driving certain global weather and climate patterns. Despite the distance from this region, ENSO has a large effect on the oceanographic conditions of the SCB and the Channel Islands. This effect includes an influence on local SST as well as the strength and direction of ocean currents. These effects are known to influence the distribution and abundance of certain marine species ([Day 2018](https://www.frontiersin.org/articles/10.3389/fmars.2019.00497), [Freedman 2020](https://www.nature.com/articles/s41598-020-77885-3)). 
 
 This analysis takes a shotgun approach to investigate which species are sensitive to either warm-water or cold-water events by using a series of species level dynamic linear model with lag SST anomalies variables. These models can will provide a broad overview of which species are affected, how they are affected, and whether or not the affect is statistically significant. 
 
-# Data
+<hr>  
+# Data  
 
 The Kelp Forest Monitoring (KFM) program at Channel Islands National Park has been collecting abundance and size distribution data of more than 170 species since 1982 (sampled annually). The park currently samples 33 sites at the five islands in the National Park. This data is publicly available and was requested and issued under a [scientific research and collecting permit](https://irma.nps.gov/RPRS/) (permit #: CHIS-2020-SCI-0006). These data are collected using scuba surveys and the biologists attempt to minimize their impact on the reef by using non-invasive sampling methods. This means that animals are counted in situ and no rocks are overturned. This inevitably biases the data towards adult populations of certain invertebrates that utilize crevice habitat during development.  
 
-The fish data is collected in ($#/m^3$). In order to assure that all data are in the same units, only measurements of invertebrate and algae density ($#/m^2$) are retained. This takes the total number of species with density data from 151 down to 35. This analysis could be expanded to include fish for future research as well as percent cover data which includes more species.  
+The fish data is collected in (#$/m^3$). In order to assure that all data are in the same units, only measurements of invertebrate and algae density (#$/m^2$) are retained. This takes the total number of species with density data from 151 down to 35. 
 
 Using species density, we can see the trends observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density. recruitment of certain species either increases or decreases. 
 
-```{r data}
+```{r data, echo=FALSE}
 # Load libraries
 library(tidyverse)
 library(here)
@@ -80,6 +82,7 @@ density <- arrow::read_feather("Density.feather") %>%
                 !CommonName %in% c("wakame, adult", "wakame, juvenile", "white abalone")) %>% 
   dplyr::left_join(oni_yearly)
 ```
+<hr>  
 
 # Analysis  
 
@@ -87,7 +90,9 @@ density <- arrow::read_feather("Density.feather") %>%
 this analysis, given your data and question? What are the limitations?  
 
 ## Model
-```{r}
+
+text
+```{r , echo=FALSE}
 Results_lag <- density %>% 
   dplyr::group_by(ScientificName) %>%
   dplyr::summarise(
@@ -107,7 +112,7 @@ Results_filtered <- Results_lag %>%
                 p.value = round(p.value, 3),
                 p.value = ifelse(p.value < 0.001, "< 0.001", as.character(p.value))) 
 ```
-
+<hr>  
 # Results
 
 - Summarize your results visually and in words. Show us your results in figure(s) and/or 
@@ -115,7 +120,7 @@ table(s) that are carefully labeled and captioned. Describe in the text (and ora
 presenting) what you found, and how these results either do or do not help you answer 
 your question.  
 
-```{r}
+```{r , echo=FALSE}
 prop <- Results_lag %>% 
   group_by(ScientificName) %>%
   summarise(est_sum =  sum(estimate)) 
@@ -135,14 +140,14 @@ cold <- Results_lag %>%
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 ggplot(data = prop, aes(x = est_sum)) +
   geom_density() +
   xlim(c(-2, 2))
 ```
 
 
-```{r}
+```{r , echo=FALSE}
 # for (sp in unique(Results_filtered$CommonName)) {
 #   p <- density %>% 
 #     filter(CommonName == sp) %>% 
@@ -161,7 +166,7 @@ ggplot(data = prop, aes(x = est_sum)) +
 ```
 
 
-```{r}
+```{r , echo=FALSE}
 # for (sp in unique(Results_filtered$CommonName)) {
 #   p <- Results_lag %>% 
 #     filter(CommonName == sp) %>% 
@@ -176,19 +181,26 @@ ggplot(data = prop, aes(x = est_sum)) +
 
 ```
 
+<hr>  
 # Future Work
-
+ 
 - What might you do next? One short analysis cannot fully answer an interesting scientific 
 question. If you had time to collect more data or conduct more analysis, what would help 
 you answer this question better? 
 
+## Better Models
 Include biogeogrphic regions to see how species distribution is affected. 
+## More Protocols/Species
+This analysis only uses 2 out of 13 sampling protocols of the KFM program. The analysis could be expanded to include data from the two fish surveys, as well as percent cover data from random point contacts survey.  
+## Integrate Program Data
+This analysis could be made more robust by including data from the Partnership for Interdisciplinary Study of Coastal Oceans (PISCO), which conducts similar monitoring efoorts around the Channel Islands. 
 
 
 
 
+<hr> 
 
-# Literature Cited
+# Literature Cited 
 
 Costello, M.J., Tsai, P., Wong, P.S. et al. Marine biogeographic realms and species endemicity. Nat Commun 8, 1057 (2017). https://doi.org/10.1038/s41467-017-01121-2
 
@@ -199,6 +211,13 @@ Freedman, R.M., Brown, J.A., Caldow, C. et al. Marine protected areas do not pre
 Horta e Costa, B. Tropicalization of fish assemblages in temperate biogeographic transition zones. Mar. Ecol. Prog. Ser. 504, 241–252 (2014).
 
 Wernberg, T. S. et al. Climate-driven regime shift of a temperate marine ecosystem. Science 353, 169–172 (2016).
+
+
+<hr>
+
+  |   |  
+--- | --- | ---
+<img src="hex_ucsb_small.png" style="width:159px;height:185px;"/> | <img src="hex_bren_small.png" style="width:159px;height:185px;"/> | <img src="hex_meds_small.png"  style="width:159px;height:185px;"/>
 
 
 

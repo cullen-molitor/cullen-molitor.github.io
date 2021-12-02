@@ -1,6 +1,6 @@
 ---
 title: "Cullen Molitor"
-image: "www/yukon.png"
+image: "www/Molitor_Cullen_meds22.jpg"
 links:
   - label: GitHub
     url: "https://github.com/cullen-molitor"
