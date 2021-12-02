@@ -1,43 +1,48 @@
 ---
-title: "EDS 222 Final Project - Species Density ~ SST"
-description: |
-  A short description of the post.
-author:
-  - name: Cullen Molitor
-    url: {}
+title: |
+ Species Density ~ SST
+author: "Cullen Molitor"
 date: 2021-12-01
 output:
   distill::distill_article:
     self_contained: false
     code_folding: hide
     toc: true
+  pdf_document: default
 ---
+![](bands.jpg)
+\newpage
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = T, message = F, warning = F)
+```
+
+# EDS 222 Final Project 
 
 # Motivation
 
-- Motivate your question. Why is this important? Is there existing evidence on this 
-question? If so, why is it inconclusive? If not, why not? 
+California's Northern Channel Islands sit at the transition between two biogeographic provinces, the cold-water North Pacific and the warm-water Gulf of California to the south. San Miguel and Santa Rosa Islands have species representative of the North Pacific province while Anacapa and Santa Barbara Islands sit firmly in the Gulf of California province. Santa Cruz Island lies in the transition zone with the western end of the island favoring North Pacific species and the eastern end favoring Gulf of California species. This makes the Northern Channel Islands a unique place to study how species distributions respond to ocean temperatures. 
 
-California's Northern Channel Islands sit at the transition between two biogeographic provinces, the cold-water North Pacific and the warmer Gulf of California to the south. San Miguel and Santa Rosa Islands have species representative of the colder North Pacific province while Anacapa and Santa Barbara Islands sit firmly in the warmer Gulf of California province. Santa Cruz Island lies in the transition zone with the western end of the island favoring North Pacific species and the eastern end favoring Gulf of California species. This makes the Northern Channel Islands a unique place to study how species distributions respond to ocean temperatures. 
+```{r}
+knitr::include_graphics("biogeo.png")
+```
+<!-- ![](biogeo.png) -->
+\begin{itemize}
+  \item[] Figure 1. The Southern California Bight (SCB) shown with a composite sea surface temperatures (SST) color gradient for 2009. This SST is typical of the region and illustrates the transition between the North Pacific and Gulf of California biogegeographic provinces (Image taken from [Freedman 2020](https://www.nature.com/articles/s41598-020-77885-3)).  
+\end{itemize}
 
-The water temperatures of the Southern California Bight (SCB) and the Channel Islands are influenced by the El Niño Southern Oscillation (ENSO). ENSO to sea surface temperatures (SST) from. 
+The El Niño Southern Oscillation ([ENSO](https://www.climate.gov/news-features/blogs/enso/what-el-ni%C3%B1o%E2%80%93southern-oscillation-enso-nutshell)) is measured primarily by the Oceanic Niño Index which calculates an [anomaly value](https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_change.shtml) for each month going back to 1950. These values are derived from SST in the equatorial pacific ($\pm5^{\circ}$ latitude, $120^{\circ}-170^{\circ}W$ longitude). The oscillation seen in SST of this region is responsible for driving certain global weather and climate patterns. Despite the distance from this region, ENSO has a large effect on the oceanographic conditions of the SCB and the Channel Islands. This effect includes an influence on local SST as well as the strength and direction of ocean currents. These effects are known to influence the distribution and abundance of certain marine species ([Day 2018](https://www.frontiersin.org/articles/10.3389/fmars.2019.00497), [Freedman 2020](https://www.nature.com/articles/s41598-020-77885-3)). 
 
-The impetus of this analysis is to investigate which species are sensitive to either warm-water or cold-water events. Using a series of dynamic linear model with lag independent variables (SST anomalies)
-
+This analysis takes a shotgun approach to investigate which species are sensitive to either warm-water or cold-water events by using a series of species level dynamic linear model with lag SST anomalies variables. These models can will provide a broad overview of which species are affected, how they are affected, and whether or not the affect is statistically significant. 
 
 # Data
 
-- Describe your data. Where did you access it? What are its spatial and temporal features? 
-What are its limitations? What do you know about the sampling strategy and what biases 
-that may introduce? If helpful, you can use a histogram, scatterplot, or summary statistics 
-table to describe your data. 
+The Kelp Forest Monitoring (KFM) program at Channel Islands National Park has been collecting abundance and size distribution data of more than 170 species since 1982 (sampled annually). The park currently samples 33 sites at the five islands in the National Park. This data is publicly available and was requested and issued under a [scientific research and collecting permit](https://irma.nps.gov/RPRS/) (permit #: CHIS-2020-SCI-0006). These data are collected using scuba surveys and the biologists attempt to minimize their impact on the reef by using non-invasive sampling methods. This means that animals are counted in situ and no rocks are overturned. This inevitably biases the data towards adult populations of certain invertebrates that utilize crevice habitat during development.  
 
-The Kelp Forest Monitoring (KFM) program at Channel Islands National Park has been collecting abundance and size distribution data of more than 150 species for nearly 40 years (sampled annually) of 37 sites at the five Islands in the National Park. 
+The fish data is collected in ($#/m^3$). In order to assure that all data are in the same units, only measurements of invertebrate and algae density ($#/m^2$) are retained. This takes the total number of species with density data from 151 down to 35. This analysis could be expanded to include fish for future research as well as percent cover data which includes more species.  
 
-Using species density, we can see the trends observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events. recruitment of certain species either increases or decreases. 
+Using species density, we can see the trends observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density. recruitment of certain species either increases or decreases. 
 
 ```{r data}
-knitr::opts_chunk$set(echo = TRUE)
 # Load libraries
 library(tidyverse)
 library(here)
@@ -84,7 +89,7 @@ this analysis, given your data and question? What are the limitations?
 ## Model
 ```{r}
 Results_lag <- density %>% 
-  dplyr::group_by(ScientificName) %>% 
+  dplyr::group_by(ScientificName) %>%
   dplyr::summarise(
     generics::tidy(
       stats::lm(
@@ -177,6 +182,8 @@ ggplot(data = prop, aes(x = est_sum)) +
 question. If you had time to collect more data or conduct more analysis, what would help 
 you answer this question better? 
 
+Include biogeogrphic regions to see how species distribution is affected. 
+
 
 
 
@@ -185,8 +192,14 @@ you answer this question better?
 
 Costello, M.J., Tsai, P., Wong, P.S. et al. Marine biogeographic realms and species endemicity. Nat Commun 8, 1057 (2017). https://doi.org/10.1038/s41467-017-01121-2
 
+Day, P. B., Stuart-Smith, R. D., Edgar, G. J. & Bates, A. E. Species’ thermal ranges predict changes in reef fish community structure during 8 years of extreme temperature variation. Divers. Distrib. 24, 1036–1046 (2018).
 
-Ryan Freidman 
+Freedman, R.M., Brown, J.A., Caldow, C. et al. Marine protected areas do not prevent marine heatwave-induced fish community structure changes in a temperate transition zone. Sci Rep 10, 21081 (2020). https://doi.org/10.1038/s41598-020-77885-3
+
+Horta e Costa, B. Tropicalization of fish assemblages in temperate biogeographic transition zones. Mar. Ecol. Prog. Ser. 504, 241–252 (2014).
+
+Wernberg, T. S. et al. Climate-driven regime shift of a temperate marine ecosystem. Science 353, 169–172 (2016).
+
 
 
 
