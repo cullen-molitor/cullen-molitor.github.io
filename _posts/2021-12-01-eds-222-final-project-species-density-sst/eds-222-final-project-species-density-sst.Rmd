@@ -167,7 +167,8 @@ plt(.data = warm)
 |       Figure 3. The cumulative effect that SST anomalies have on the three species 
 |       which have the largest positive slope estimates of all statistically significant 
 |       results. The effect accumulates from the current year to the following 5 years.  
-<br> 
+<br>  
+
 # Future Work  
 
 ## Better Models
