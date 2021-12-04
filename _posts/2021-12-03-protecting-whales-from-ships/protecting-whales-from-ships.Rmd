@@ -9,6 +9,10 @@ date: 2021-12-03
 output:
   distill::distill_article:
     self_contained: false
+preview: output_74_0.png
+categories:
+  - Python
+  - Spatial Analysis
 ---
 ```{css include = F}
 .scrollit {

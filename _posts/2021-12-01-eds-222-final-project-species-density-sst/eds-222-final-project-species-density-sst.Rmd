@@ -1,6 +1,8 @@
 ---
 title: |
  Species Density ~ SST + lag(SST)
+description: |
+  This analysis takes a shotgun approach to investigate which species are sensitive to either warm-water or cold-water events by using a series of species-level dynamic linear models with lag SST anomalies as predictor variables. These models will provide a broad overview of which species are affected, how they are affected, and whether or not the affect is statistically significant. This will inform our understanding of how species distribution and population ranges might be affected by changing oceanographic conditions due to climate change. 
 author: "Cullen Molitor"
 date: 2021-12-01
 output:
@@ -8,6 +10,9 @@ output:
     self_contained: false
     code_folding: hide
     toc: true
+categories:
+  - R
+  - Ecology
 ---
 ```{r include=FALSE}
 knitr::opts_chunk$set(echo = T, message = F, warning = F)
@@ -145,7 +150,7 @@ The two species with the largest negative cumulative effect were identified as _
 
 _Patiria miniata_ (bat star) had the third most negative cumulative effect. This species is particularly affected by warm water, which tends to cause a form of sea star wasting disease (SSWD). Bat star populations take years to rebound following SSWD events. This slow recovery is seen in the cumulative effect which is statistically significant for the current period and for the following four years. 
 
-```{r fig.height=5, fig.width=10}
+```{r fig.height=5, fig.width=10, preview=TRUE}
 plt()
 ```
 |       Figure 2. The cumulative effect that SST anomalies have on the three species 

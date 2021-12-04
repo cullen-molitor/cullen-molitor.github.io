@@ -9,6 +9,11 @@ date: 2021-12-03
 output:
   distill::distill_article:
     self_contained: false
+preview: output_58_0.png
+categories:
+  - Python
+  - SQL
+  - Spatial Analysis
 ---
 # Homework # 4
 ## Wind Power Potential

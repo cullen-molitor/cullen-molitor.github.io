@@ -10,6 +10,10 @@ output:
   distill::distill_article:
     self_contained: false
     code_folding: hide
+categories:
+  - R
+  - Remote Sensing
+  - Spatial Analysis
 ---
 
 ```{r setup, include=FALSE}
@@ -246,7 +250,7 @@ houston_map <- osm.raster(houston_bbox)
 ```
 
 ## Area and Median Incomes of Residences Affected by Houston Blackout in February, 2021 
-```{r}
+```{r preview=TRUE}
 tm_shape(houston_map) +
   tm_rgb(alpha = .75) +
   # tm_shape(acs_geoms_med,
