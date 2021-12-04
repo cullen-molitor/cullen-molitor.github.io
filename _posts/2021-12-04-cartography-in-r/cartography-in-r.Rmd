@@ -13,6 +13,7 @@ output:
   distill::distill_article:
     self_contained: false
     code_folding: hide
+preview: cartography.png
 categories:
   - R
   - Ocean Data
@@ -67,7 +68,7 @@ nz_coast <- sf::read_sf(
 
 Use `ggplot()` to plot New Zealand coastline, bathymetric raster, and depth contours. 
 
-```{r New Zealand plot, fig.height=7.5, fig.width=7.5, preview=TRUE}
+```{r New Zealand plot, fig.height=7.5, fig.width=7.5}
 ggplot() +
   geom_raster(data = nz_df,
               aes(x = x, y = y, fill = layer)) +
