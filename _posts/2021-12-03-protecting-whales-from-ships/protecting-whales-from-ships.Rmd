@@ -4,7 +4,6 @@ description: |
   A vessel speed reduction zone is a potential solution to reducing ship strikes with whales near Dominica. The goal of this   analysis is to look at sperm whale sighting data, and AIS vessel data, to determine a vessel speed reduction zone, and the effects implementing a vessel speed reduction zone would have on shipping activities in the zone.
 author:
   - name: Cullen Molitor
-    url: {}
 date: 2021-12-03
 output:
   distill::distill_article:

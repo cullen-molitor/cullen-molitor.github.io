@@ -4,7 +4,6 @@ description: |
   Using Google Earth Engine to work with satellite imagery. We find the total precipitation for a coastal region in Northern Califnia as well as calculate the normalized difference vegetation index (NDVI), a simple graphical indicator that can be used to analyze remote sensing measurements. We use ERA5 Daily Aggregates data for precipitation and Landsat 8 data for NDVI.
 author:
   - name: Cullen Molitor
-    url: {}
 date: 2021-12-04
 output:
   distill::distill_article:

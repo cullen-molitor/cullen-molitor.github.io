@@ -1,0 +1,97 @@
+---
+title: "Effect of ENSO on Coral Reefs"
+description: |
+  "Our group discovered the Scott Reef and Rowley Shoals Coral Bleaching Data dataset while searching the DataOne repository for “coral bleaching.” This particular dataset focuses on long-term monitoring data from 1994 to 2017 at reef slope habitats off the coast of northwestern Australia."
+author:
+  - name: Cullen Molitor, Desik Somasundaram, Ryan Munnikhuis, and Julia Parish
+    url: https://github.com/desik23/eds-213-group-project
+date: 2021-12-04
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+categories:
+  - R
+  - Ocean Data
+  - Ecology
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(metajam)
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(vegan)
+library(zoo)
+```
+# EDS 213 Group Project
+Our group discovered the Scott Reef and Rowley Shoals Coral Bleaching Data dataset while searching the DataOne repository for “coral bleaching.” This particular dataset focuses on long-term monitoring data from 1994 to 2017 at reef slope habitats off the coast of northwestern Australia. Data Source: https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fedi%2F952%2F1. The metadata includes the reef system, date range, taxonomy, habitat type, coral coverage, and dataset methods. 
+
+## Download data
+```{r error=TRUE}
+# assign data url to access coral data from DataOne then download
+data_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F952%2F1%2Ff6212784c45d0a077f2c863868d22c4b"
+# If data is akready up to date, this will throw an error
+# error=T in header will move past this issue
+download_d1_data(data_url, dir_name = "data", path = ".")
+```
+## Load and tidy data
+```{r}
+# assign data path
+data_path <- "data"
+# Read in data with metajam
+coral_list <- read_d1_files(data_path)
+# Pick out the data read in above and clean it up
+corals <- coral_list$data %>% 
+  janitor::clean_names() %>% 
+  dplyr::mutate(year_decimal = format(date_decimal(year_decimal), "%Y-%m-%d"),
+                month = month(year_decimal),
+                year = year(year_decimal)) %>% 
+  dplyr::rename(date = year_decimal)
+# Read in  ONI to be joined to coral data
+oni <- read.table(
+  "https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/detrend.nino34.ascii.txt",
+  header = T) %>%
+  dplyr::mutate(date = as.Date(ISOdate(YR, MON, 1)),
+                date_start = as.Date(ISOdate(YR, MON, 1)),
+                date_end = lubridate::ceiling_date(date_start, "month")) %>%
+  dplyr::rename(oni_anomaly = ANOM,
+                month = MON,
+                year = YR) %>% 
+  dplyr::select(year, month, oni_anomaly, date_start, date_end) %>% 
+  dplyr::mutate(roll_3_month_mean = zoo::rollmean(x = oni_anomaly, k = 3, fill = NA, align = "right")) %>% 
+  dplyr::filter(date_start > lubridate::ymd("1994-09-01"))
+# Calculate the Simpson's diversity index 
+# join corals and ONI data
+coral_oni <- corals %>% 
+  tidyr::pivot_longer(cols = 5:18, names_to = "species", values_to = "cover") %>% 
+  dplyr::group_by(system, reef, year, month, location) %>% 
+  dplyr::summarise(simpson_index = vegan::diversity(cover, index = "simpson")) %>% 
+  dplyr::left_join(oni %>% dplyr::select(-date_start, -date_end)) %>% 
+  dplyr::mutate(date = lubridate::make_date(year = year, month = month, day = 1))
+```
+
+## Plot
+```{r fig.height=4, fig.width=9}
+# Plot the coral diversity data with ONI color bar
+ggplot2::ggplot() +
+  ggplot2::geom_rect(
+    data = oni,
+    aes(xmin = date_start, xmax = date_end, ymin = -Inf, ymax = .3, fill = oni_anomaly)) +
+  ggplot2::scale_fill_viridis_c(
+    option = "plasma",
+    guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                           order = 2, barheight = unit(.2, "cm"))) +
+  ggplot2::scale_x_date(date_breaks = "2 year", date_labels = "%Y", expand = expansion(mult = c(0,0))) +
+  ggplot2::geom_line(data = coral_oni, size = 1,
+                     aes(x = date, y = simpson_index, color = location)) +
+  ggplot2::scale_color_viridis_d() +
+  ggplot2::guides(color = guide_legend(order = 1)) +
+  ggplot2::labs(fill = "Oceanic Ni\u00f1o Index", color = "Sites", 
+                x = "Date", y = "Simpsons Diversity Index") +
+  ggplot2::theme_minimal()
+```

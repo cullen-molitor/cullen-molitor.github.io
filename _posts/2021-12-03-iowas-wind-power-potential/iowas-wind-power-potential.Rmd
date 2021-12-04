@@ -4,7 +4,6 @@ description: |
   This analysis is used to determine locations in Iowa that would be suitible for wind turbine power plant installation as well as to calculate the hypothetical potential wind energy production capacity of these areas. This type of analysis can be used as a baseline in determining the maximum cost and benefits for potential renewable energy projects.
 author:
   - name: Cullen Molitor
-    url: {}
 date: 2021-12-03
 output:
   distill::distill_article:
