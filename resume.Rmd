@@ -3,46 +3,127 @@ title: "Resume"
 ---
 ## Education  
 
-**Masters of Environmental Data Science**  
+**Masters of Environmental Data Science (MEDS)** (2022)<br>
+Bren School of Environmental Science & Management, UCSB - Santa Barbara, California<br>
+- MEDS Recruitment Fellowship<br> 
+- Advanced Technology Grant<br> 
+- Capstone Project Selection Committee
 
-Bren School of Environmental Science & Management - Santa Barbara, California (2022)  
+**Bachelor of Arts (B.A.)** (2014)<br>
+Humboldt State University - Arcata, California<br>
+- Major in History<br> 
+- Minors in Mathematics and Scientific Diving
 
-- MEDS Recruitment Fellowship  
-
-- Advanced Technology Grant  
-
-- Capstone Project Selection Committee  
-
-**Bachelor of Arts (B.A.)**   
-
-Humboldt State University - Arcata, California (2014)
-
-- Major in History  
-
-- Minors in Mathematics and Scientific Diving  
-
-**Certificate in Marine Technology**  
-
-Santa Barbara City College - Santa Barbara, California (2018) 
-
-- Commercial Diver Certifications  
-
-<hr>
+**Certificate in Marine Technology** (2018)<br>
+Santa Barbara City College - Santa Barbara, California<br>
+- Commercial Diver Certifications 
 
 ## Experience
 
-**Biological Science Technician** - Kelp Forest Monitoring Program
+**Teaching Assistant** - Department of Economics, UCSB<br>
+Santa Barbara, CA<br>
+October to December of 2021
+- Grading weekly essays and term papers
 
-Channel Islands National Park - Ventura, California
+**Biological Science Technician** - Channel Islands National Park<br>
+Ventura, California<br>
+Five Seasons (May to October, 2017-2021)<br>
+- Diver for the Kelp Forest Monitoring Program
 
-- 5 Seasons (2017-2021)
+**Second Captain** - Truth Aquatics<br>
+Santa Barbara, CA<br>
+July to September of 2019<br>
+-	Operating 75’ dive vessel
 
-<br>
+**Commercial Diver** - Underwater Construction Corporation<br>
+Stevensville, MI<br>
+January to April of 2019<br>
+- Diver for nuclear power plant maintenance 
 
-<br>
+**Deck Hand/Divemaster** - Spectre Dive Boat<br>
+Ventura, CA <br>
+March 2017 to July 2019 <br>
+- Deckhand for a recreational dive boat
+
+**Head of Water Department** - Pacific Outfitters <br>
+Eureka, CA <br> 
+September 2015 to December 2017<br>
+- Managed scuba, fishing, surf, and kayak departments 
+
+**Director of Scuba** - Malibu Divers<br> 
+Malibu, CA<br>
+June to August of 2014 and 2015<br>
+- Managed a youth scuba program at Camp Emerald Bay on Santa Catalina Island. 
+
+## Volunteer Experience
+
+**Data Scientist** - Channel Islands National Park<br>
+Ventura, CA<br>
+October 2019 to present<br>
+- Developing an R Shiny web application to teach KFM monitoring protocols, species ID, and data visualization
+
+**Scuba Instructor** - Humboldt State University<br>
+Arcata, CA <br>
+August 2014 – May 2017<br>
+- Dive instructor for the Scientific Diving Program
+ 
+**Volunteer Diver** - Reef Check California<br>
+Mendocino, CA <br>
+January 2013 – December 2015<br>
+- Participated in citizen science dive surveys  
+
+## Awards
+
+**2021**	MEDS Recruitment Fellowship<br>
+**2021**	Advanced Technology Grant<br>
+**2019**	NPS STAR award for excellence in training KFM Program seasonal staff<br>
+**2015**	PADI Elite Instructor award
+
+## Publications
+ 
+Molitor, C.D., McClure, Timothy, I., and others. Channel Islands National Park Kelp Forest Monitoring Program Kelp Forest Community Trend Report for 2005-2019. Natural Resource Report Series. National Park Service, Fort Collins, Colorado. (In preparation)
+
+Molitor, C.D. and others. Channel Islands National Park Kelp Forest Monitoring Program Annual Report 2019. Natural Resource Data Series. National Park Service, Fort Collins, Colorado. (In preparation)
+
+Molitor, C.D. and others. Channel Islands National Park Kelp Forest Monitoring Program Annual Report 2018. Natural Resource Data Series. National Park Service, Fort Collins, Colorado. (In preparation)
+
+Sprague, J.L. and others. Channel Islands National Park Kelp Forest Monitoring Program Annual Report 2017. Natural Resource Report Series. National Park Service, Fort Collins, Colorado. (In preparation)
+
+Sprague, J.L. and others. Channel Islands National Park Kelp Forest Monitoring Program Annual Report 2016. Natural Resource Report Series. National Park Service, Fort Collins, Colorado. (In preparation)
+
+## Skills 
+
+### Computer Languages
+ 
+**Fluent:** R, Python, Bash, and Markdown<br>
+**Proficient:** SQL, CSS, and PowerShell<br>
+**Novice:** MATLAB<br>
+**Interested in:** JavaScript and Julia
+
+### Computer Software & Services
+
+RStudio, Bash, Git, GitHub, Docker, Google Cloud Platform, pgAdmin, MATLAB, JMP, Virtual Box, Microsoft Hyper-V, VMware Workstation, Microsoft Access, Microsoft Office, and more
+
+### Boating
+ 
+**2019**	USCG 100-ton Captain’s License and Towing Endorsement<br> 
+**2012**	California Boating Safety Certificate<br> 
+**2003**	Michigan Boating Safety Certificate
+ 
+### Diving
+
+*First certified in 2011*<br> 
+- NPS Dive Examiner<br> 
+- AAUS scientific diver<br> 
+- PADI MSDT<br> 
+- NAUI Instructor<br> 
+- ADCI and ACDE commercial diver<br> 
+- Hyperbaric chamber operator<br> 
+- CCR diver (200’)<br> 
+- ANDI occupational nitrox diver<br> 
+- Ice diver<br> 
+- Cylinder visual inspector
 
 <hr>
 
 <img src="www/hex_ucsb_small.png" style="width:159px;height:185px;"/> <img src="www/hex_bren_small.png" style="width:159px;height:185px;"/> <img src="www/hex_meds_small.png"  style="width:159px;height:185px;"/>
-
-<hr>
