@@ -190,7 +190,9 @@ data = netCDF4.Dataset(data_url)
 ```
 
 <a id='metadata'></a> 
+
 ### Metadata
+
 The CDIP metadata includes general information about the Harvest buoy such as current status, location, instrument description and most recent measurement values. The metadata also includes the availability of parameters for each month that the station has been in operation. The code below further explores metadata associated with this dataset
 
 The `type` function in Python was used to display the file type of the data
