@@ -112,7 +112,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories"]}},"value":[{"type":"character","attributes":{},"value":["Effect of ENSO on Coral Reefs"]},{"type":"character","attributes":{},"value":["\"Our group discovered the Scott Reef and Rowley Shoals Coral Bleaching Data dataset while searching the DataOne repository for “coral bleaching.” This particular dataset focuses on long-term monitoring data from 1994 to 2017 at reef slope habitats off the coast of northwestern Australia.\"\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Cullen Molitor, Desik Somasundaram, Ryan Munnikhuis, and Julia Parish"]},{"type":"character","attributes":{},"value":["https://github.com/desik23/eds-213-group-project"]}]}]},{"type":"character","attributes":{},"value":["2021-12-04"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["hide"]}]}]},{"type":"character","attributes":{},"value":["R","Ocean Data","Ecology"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories"]}},"value":[{"type":"character","attributes":{},"value":["Effect of ENSO on Coral Reefs"]},{"type":"character","attributes":{},"value":["\"Our group discovered the Scott Reef and Rowley Shoals Coral Bleaching Data dataset while searching the DataOne repository for “coral bleaching.” This particular dataset focuses on long-term monitoring data from 1994 to 2017 at reef slope habitats off the coast of northwestern Australia.\"\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Cullen Molitor, Desik Somasundaram, Ryan Munnikhuis, and Julia Parish"]},{"type":"character","attributes":{},"value":["https://github.com/desik23/eds-213-group-project"]}]}]},{"type":"character","attributes":{},"value":["2021-12-04"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["hide"]}]}]},{"type":"character","attributes":{},"value":["R","Ocean Data","Ecology","ENSO"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1475,6 +1475,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="dt=tag">R</div>
 <div class="dt=tag">Ocean Data</div>
 <div class="dt=tag">Ecology</div>
+<div class="dt=tag">ENSO</div>
 </div>
 <!--/radix_placeholder_categories-->
 <p><p>“Our group discovered the Scott Reef and Rowley Shoals Coral Bleaching Data dataset while searching the DataOne repository for “coral bleaching.” This particular dataset focuses on long-term monitoring data from 1994 to 2017 at reef slope habitats off the coast of northwestern Australia.”</p></p>
@@ -1520,9 +1521,7 @@ hide
 </code></pre>
 </div>
 </details>
-<pre><code>Error in download_d1_data(data_url, dir_name = &quot;data&quot;, path = &quot;.&quot;): This dataset has already been downloaded here:
-./data
-Please delete or move the folder to download the dataset again.</code></pre>
+<pre><code>[1] &quot;./data&quot;</code></pre>
 </div>
 <h2 id="load-and-tidy-data">Load and tidy data</h2>
 <div class="layout-chunk" data-layout="l-body">

@@ -1,0 +1,186 @@
+---
+title: "CropMOSAIKS Animated NDVI"
+description: |
+  This notebook extends the code used to create the static images of the NDVI across Africa in 2013 for the MEDS capstone group CropMOSAIKS. This uses Google Earth Engine Python API to create an animated gif of NDVI over Africa from 2000 to 2021. 
+author:
+  - name: Cullen Molitor
+    url: https://github.com/cropmosaiks/NDVI_Images
+date: 2022-01-23
+output:
+  distill::distill_article:
+    self_contained: false
+preview: ndvi.gif
+categories:
+  - Python
+  - Spatial Analysis
+  - Remote Sensing
+  - Google Earth Engine
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# NDVI Animated Images
+
+The following code is adapted from a Google Earth Engine [JavaScript tutorial](https://developers.google.com/earth-engine/tutorials/community/modis-ndvi-time-series-animation). The code was translated into python and reproduced with several color palettes. The python code is found on the [CropMOSAIKS GitHub](https://github.com/cropmosaiks/NDVI_Images).
+
+```python
+import ee
+import geemap
+import os
+import glob
+from PIL import Image
+```
+
+
+```python
+# Initialize google earth engine
+ee.Initialize()
+
+# Fetch a MODIS NDVI collection and select NDVI.
+img_collection = ee.ImageCollection('MODIS/006/MOD13A2').select('NDVI')
+
+# Define a mask to clip the NDVI data by.
+mask = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017').filter(ee.Filter.eq('wld_rgn', 'Africa'))
+
+# Define the regional bounds of animation frames.
+region = ee.Geometry.Polygon(
+  [[[-18.698368046353494, 38.1446395611524],
+    [-18.698368046353494, -36.16300755581617],
+    [52.229366328646506, -36.16300755581617],
+    [52.229366328646506, 38.1446395611524]]], None, False
+)
+```
+
+
+```python
+# Add day-of-year (DOY) property to each image.
+def clip_and_get_day_of_year(img):
+    img = img.clip(mask)
+    doy = ee.Date(img.get('system:time_start')).getRelative('day', 'year')
+    return img.set('doy', doy)
+```
+
+
+```python
+# Apply median reduction among matching DOY collections.
+def match_day_of_year_and_reduce(img):
+    doyCol = ee.ImageCollection.fromImages(img.get('doy_matches'))
+    return doyCol.reduce(ee.Reducer.median())
+```
+
+
+```python
+natural = [
+    'FFFFFF', 'CE7E45', 'DF923D', 'F1B555', 'FCD163', '99B718', '74A901',
+    '66A000', '529400', '3E8601', '207401', '056201', '004C00', '023B01',
+    '012E01', '011D01', '011301'
+]
+viridis = [
+    "#440154FF", "#48186AFF", "#472D7BFF", "#424086FF", "#3B528BFF", "#33638DFF", 
+    "#2C728EFF", "#26828EFF", "#21908CFF", "#1F9F88FF", "#27AD81FF", "#3EBC74FF",
+    "#5DC863FF", "#82D34DFF", "#AADC32FF", "#D5E21AFF", "#FDE725FF"
+]
+magma = [
+    "#000004FF", "#0B0724FF", "#210C4AFF", "#3D0965FF", "#56106EFF", "#71196EFF", 
+    "#89226AFF", "#A32C61FF", "#BB3754FF", "#D14545FF", "#E35932FF", "#F1721EFF",
+    "#F98C0AFF", "#FCAA0FFF", "#F9C932FF", "#F2E865FF", "#FCFFA4FF"
+]
+cividis = [
+    "#00204DFF", "#002C69FF", "#05366EFF", "#2D426CFF", "#414D6BFF", "#52596CFF", 
+    "#61646FFF", "#6F7073FF", "#7C7B78FF", "#8B8779FF", "#9B9477FF", "#ACA174FF",
+    "#BCAF6FFF", "#CEBC68FF", "#E0CB5EFF", "#F2DA50FF", "#FFEA46FF"
+]
+```
+
+
+```python
+# Define visualization parameters.
+vis_params = {
+  'region': region,
+  'dimensions': 600,
+  'crs': 'EPSG:3857',
+  'framesPerSecond': 10,
+  'min': 0.0,
+  'max': 9000.0,
+  'palette': magma
+}
+```
+
+
+```python
+img_collection = img_collection.map(clip_and_get_day_of_year)
+img_dates = img_collection.aggregate_array('system:index').getInfo()
+```
+
+
+```python
+start_yr = int(img_dates[0][:4])
+end_yr = int(img_dates[-1][:4])
+years = range(start_yr, end_yr + 1, 1)
+index_array = []
+```
+
+
+```python
+for year in years:
+    print('Downloading: ', year)
+    date_start = f'{str(year)}-01-01'
+    date_end = f'{str(year)}-12-31'
+    # Get a collection of distinct images by 'doy'.
+    distinct_doy = img_collection.filterDate(date_start, date_end)
+
+    # Define a filter that identifies which images from the complete
+    # collection match the DOY from the distinct DOY collection.
+    filtered = ee.Filter.equals(leftField = 'doy', rightField = 'doy')
+
+    # Define a join.
+    joined = ee.Join.saveAll('doy_matches')
+
+    # Apply the join and convert the resulting FeatureCollection to an ImageCollection.
+    join_img_collection = ee.ImageCollection(joined.apply(distinct_doy, img_collection, filtered))
+
+    img_composite = join_img_collection.map(match_day_of_year_and_reduce)
+    index_array = index_array + img_composite.aggregate_array('system:index').getInfo()
+    
+    temp_file_name = f"animations/temp_ndvi_{str(year)}.gif"
+    
+    geemap.download_ee_video(img_composite, vis_params, temp_file_name)
+```
+
+
+```python
+# filepaths
+fp_in = "animations/temp_*.gif"
+fp_out = "animations/ndvi.gif"
+
+# https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#gif
+img, *imgs = [Image.open(f) for f in sorted(glob.glob(fp_in))]
+img.save(fp = fp_out, 
+         format = 'GIF',
+         append_images = imgs,
+         save_all = True, 
+         duration = 100, 
+         loop = 1)
+```
+
+
+```python
+geemap.add_text_to_gif(
+    in_gif = fp_out, 
+    out_gif = fp_out,
+    xy = ('75%', '1%'),
+    text_sequence = index_array,
+    font_type = 'arial.ttf',
+    font_size = 20,
+    font_color='white',
+    add_progress_bar = True,
+    progress_bar_color = 'white',
+    progress_bar_height = 5,
+    duration = 100, # milliseconds per frame so 200 is 5 fps, 100 is 10 fps etc
+    loop = 0
+)
+```
+
+![](ndvi.gif)
