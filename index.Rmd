@@ -10,16 +10,13 @@ links:
     url: "http://34.94.133.101/"
   - label: Bren Profile
     url: "https://bren.ucsb.edu/people/cullen-molitor"
+  - label: MEDS Capstone
+    url: "https://bren.ucsb.edu/projects/open-source-pipeline-remote-sensing-crop-yields-under-environmental-change-sub-saharan"
 output:
-  postcards::trestles
+  postcards::jolla
 site: distill::distill_website
 listing: posts
 ---
-## Biography
+Welcome, I am currently a student with the Master of Environmental Data Science ([MEDS](https://ucsb-meds.github.io/)) program at the Bren School of Environmental Science and Management at UCSB. You can learn more about me and my interests on the about tab through my resume. See my blog to see what coding projects I have done for school and fun. 
 
-Cullen is a marine ecologist with expertise in long term monitoring of kelp forest environments in California. He graduated from Humboldt State University in 2014 where he studied history, mathematics, and scientific diving. Cullen enjoys outdoor activities such as mountain biking, camping, and freediving. He is currently a master’s candidate of Environmental Data Science at the Bren School of Environmental Science and Management at UC Santa Barbara. Cullen worked five seasons with Channel Islands National Park's Kelp Forest Monitoring Program where he developed his skills in subtidal field methods, data collection, data quality control, and database management. Cullen is interested in how ecological communities change in response to environmental stressors such as climate patterns, fishing pressure, and disease events. He aspires to continue working in marine ecology with his expanded data processing, modeling, and presentation skills that he will apply towards improving our understanding of these complex ecosystems. His goal is to produce products that effectively synthesize long term datasets to understand the processes which drive kelp forest communities, and ultimately share this understanding with the scientific community and the broader public.  
-
-<hr>
-
-<img src="www/hex_ucsb_small.png" style="width:159px;height:185px;"/> <img src="www/hex_bren_small.png" style="width:159px;height:185px;"/> <img src="www/hex_meds_small.png"  style="width:159px;height:185px;"/>
 

@@ -4,12 +4,12 @@ description: |
   This notebook explores how to plot satellite sea surface temerature (SST) in the Southern California Bight around the Northern Channel Islands. This shows how to plot a static plot as well as how to animate it over time. 
 author:
   - name: Cullen Molitor
-date: 2022-01-22
+date: 2022-01-21
 output:
   distill::distill_article:
     self_contained: false
     code_folding: hide
-preview: sst.png
+preview: sst.gif
 categories:
   - R
   - Ocean Data

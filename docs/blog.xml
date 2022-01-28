@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>My Website</title>
+    <link>cullen-molitor.github.io</link>
+    <atom:link href="cullen-molitor.github.io/blog.xml" rel="self" type="application/rss+xml"/>
+    <description>My Website
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Sun, 23 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>CropMOSAIKS Animated NDVI</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2022-01-23-cropmosaiks-animated-ndvi</link>
+      <description>This notebook extends the code used to create the static images of the NDVI across Africa in 2013 for the MEDS capstone group CropMOSAIKS. This uses Google Earth Engine Python API to create an animated gif of NDVI over Africa from 2000 to 2021.</description>
+      <category>Python</category>
+      <category>Spatial Analysis</category>
+      <category>Remote Sensing</category>
+      <category>Google Earth Engine</category>
+      <guid>cullen-molitor.github.io/posts/2022-01-23-cropmosaiks-animated-ndvi</guid>
+      <pubDate>Sun, 23 Jan 2022 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2022-01-23-cropmosaiks-animated-ndvi/ndvi.gif" medium="image" type="image/gif"/>
+    </item>
+    <item>
+      <title>Creating Team Graphics</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2022-01-22-cropmosaiks-team-graphics</link>
+      <description>This notebook explores how the MEDS capstone group CropMOSAIKS used Google Earth Engine Python API to create static images of the median NDVI across Africa in 2013. The graphic are used in presentations for the group.</description>
+      <category>Python</category>
+      <category>Spatial Analysis</category>
+      <category>Remote Sensing</category>
+      <category>Google Earth Engine</category>
+      <guid>cullen-molitor.github.io/posts/2022-01-22-cropmosaiks-team-graphics</guid>
+      <pubDate>Sat, 22 Jan 2022 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2022-01-22-cropmosaiks-team-graphics/output_13_0.png" medium="image" type="image/png" width="432" height="512"/>
+    </item>
+    <item>
+      <title>Channel Islands SST</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2022-01-22-channel-islands-sst</link>
+      <description>This notebook explores how to plot satellite sea surface temerature (SST) in the Southern California Bight around the Northern Channel Islands. This shows how to plot a static plot as well as how to animate it over time.</description>
+      <category>R</category>
+      <category>Ocean Data</category>
+      <category>Remote Sensing</category>
+      <category>Spatial Analysis</category>
+      <category>ENSO</category>
+      <guid>cullen-molitor.github.io/posts/2022-01-22-channel-islands-sst</guid>
+      <pubDate>Fri, 21 Jan 2022 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2022-01-22-channel-islands-sst/sst.gif" medium="image" type="image/gif"/>
+    </item>
+    <item>
+      <title>Effect of ENSO on Kelp Forest Species
+</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2021-12-05-species-density-sst-lagsst</link>
+      <description>This analysis takes a shotgun approach to investigate which species are sensitive to either warm-water or cold-water events by using a series of species-level dynamic linear models with lag SST anomalies as predictor variables. These models will provide a broad overview of which species are affected, how they are affected, and whether or not the affect is statistically significant. This will inform our understanding of how species distribution and population ranges might be affected by changing oceanographic conditions due to climate change.</description>
+      <category>R</category>
+      <category>Ecology</category>
+      <category>Ocean Data</category>
+      <category>ENSO</category>
+      <guid>cullen-molitor.github.io/posts/2021-12-05-species-density-sst-lagsst</guid>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2021-12-05-species-density-sst-lagsst/eds-222-final-project-species-density-sst_files/figure-html5/unnamed-chunk-4-1.png" medium="image" type="image/png" width="1920" height="960"/>
+    </item>
+    <item>
+      <title>Effect of ENSO on Coral Reefs</title>
+      <dc:creator>Cullen Molitor, Desik Somasundaram, Ryan Munnikhuis, and Julia Parish</dc:creator>
+      <link>cullen-molitor.github.io/posts/2021-12-04-effect-of-enso-on-coral-reefs</link>
+      <description>"Our group discovered the Scott Reef and Rowley Shoals Coral Bleaching Data dataset while searching the DataOne repository for “coral bleaching.” This particular dataset focuses on long-term monitoring data from 1994 to 2017 at reef slope habitats off the coast of northwestern Australia."</description>
+      <category>R</category>
+      <category>Ocean Data</category>
+      <category>Ecology</category>
+      <category>ENSO</category>
+      <guid>cullen-molitor.github.io/posts/2021-12-04-effect-of-enso-on-coral-reefs</guid>
+      <pubDate>Sat, 04 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2021-12-04-effect-of-enso-on-coral-reefs/effect-of-enso-on-coral-reefs_files/figure-html5/unnamed-chunk-4-1.png" medium="image" type="image/png" width="1728" height="768"/>
+    </item>
+    <item>
+      <title>Modeling ENSO and Wave Height</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2021-12-04-modeling-enso-and-wave-height</link>
+      <description>We are interested in investigating the effect of El Niño on our local oceanographic conditions. We used linear regression models to plot and compare equatorial sea surface temperature anomalies with local Santa Barbara temperature and wave height. Typically temperature anamolies are calcuated from a 30 year base period. Since we only had ~20 years of consistent data, we calculated monthly means since 1997 and used these as base values from which to compare monthly means for each year.</description>
+      <category>Python</category>
+      <category>Ocean Data</category>
+      <category>Remote Sensing</category>
+      <category>ENSO</category>
+      <guid>cullen-molitor.github.io/posts/2021-12-04-modeling-enso-and-wave-height</guid>
+      <pubDate>Sat, 04 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2021-12-04-modeling-enso-and-wave-height/output_51_0.png" medium="image" type="image/png" width="873" height="303"/>
+    </item>
+    <item>
+      <title>Remote Sensing with Google Earth Engine</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2021-12-04-precipitation-and-ndvi</link>
+      <description>Using Google Earth Engine to work with satellite imagery, We find the total precipitation for a coastal region in Northern Califnia as well as calculate the normalized difference vegetation index (NDVI), a simple graphical indicator that can be used to analyze remote sensing measurements. We use ERA5 Daily Aggregates data for precipitation and Landsat 8 data for NDVI.</description>
+      <category>Python</category>
+      <category>Spatial Analysis</category>
+      <category>Google Earth Engine</category>
+      <category>Remote Sensing</category>
+      <guid>cullen-molitor.github.io/posts/2021-12-04-precipitation-and-ndvi</guid>
+      <pubDate>Sat, 04 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2021-12-04-precipitation-and-ndvi/output_42_0.png" medium="image" type="image/png" width="512" height="394"/>
+    </item>
+    <item>
+      <title>Houston Blackout Analysis (2021)</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2021-12-03-houston-blackout-analysis-2021</link>
+      <description>This analysis will be based on remotely-sensed night lights data, acquired from the Visible Infrared Imaging Radiometer Suite (VIIRS) onboard the Suomi satellite.The task is to answer the questions: How many residential buildings were without power on 2021-02-16? Is there a socioeconomic metric that predicts being affected by the power outage?</description>
+      <category>R</category>
+      <category>Remote Sensing</category>
+      <category>Spatial Analysis</category>
+      <guid>cullen-molitor.github.io/posts/2021-12-03-houston-blackout-analysis-2021</guid>
+      <pubDate>Fri, 03 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2021-12-03-houston-blackout-analysis-2021/houston-blackout-analysis-2021_files/figure-html5/unnamed-chunk-8-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Iowa's Wind Power Potential</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential</link>
+      <description>This analysis is used to determine locations in Iowa that would be suitible for wind turbine power plant installation as well as to calculate the hypothetical potential wind energy production capacity of these areas. This type of analysis can be used as a baseline in determining the maximum cost and benefits for potential renewable energy projects.</description>
+      <category>Python</category>
+      <category>SQL</category>
+      <category>Spatial Analysis</category>
+      <guid>cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential</guid>
+      <pubDate>Fri, 03 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/output_58_0.png" medium="image" type="image/png" width="496" height="346"/>
+    </item>
+    <item>
+      <title>Protecting Whales From Ships</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships</link>
+      <description>A vessel speed reduction zone is a potential solution to reducing ship strikes with whales near Dominica. The goal of this   analysis is to look at sperm whale sighting data, and AIS vessel data, to determine a vessel speed reduction zone, and the effects implementing a vessel speed reduction zone would have on shipping activities in the zone.</description>
+      <category>Python</category>
+      <category>Spatial Analysis</category>
+      <guid>cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships</guid>
+      <pubDate>Fri, 03 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_74_0.png" medium="image" type="image/png" width="499" height="604"/>
+    </item>
+    <item>
+      <title>Cartography in R</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2021-11-29-cartography-in-r</link>
+      <description>Objectives:   
+1. Learn the (very) basics of map design 
+2. Learn how to load geospatial data  
+3. Learn how to inspect geospatial data  
+4. Plot geospatial data</description>
+      <category>R</category>
+      <category>Ocean Data</category>
+      <category>Remote Sensing</category>
+      <category>Spatial Analysis</category>
+      <guid>cullen-molitor.github.io/posts/2021-11-29-cartography-in-r</guid>
+      <pubDate>Mon, 29 Nov 2021 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2021-11-29-cartography-in-r/cartography.png" medium="image" type="image/png" width="1721" height="1774"/>
+    </item>
+  </channel>
+</rss>

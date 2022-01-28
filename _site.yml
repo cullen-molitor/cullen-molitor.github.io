@@ -1,23 +1,19 @@
 name: "cullen-molitor.github.io"
 title: "My Website"
+base_url: cullen-molitor.github.io
 description: |
   My Website
 output_dir: "docs"
 navbar:
   right:
-    - text: "Biography"
+    - text: "Home"
       href: index.html
+    - text: "About"
+      href: about.html
     - text: "Blog"
       href: blog.html
     - text: "Resume"
-      href: resume.html
-    - text: "CV"
-      href: cv.html
+      href: cv/Molitor_Cullen_Resume_2022.pdf
   source_url: https://github.com/cullen-molitor/cullen-molitor.github.io
 output: distill::distill_article
 theme: theme.css
-collections:
-  posts:
-    categories: true
-    categories_metadata: false
-    authors_metadata: false

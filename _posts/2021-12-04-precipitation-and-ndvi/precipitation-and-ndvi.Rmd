@@ -1,7 +1,7 @@
 ---
-title: "Precipitation and NDVI"
+title: "Remote Sensing with Google Earth Engine"
 description: |
-  Using Google Earth Engine to work with satellite imagery. We find the total precipitation for a coastal region in Northern Califnia as well as calculate the normalized difference vegetation index (NDVI), a simple graphical indicator that can be used to analyze remote sensing measurements. We use ERA5 Daily Aggregates data for precipitation and Landsat 8 data for NDVI.
+  Using Google Earth Engine to work with satellite imagery, We find the total precipitation for a coastal region in Northern Califnia as well as calculate the normalized difference vegetation index (NDVI), a simple graphical indicator that can be used to analyze remote sensing measurements. We use ERA5 Daily Aggregates data for precipitation and Landsat 8 data for NDVI.
 author:
   - name: Cullen Molitor
 date: 2021-12-04
@@ -15,18 +15,20 @@ categories:
   - Google Earth Engine
   - Remote Sensing
 ---
-# Homework 1, EDS 220
-## Fun With Data Manipulation in Google Earth Engine
 
-This template provides the instructions for EDS 220 HW1, and some initial environment loading/package configuration commands which you are welcome to modify as needed. 
+## Purpose
 
-**You will need to supply your own code for this assignment! Feel free to cut and paste relevant lines from the course materials or elsewhere online, that's what coding is all about.**
+This analysis was done in order to get familiar with the [Google Earth Engine Python API](https://developers.google.com/earth-engine/tutorials/community/intro-to-python-api-guiattard). To run this code, an account with Google Earth Engine is required and student licences are available for free. 
 
-We'll assume that you need to load the Google Earth Engine package, and will also include several other common Python packages:
-- pandas
-- matplotlib (the plotting functionality "matplotlib.pyplot" to be precise)
-- numpy
+### 1. Choose A Study Region
 
+For this project I am choosing Arcata California. This is where I attended college, and I chose to go there for it's rural location and its proximity to a variety of outdoor recreation areas. Arcata is a situated along the northern coast of California. The coastal zone surrounding the town includes beautiful coast redwoods (_Sequoia sempervirens_), Humboldt Bay, and low-lying areas around Humboldt Bay. Going east from the coastal zone, you quickly gain elevation and enter the southern Cascade mountain range and the Trinity Alps. This region contains the volcanoes Mt. Shasta and Mt Lassen, formed by the Cascadia subduction zone. Arcata's climate falls into the temperate rainforest category, and is dominated by a rainy season and a dry season. Arcata's population is also somewhat seasonal thanks to the college population leaving for the summer months. 
+
+### 2. Locate A Precipitation Dataset
+
+Take a look through the Google Earth Engine [data catalog](https://developers.google.com/earth-engine/datasets).
+    
+I chose the the ERA5 Daily Aggregates dataset because my other choice Global Precipitation Measurement (GPM) v6 kept exceeding my user memory limit. I also investigated many other datasets (test_1 to test_5 files) but I did not really like how a few of them looked in comparison. I think the ERA5 Daily Aggregates suited my needs quite well and showed the scope of the storm event I was looking at quite well. It feels a bit like cheating, but I really did try to use other datasets. This dataset also gives reasonable spatial resolution. 
 
 ```python
 # Import packages
@@ -36,61 +38,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from IPython.display import Image
-```
-
-### 1. Choose A Study Region
-
-Think about places on Earth that you're interested in. This could be anywhere: Santa Barbara, your hometown, a place you always wanted to visit, you name it. 
-
-For that place, then consider what it is like. Is it urban? Rural? Temperate? Tropical? Write a brief (1-2 paragraph) description of the local climate and population (if applicable).
-
-For this project I am choosing Arcata California. This is where I attended college, and I chose to go there for it's rural location and its proximity to a variety of outdoor recreation areas. Arcata is a situated along the northern coast of California. The coastal zone surrounding the town includes beautiful coast redwoods (_Sequoia sempervirens_), Humboldt Bay, and low-lying areas around Humboldt Bay. Going east from the coastal zone, you quickly gain elevation and enter the southern Cascade mountain range and the Trinity Alps. This region contains the volcanoes Mt. Shasta and Mt Lassen, formed by the Cascadia subduction zone. Arcata's climate falls into the temperate rainforest category, and is dominated by a rainy season and a dry season. Arcata's population is also somewhat seasonal thanks to the college population leaving for the summer months. 
-
-
-### 2. Locate A Precipitation Dataset
-
-Look through the Google Earth Engine data catalog:
-    https://developers.google.com/earth-engine/datasets
-    
-To keep things simple (ish), we'll stick with precipitation as our major climate variable. Precip is nice because there are lots of interesting spatial patterns that are easy to see without doing too much data processing! 
-
-a. Choose one of the precipitation datasets available in GEE, any one you like. Explain briefly (1-2 paragraphs) why you chose it, and what you think its major advantages/properties might be and how they compare with other available data products.
-You can also explore the metadata associated with your dataset using the `print()` and `getInfo()` methods, or viewing on the description page for your dataset. See the example ERA5 analysis code provided in this repo for more details!
-
-I chose the the ERA5 Daily Aggregates dataset because my other choice Global Precipitation Measurement (GPM) v6 kept exceeding my user memory limit. I also investigated many other datasets (test_1 to test_5 files) but I did not really like how a few of them looked in comparison. I think the ERA5 Daily Aggregates suited my needs quite well and showed the scope of the storm event I was looking at quite well. It feels a bit like cheating, but I really did try to use other datasets. This dataset also gives reasonable spatial resolution. 
-
-
-```python
 ee.Initialize()
 ```
 
-
 ```python
 gdat = ee.ImageCollection('ECMWF/ERA5/DAILY')
-```
-
-
-```python
 gdat_prop = gdat.propertyNames().getInfo()
-```
-
-
-```python
 pr = gdat.select('total_precipitation')
-```
-
-
-```python
 prdflt = pr.filter(ee.Filter.date('2019-02-24', '2019-02-28')).sum();
-```
-
-
-```python
 prdflt.getInfo()
 ```
-
-
-
 
     {'type': 'Image',
      'bands': [{'id': 'total_precipitation',
@@ -99,28 +56,17 @@ prdflt.getInfo()
        'crs_transform': [1, 0, 0, 0, 1, 0]}]}
 
 
-
 ### 3. Plot a Time Series of Precipitation
 
-Let's do a new type of analysis on the data: the creation of a time series. The "ExampleCommands_HW1" notebook should give you a starting point for how to do this - pull out data for your region of interest, and plot a time series.
-
+Let's do a new type of analysis on the data: the creation of a time series. 
 
 ```python
 ar_lon = -124
 ar_lat = 40.8
 ar_poi = ee.Geometry.Point(ar_lon, ar_lat)
 scale = 1000   # scale in m
-```
-
-
-```python
 ar_pr_ts = pr.getRegion(ar_poi, scale).getInfo()
-```
-
-
-```python
 df = pd.DataFrame(ar_pr_ts)
-
 print(df)
 ```
 
@@ -154,7 +100,6 @@ print(headers)
     Name: 0, dtype: object
     
 
-
 ```python
 df = pd.DataFrame(df.values[1:], columns=headers)      
 # Make a new data frame out of the old one, but assigning the names we just retrieved as actual column headers
@@ -177,14 +122,10 @@ print(df)
     [15165 rows x 5 columns]
     
 
-
 ```python
 df['datetime'] = pd.to_datetime(df['time'], unit = 'ms')
 df
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -318,8 +259,6 @@ df
 </div>
 
 
-
-
 ```python
 plt.figure(figsize = (10, 6), dpi = 300)    # create a new figure, set size and resolution (dpi)
 plt.plot(df['datetime'],df['total_precipitation'])   # add data to the plot
@@ -329,43 +268,18 @@ plt.ylabel('Precip (m)', fontsize=14)
 plt.ylim(0, 0.12)
 ```
 
-
-
-
     (0.0, 0.12)
 
-
-
-
     
-![png](output_19_1.png)
-    
-
+![](output_19_1.png)
 
 ### 4. Make Some Maps of Interesting Times
 
-Based on the time series of precipitation you just created, look for a few interesting time periods. This could be days when extreme storms happened, or seasons (or years) that were above or below average precipitation.
-
-a. Explain briefly why you chose these particular time periods.
-
-I started by looking at local river gauges to try to find a storm event. I was able to see a recent crest of the Mad River by looking here https://water.weather.gov/ahps2/hydrograph.php?gage=arcc1&wfo=eka. 
-
-b. Using the GEE Map method that we worked on in class, plot maps of those time periods. Things to think about:
-- choosing an appropriate zoom level to highlight the precipitation features you're interested in
-- setting appropriate min/max ranges for your plot, to allow the major features of regional precipitation to be easily visualized
-
-c. Describe briefly what is interesting about your maps! 
-
-- I chose to take the sum of the time period I examined in order to look at how much precipitation there was over the Mad River watershed. The sum of the values also lets you see the total amount of precipitation over the entire time period of the storm event. My map shows heavy precipitation over the Pacific, making landfall in northern California and Oregon, while staying to the north and largely avoiding Nevada. 
-
+I chose to take the sum of the time period I examined in order to look at how much precipitation there was over the Mad River watershed. The sum of the values also lets you see the total amount of precipitation over the entire time period of the storm event. My map shows heavy precipitation over the Pacific, making landfall in northern California and Oregon, while staying to the north and largely avoiding Nevada. 
 
 ```python
 # Base map
 Map = geemap.Map(center=[40.8,-124], zoom=6)
-```
-
-
-```python
 # Min and Max
 VIS_PREC = {
     'min':0,
@@ -378,10 +292,7 @@ Map.addLayer(prdflt, VIS_PREC,'total precipitation',opacity=0.3)
 Map
 ```
 
-
     Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…
-
-
 
 ```python
 pt = ee.Geometry.Point([-124.3652, 40.2922])
@@ -393,65 +304,26 @@ url = prdflt.getThumbUrl({
 Image(url=url, embed=True, format = 'png')
 ```
 
-
-
-
-    
-![png](output_26_0.png)
-    
-
-
+![](output_26_0.png)
 
 ### 5. Plot Landsat NDVI for the Region
 
 The precipitation analysis discussed above provides useful context for identifying interesting weather events for a particular region. Now let's see what (if any!) effect changes in weather patterns have had on the landscape, using Landsat imagery. 
 
-a. Make a long-term average NDVI map for your region: say, a 10- or 20-year mean. This will give you a baseline to compare against.
-
-b. Make an NDVI map centered on one of your 'interesting' time periods from the precipitation time series. How are the patterns different from the long-term average? And how do you think this relates to precipitation during this time period?
-
-
-- I was able to see a slight difference in the two images. It is unclear to me if the long term average includes more cloud cover and is therfore less bright/vivid, or if the rain increased the vegetation. If I had to guess I would say that there was not a very noticable change because I chose an area that is already very wet and productive. 
-
-- Note I was not able to run my last bit until 10/18 (thanks to Desik's suggestion). I therfore only answered this on 10/18 as well. 
-
+I was able to see a slight difference in the two images. It is unclear to me if the long term average includes more cloud cover and is therefore less bright/vivid, or if the rain increased the vegetation. If I had to guess I would say that there was not a very noticeable change because I chose an area that is already very wet and productive. 
 
 ```python
 land_8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA')
-```
-
-
-```python
 pt = ee.Geometry.Point([-124, 40.8])   # Point corresponding to Arcata, CA
-```
-
-
-```python
 land_8_pt = land_8.filterBounds(pt)
-```
-
-
-```python
 land_8_least_cld = land_8_pt.filter('CLOUD_COVER < 20').mean();
-```
-
-
-```python
 red = land_8_least_cld.select('B4')
 nir = land_8_least_cld.select('B5')
-
 ndvi=(nir.subtract(red)).divide((nir.add(red))).rename('NDVI')
-
 ndvi
 ```
 
-
-
-
     <ee.image.Image at 0x22d22b1b280>
-
-
-
 
 ```python
 ndviParams = {'min': -1, 
@@ -460,7 +332,6 @@ ndviParams = {'min': -1,
              }
 ```
 
-
 ```python
 #  Interactive only, no saved output
 Map_NDVI = geemap.Map(center=[40.8, -124], zoom=8)
@@ -468,9 +339,7 @@ Map_NDVI.addLayer(ndvi, ndviParams,'NDVI')
 Map_NDVI
 ```
 
-
     Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…
-
 
 
 ```python
@@ -483,41 +352,19 @@ url = ndvi.getThumbUrl({
 Image(url=url, embed=True, format = 'png')
 ```
 
-
-
-
+![](output_37_0.png)
     
-![png](output_37_0.png)
-    
-
-
-
 
 ```python
 land_8_least_cld_flt = land_8_pt.filter('CLOUD_COVER < 20')
-```
-
-
-```python
 land_8_least_cld_flt_dt = land_8_least_cld_flt.filter(ee.Filter.date('2019-01-01', '2019-04-28')).mean();
-```
-
-
-```python
 red_2 = land_8_least_cld_flt_dt.select('B4')
 nir_2 = land_8_least_cld_flt_dt.select('B5')
-
 ndvi_2 = (nir_2.subtract(red_2)).divide((nir_2.add(red_2))).rename('NDVI')
-
 ndvi_2
 ```
 
-
-
-
     <ee.image.Image at 0x22d220f6820>
-
-
 
 
 ```python
@@ -542,16 +389,4 @@ url = ndvi_2.getThumbUrl({
 Image(url=url, embed=True, format = 'png')
 ```
 
-
-
-
-    
-![png](output_42_0.png)
-    
-
-
-
-
-```python
-
-```
+![](output_42_0.png)

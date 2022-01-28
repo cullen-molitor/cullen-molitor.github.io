@@ -20,6 +20,10 @@ categories:
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
+## Purpose
+
+This notebook examines the effects of the February 2021 winter storms in Texas which caused blackouts. This examine the extent of the blackout over Houston using data from the [VIIRS](https://www.jpss.noaa.gov/viirs.html) instrument on the Suomi NPP satellite mission.
+
 ## Load libraries 
 
 ```{r loading packages}
@@ -141,7 +145,6 @@ rm(blackout_cropped)
 gc()
 ```
 
-
 ## Sanity check plot
 
 ```{r sanity check plot}
@@ -250,6 +253,7 @@ houston_map <- osm.raster(houston_bbox)
 ```
 
 ## Area and Median Incomes of Residences Affected by Houston Blackout in February, 2021 
+
 ```{r preview=TRUE}
 tm_shape(houston_map) +
   tm_rgb(alpha = .75) +
@@ -267,7 +271,7 @@ tm_shape(houston_map) +
   tm_scale_bar()
 ```
 
-This map was created by Amber McEldowney and Cullen Molitor 2021-10-24.  <br> **Sources**:  Socioeconomic data: U.S. Census Bureau’s American Community Survey for Texas census tracts in 2019 <br> Light data:  NASA’s Level-1 and Atmosphere Archive & Distribution System Distributed Active Archive Center (LAADS DAAC) <br> Spatial & Buildings Data: OpenStreetMap
+This map was created by Amber McEldowney and Cullen Molitor 2021-10-24.  <br> **Sources**:  Socioeconomic data: U.S. Census Bureau’s American Community Survey for Texas census tracts in 2019 <br> Light data:  NASA’s Level-1 and Atmosphere Archive & Distribution System Distributed Active Archive Center (LAADS DAAC) <br> Spatial & Buildings Data: OpenStreetMap.
 
 ```{r}
 rm(blackout_cropped_NAD83, acs_geoms, acs_income, buildings)

@@ -14,14 +14,7 @@ categories:
   - SQL
   - Spatial Analysis
 ---
-# Homework # 4
-## Wind Power Potential
-Group # 2  
-Cullen Molitor  
-Amber McEldowney  
-# Setup
 ## Import Modules
-
 
 ```python
 import sqlalchemy as sa
@@ -38,10 +31,6 @@ import math
 
 ```python
 pg_uri_template = 'postgresql+psycopg2://{user}:{pwd}@{host}/{db_name}'
-```
-
-
-```python
 db_uri = pg_uri_template.format(
     drivername='postgresql+psycopg2',
     host = '{ip address}',
@@ -49,10 +38,6 @@ db_uri = pg_uri_template.format(
     pwd = '{pwd}',
     db_name = 'osmiowa'
 )
-```
-
-
-```python
 engine = sa.create_engine(db_uri)
 ```
 
@@ -78,10 +63,8 @@ Geometry:
 - Orientations: east, north
 
 # Query Database
-## Buildings
-From planet_osm_polygon table
-###  Residential Scenario 1 (3H)
 
+Residential Scenario 1 (3H)
 
 ```python
 sql_buildings_residential_1 = \
@@ -97,10 +80,8 @@ OR
 OR 
     place = 'town'
 """
-# buildings_residential = gpd.read_postgis(sql_buildings_residential_1, con = engine, geom_col = 'way')
 ```
-
-### Residential Scenario 2 (10H)
+Residential Scenario 2 (10H)
 
 
 ```python
@@ -119,10 +100,8 @@ OR
 OR
     place = 'town'
 """
-# buildings_residential = gpd.read_postgis(sql_buildings_residential_2, con = engine, geom_col = 'way')
 ```
-
-### Non-residential (3H)
+Non-residential (3H)
 
 
 ```python
@@ -137,13 +116,8 @@ WHERE
 NOT IN 
     ('yes', 'residential', 'apartments', 'house', 'static_caravan', 'detached')
 """
-# nonresidential_buffer = gpd.read_postgis(sql_buildings_nonresidential, con = engine, geom_col = 'way')
 ```
-
-## Airports
-From planet_osm_polygon table  
-Create Airports (7500m) Buffer
-
+Airports
 
 ```python
 sql_airports = \
@@ -155,12 +129,8 @@ FROM
 WHERE 
     aeroway IS NOT NULL
 """
-# airports = gpd.read_postgis(sql_airports, con = engine, geom_col = 'way')
 ```
-
-## Military Bases
-From planet_osm_polygon table
-
+Military Bases
 
 ```python
 sql_military = \
@@ -174,14 +144,8 @@ WHERE
 OR 
     landuse = 'military'
 """
-# military = gpd.read_postgis(sql_military, con = engine, geom_col = 'way')
 ```
-
-## Railways and Roads
-From planet_osm_line table
-
-Create Railways and Roads (2H) Buffer
-
+Railways and Roads
 
 ```python
 sql_railways_n_roads = \
@@ -202,12 +166,8 @@ IN
     ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'road',
     'primary', 'primary_link', 'secondary', 'secondary_link'))
 """
-# railways_n_roads = gpd.read_postgis(sql_railways_n_roads, con = engine, geom_col = 'way')
 ```
-
-## Nature Reserves, Parks, and Wetlands
-From planet_osm_polygon table
-
+Nature Reserves, Parks, and Wetlands
 
 ```python
 sql_nature = \
@@ -225,14 +185,8 @@ OR
 IN 
     ('wetland')
 """
-# nature = gpd.read_postgis(sql_nature, con = engine, geom_col = 'way')
 ```
-
-## Rivers
-From planet_osm_line
-
-Create Rivers (1H) Buffer
-
+Rivers
 
 ```python
 sql_rivers = \
@@ -246,12 +200,8 @@ WHERE
 IN 
     ('river')
 """
-# rivers = gpd.read_postgis(sql_rivers, con = engine, geom_col = 'way')
 ```
-
-## Lakes
-From planet_osm_polygon
-
+Lakes
 
 ```python
 sql_lakes = \
@@ -265,14 +215,8 @@ WHERE
 IN 
     ('lake', 'reservoir', 'pond')
 """
-# lakes = gpd.read_postgis(sql_lakes, con = engine, geom_col = 'way')
 ```
-
-## Power Lines
-From planet_osm_line table
-
-Create Powerlines (2H) Buffer
-
+Power Lines
 
 ```python
 sql_powerlines = \
@@ -284,14 +228,8 @@ FROM
 WHERE 
     power IS NOT NULL
 """
-# powerlines = gpd.read_postgis(sql_powerlines, con = engine, geom_col = 'way')
 ```
-
-## Power Plants
-From planet_osm_polygon table
-
-Create Power Plants (1H) Buffer
-
+Power Plants
 
 ```python
 sql_powerplants = \
@@ -303,11 +241,8 @@ FROM
 WHERE 
     power IS NOT NULL
 """
-# powerplants = gpd.read_postgis(sql_powerplants, con = engine, geom_col = 'way')
 ```
-
-## Wind Turbines
-From planet_osm_point table
+Wind Turbines
 
 
 ```python
@@ -322,12 +257,10 @@ WHERE
 AND 
     "generator:source" IN ('wind')
 """
-# turbines_buffer = gpd.read_postgis(sql_turbines_buffer, con = engine, geom_col = 'way')
 ```
-
 ## Merge Subqueries
-### Scenario 1 
 
+### Scenario 1 
 
 ```python
 sql_siting_constraints = \
@@ -388,83 +321,6 @@ UNION
 siting_constraints_2 = gpd.read_postgis(sql_siting_constraints_2, con = engine, geom_col = 'way')
 ```
 
-### Extra Credit
-
-
-```python
-# sql_siting_constraints = \
-#     """
-# SELECT 
-#     ST_BUFFER(way, 450) as way
-#     FROM planet_osm_polygon 
-#     WHERE building IN ('yes', 'residential', 'apartments', 'house', 'static_caravan', 'detached')
-#     OR landuse = 'residential'
-#     OR place = 'town'
-# UNION
-# SELECT 
-#     ST_BUFFER(way, 450) as way
-#     FROM planet_osm_polygon 
-#     WHERE building NOT IN ('yes', 'residential', 'apartments', 'house', 'static_caravan', 'detached')
-# UNION
-# SELECT 
-#     ST_BUFFER(way, 7500) as way
-#     FROM planet_osm_polygon 
-#     WHERE aeroway IS NOT NULL
-# UNION
-# SELECT 
-#     ST_BUFFER(way, 0) as way
-#     FROM planet_osm_polygon 
-#     WHERE military IS NOT NULL
-#     OR landuse = 'military'
-# UNION
-# SELECT  
-#     ST_BUFFER(way, 300) as way
-#     FROM planet_osm_line 
-#     WHERE (railway IS NOT NULL
-#     AND railway NOT IN ('abandoned', 'disused', 
-#                         'razed', 'dismantled'))
-#     OR (highway IS NOT NULL
-#     AND highway IN ('motorway', 'motorway_link',
-#                     'trunk', 'trunk_link', 'road',
-#                     'primary', 'primary_link',
-#                     'secondary', 'secondary_link'))
-# UNION
-# SELECT  
-#     ST_BUFFER(way, 150) as way
-#     FROM planet_osm_line 
-#     WHERE waterway IN ('river')
-# UNION
-# SELECT  
-#     ST_BUFFER(way, 0) as way
-#     FROM planet_osm_polygon 
-#     WHERE leisure IN ('nature_reserve', 'park')
-#     OR "natural" IN ('wetland')
-# UNION
-# SELECT 
-#     ST_BUFFER(way, 0) as way
-#     FROM planet_osm_polygon
-#     WHERE water IN ('lake')
-# UNION
-# SELECT  
-#     ST_BUFFER(way, 300) as way
-#     FROM planet_osm_line 
-#     WHERE power IS NOT NULL 
-# UNION
-# SELECT  
-#     ST_BUFFER(way, 150) as way
-#     FROM planet_osm_polygon 
-#     WHERE power IS NOT NULL
-# UNION
-# SELECT  
-#     ST_BUFFER(way, 680) as way
-#     FROM planet_osm_point 
-#     WHERE "generator:source" IS NOT NULL
-#     AND "generator:source" IN ('wind')
-#     """
-# siting_constraints = gpd.read_postgis(sql_siting_constraints, con = engine, geom_col = 'way')
-```
-
-
 ```python
 fig, ax = plt.subplots(figsize=(8, 8))
 siting_constraints.plot(ax = ax, markersize = .1, color = "purple", alpha = .5)
@@ -473,13 +329,7 @@ ax.set_title('Siting Constraints (Scenario 1)', fontsize=12)
 ax.ticklabel_format(scilimits =  [-5, 5])
 ctx.add_basemap(ax, crs="EPSG:26975")
 ```
-
-
-    
-![png](output_40_0.png)
-    
-
-
+![](output_40_0.png)
 
 ```python
 fig, ax = plt.subplots(figsize=(8, 8))
@@ -489,16 +339,11 @@ ax.set_title('Siting Constraints (Scenario 2)', fontsize=12)
 ax.ticklabel_format(scilimits =  [-5, 5])
 ctx.add_basemap(ax, crs="EPSG:26975")
 ```
-
-
-    
-![png](output_41_0.png)
-    
-
+ 
+![](output_41_0.png)
 
 ## Wind Data
 The table wind_cells_10000 contains 10 km2 square polygons with associated average annual wind speeds (m s-1), arranged to cover Iowa in a ragged grid.
-
 
 ```python
 sql_wind_speeds = \
@@ -515,7 +360,6 @@ wind_speeds = gpd.read_postgis(sql_wind_speeds, con = engine, geom_col = 'geom')
 # Results
 ## Scenario #1
 ### Subtract Siting Constraints from Wind Cells 
-
 
 ```python
 suitable_cells = wind_speeds.overlay(siting_constraints, how = 'difference', keep_geom_type = False)
@@ -535,7 +379,7 @@ ctx.add_basemap(ax, crs="EPSG:26975")
 
 
     
-![png](output_47_0.png)
+![](output_47_0.png)
     
 
 
@@ -598,7 +442,7 @@ ctx.add_basemap(ax, crs="EPSG:26975")
 
 
     
-![png](output_58_0.png)
+![](output_58_0.png)
     
 
 

@@ -2,7 +2,7 @@
 title: "Cartography in R"
 description: |
   Objectives:   
-  1. Learn the (very) basics of map design  
+  1. Learn the (very) basics of map design 
   2. Learn how to load geospatial data  
   3. Learn how to inspect geospatial data  
   4. Plot geospatial data  
@@ -25,7 +25,11 @@ categories:
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, messgae = FALSE)
 ```
 
-### Load the neccessary libraries
+## Purpose
+
+This notebook demonstrates how to work with geospatial data using the R software environment to make maps. I chose to plot the bathymetry around New Zealand. This project uses the R package `marmap` to querry NOAA databases to get the digital elevation model data. I then use a shapefile of the New Zealand coastlines to get better delineation between ocean and land.  
+
+### Load libraries
 
 ```{r Libraries}
 library(sf)
@@ -36,7 +40,7 @@ library(marmap)
 library(ggspatial)
 ```
 
-### Load bathymetry data NOAA API
+### Load Data
 
 Use `marmap::getNOAA.bathy()` to load New Zealand bathymetry and elevation data directly from NOAA database and convert `bathy` object to `dataframe` for ggplot.
 
@@ -54,9 +58,7 @@ nz_df <- marmap::getNOAA.bathy(
               filter(layer <= 0)
 ```
 
-### Read in New Zealand coastlines
-
-Use `sf::read_sf()` to read the shapefile containing the New Zealand coastline. 
+Read in New Zealand coastlines with `sf::read_sf()` to read the shapefile containing the New Zealand coastline. 
 
 ```{r New Zealand Coastline}
 nz_coast <- sf::read_sf(
@@ -64,7 +66,7 @@ nz_coast <- sf::read_sf(
   )
 ```
 
-### Plot New Zealand Coastline 
+### Plot Data
 
 Use `ggplot()` to plot New Zealand coastline, bathymetric raster, and depth contours. 
 
