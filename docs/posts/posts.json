@@ -1,5 +1,30 @@
 [
   {
+    "path": "posts/2022-04-23-new-horizons/",
+    "title": "New Horizons in Conservation Conference Poster Submission",
+    "description": "Our capstone group attended the New Horizons in Conservation Conference, 2022, organized through the Yale School of the Environments Justice, Equity, Diversity, and Sustainability Initiative. The 2022 conference was held virtually, and our group contributed a poster and video explaing our capstone project including our preliminary results.",
+    "author": [
+      {
+        "name": "Cullen Molitor",
+        "url": "https://github.com/cropmosaiks/Modeling"
+      }
+    ],
+    "date": "2022-04-23",
+    "categories": [
+      "Python",
+      "Remote Sensing",
+      "Spatial Analysis",
+      "Africa",
+      "Agriculture"
+    ],
+    "contents": "\r\n\r\nContents\r\nAn open-source pipleline for remote sensing of crop yields under environmental change in sub-Saharan Africa\r\n\r\n\r\n\r\n\r\nAn open-source pipleline for remote sensing of crop yields under environmental change in sub-Saharan Africa\r\nABSTRACT:\r\nThe environmental and social impacts of climate change are disproportionately distributed worldwide. Many highly impacted regions lack the assets to monitor and generate resource predictions, and therefore lack high-quality environmental and social data. As a result, it is difficult to make predictions about the impacts of climate change for these regions using conventional modeling. Recently, machine learning approaches applied to high-resolution satellite imagery have been successful in making predictions of a wide range of social and environmental variables. However, generating these predictions comes with significant barriers, including high computational, data storage, expertise, and financial resource costs. Reducing the financial and computational burden of machine learning approaches is essential to increasing the equity of environmental monitoring processes and outputs. Sub-Saharan Africa is one of these data-limited regions and is likely to suffer some of the largest impacts from climate change globally. To enable increased monitoring and data access across the sub-continent, we apply the novel machine learning approach, MOSAIKS, to create tabular features for sub-Saharan Africa using satellite imagery. These features, paired with ground-truth crop data from three countries, will be used to build a model that predicts crop yields over time in regions without crop data. This model will provide new insights into the historical crop yields of the region. Furthermore, these tabular features of satellite imagery, and the methodology developed to create them, will enable more people around the globe to build models and generate predictions of other social and environmental variables in this region.\r\nVideo submission\r\n\r\nVideo\r\n\r\nPoster submission\r\n\r\n\r\n\r\nPlease feel free to contact my team at cp-cropmosaiks.bren.ucsb.edu or inspect our code in our github organization, cropMOSAIKS. Thanks!\r\n\r\n\r\n\r\n",
+    "preview": "posts/2022-04-23-new-horizons/NHC.png",
+    "last_modified": "2022-04-23T15:21:57-07:00",
+    "input_file": {},
+    "preview_width": 758,
+    "preview_height": 439
+  },
+  {
     "path": "posts/2022-01-23-cropmosaiks-animated-ndvi/",
     "title": "CropMOSAIKS Animated NDVI",
     "description": "This notebook extends the code used to create the static images of the NDVI across Africa in 2013 for the MEDS capstone group CropMOSAIKS. This uses Google Earth Engine Python API to create an animated gif of NDVI over Africa from 2000 to 2021.",

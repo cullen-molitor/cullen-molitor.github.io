@@ -7,7 +7,21 @@
     <description>My Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 23 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 23 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>New Horizons in Conservation Conference Poster Submission</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2022-04-23-new-horizons</link>
+      <description>Our capstone group attended the New Horizons in Conservation Conference, 2022, organized through the Yale School of the Environments Justice, Equity, Diversity, and Sustainability Initiative. The 2022 conference was held virtually, and our group contributed a poster and video explaing our capstone project including our preliminary results.</description>
+      <category>Python</category>
+      <category>Remote Sensing</category>
+      <category>Spatial Analysis</category>
+      <category>Africa</category>
+      <category>Agriculture</category>
+      <guid>cullen-molitor.github.io/posts/2022-04-23-new-horizons</guid>
+      <pubDate>Sat, 23 Apr 2022 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2022-04-23-new-horizons/NHC.png" medium="image" type="image/png" width="758" height="439"/>
+    </item>
     <item>
       <title>CropMOSAIKS Animated NDVI</title>
       <dc:creator>Cullen Molitor</dc:creator>
