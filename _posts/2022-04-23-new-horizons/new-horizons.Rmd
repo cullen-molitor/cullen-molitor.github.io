@@ -4,7 +4,13 @@ description: |
   Our capstone group attended the New Horizons in Conservation Conference, 2022, organized through the Yale School of the Environments Justice, Equity, Diversity, and Sustainability Initiative. The 2022 conference was held virtually, and our group contributed a poster and video explaing our capstone project including our preliminary results. 
 author:
   - name: Cullen Molitor
-    url: https://github.com/cropmosaiks/Modeling
+    url: https://github.com/cullen-molitor
+  - name: Juliet Cohen
+    url: https://github.com/julietcohen
+  - name: Steven Cognac
+    url: https://github.com/cognack
+  - name: Grace Lewin
+    url: https://github.com/gracelewin
 date: 2022-04-23
 output:
   distill::distill_article:
@@ -18,6 +24,7 @@ categories:
   - Spatial Analysis
   - Africa
   - Agriculture
+  - MOSAIKS
 ---
 
 

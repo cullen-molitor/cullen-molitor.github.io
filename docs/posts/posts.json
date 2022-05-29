@@ -1,12 +1,62 @@
 [
   {
+    "path": "posts/2022-05-29-publicpresentation/",
+    "title": "2022 MEDS Public Presentations",
+    "description": "The Master of Environmental Data Science (MEDS) cohort present their final results of the capstone group projects. This post links to my groups presentation directly, but all groups are in the same YouTube link.",
+    "author": [
+      {
+        "name": "Cullen Molitor",
+        "url": "https://github.com/cullen-molitor"
+      },
+      {
+        "name": "Juliet Cohen",
+        "url": "https://github.com/julietcohen"
+      },
+      {
+        "name": "Steven Cognac",
+        "url": "https://github.com/cognack"
+      },
+      {
+        "name": "Grace Lewin",
+        "url": "https://github.com/gracelewin"
+      }
+    ],
+    "date": "2022-05-29",
+    "categories": [
+      "Python",
+      "Remote Sensing",
+      "Spatial Analysis",
+      "Africa",
+      "Agriculture",
+      "MOSAIKS"
+    ],
+    "contents": "\nAn open-source pipeline for remote sensing of crop yields: a Zambia case study\nOur group capstone project has come to a close with our public presentation at Bren Hall, UCSB on May 26, 2022. More information on presenters and the schedule can be found here.\nPresntation YouTube Link\nAbstract\nHigh-quality, long-term environmental data sets are the foundation of long-range risk and climate modeling. However, producing such datasets is costly, logistically challenging, and resource-intensive. Due to limited agricultural data across sub-Saharan Africa, policy-makers, farmers, and researchers are currently unable to accurately forecast short-run food security risks posed by weather anomalies and long-run climate change projections. Recent machine learning approaches applied to high-resolution satellite imagery have successfully modeled various social and environmental variables. Here, we expand upon a recently developed machine learning approach to build a model that predicts maize yields over time using public satellite imagery. We developed a generalizable pipeline from survey data through a use case for predicting maize yields in Zambia. In 2020 and 2021, the Zambia Statistics Agency could not survey maize growers due to the COVID-19 pandemic. We use our model to fill in this data gap of maize yield predictions during these years. Through parameter optimization, we selected the model with the best ability to predict over space and time. Our model performed better overall relative to its predictive performance over time. The processed satellite imagery, predictions, and pipeline serve as a tool for the research community and users interested in analyzing Zambia’s current and future food security risks. This pipeline further enables users to explore global and region-specific questions at scale.\nAcknowledgemnts\nBren School: Tamma Carleton, Assistant Professor; Brad Hill, IT Director; Allison Horst, Assistant Teaching Professor; Kat Le, Technical Applications Manager\nJonathan Proctor, postdoctoral fellow at the Harvard Data Science Initiative and the Center for the Environment\nBaylis Lab, University of California, Santa Barbara\nZambia Statistics Agency\nMicrosoft Planetary Computer: Caleb Robinson, Tom Augsburger\n\n\n\n",
+    "preview": "posts/2022-05-29-publicpresentation/public_presentations.png",
+    "last_modified": "2022-05-29T18:21:11+00:00",
+    "input_file": {},
+    "preview_width": 1389,
+    "preview_height": 780
+  },
+  {
     "path": "posts/2022-04-23-new-horizons/",
     "title": "New Horizons in Conservation Conference Poster Submission",
     "description": "Our capstone group attended the New Horizons in Conservation Conference, 2022, organized through the Yale School of the Environments Justice, Equity, Diversity, and Sustainability Initiative. The 2022 conference was held virtually, and our group contributed a poster and video explaing our capstone project including our preliminary results.",
     "author": [
       {
         "name": "Cullen Molitor",
-        "url": "https://github.com/cropmosaiks/Modeling"
+        "url": "https://github.com/cullen-molitor"
+      },
+      {
+        "name": "Juliet Cohen",
+        "url": "https://github.com/julietcohen"
+      },
+      {
+        "name": "Steven Cognac",
+        "url": "https://github.com/cognack"
+      },
+      {
+        "name": "Grace Lewin",
+        "url": "https://github.com/gracelewin"
       }
     ],
     "date": "2022-04-23",
@@ -15,11 +65,12 @@
       "Remote Sensing",
       "Spatial Analysis",
       "Africa",
-      "Agriculture"
+      "Agriculture",
+      "MOSAIKS"
     ],
     "contents": "\n\nContents\nAn open-source pipleline for remote sensing of crop yields under environmental change in sub-Saharan Africa\n\n\n\n\nAn open-source pipleline for remote sensing of crop yields under environmental change in sub-Saharan Africa\nABSTRACT:\nThe environmental and social impacts of climate change are disproportionately distributed worldwide. Many highly impacted regions lack the assets to monitor and generate resource predictions, and therefore lack high-quality environmental and social data. As a result, it is difficult to make predictions about the impacts of climate change for these regions using conventional modeling. Recently, machine learning approaches applied to high-resolution satellite imagery have been successful in making predictions of a wide range of social and environmental variables. However, generating these predictions comes with significant barriers, including high computational, data storage, expertise, and financial resource costs. Reducing the financial and computational burden of machine learning approaches is essential to increasing the equity of environmental monitoring processes and outputs. Sub-Saharan Africa is one of these data-limited regions and is likely to suffer some of the largest impacts from climate change globally. To enable increased monitoring and data access across the sub-continent, we apply the novel machine learning approach, MOSAIKS, to create tabular features for sub-Saharan Africa using satellite imagery. These features, paired with ground-truth crop data from three countries, will be used to build a model that predicts crop yields over time in regions without crop data. This model will provide new insights into the historical crop yields of the region. Furthermore, these tabular features of satellite imagery, and the methodology developed to create them, will enable more people around the globe to build models and generate predictions of other social and environmental variables in this region.\nVideo submission\n\nVideo\n\nPoster submission\n\n\n\nPlease feel free to contact my team at cp-cropmosaiks.bren.ucsb.edu or inspect our code in our github organization, cropMOSAIKS. Thanks!\n\n\n\n",
     "preview": "posts/2022-04-23-new-horizons/NHC.png",
-    "last_modified": "2022-05-29T16:39:55+00:00",
+    "last_modified": "2022-05-29T18:14:12+00:00",
     "input_file": {},
     "preview_width": 758,
     "preview_height": 439
@@ -39,11 +90,13 @@
       "Python",
       "Spatial Analysis",
       "Remote Sensing",
-      "Google Earth Engine"
+      "Google Earth Engine",
+      "Africa",
+      "MOSAIKS"
     ],
     "contents": "\nNDVI Animated Images\nThe following code is adapted from a Google Earth Engine JavaScript tutorial. The code was translated into python and reproduced with several color palettes. The python code is found on the CropMOSAIKS GitHub.\nimport ee\nimport geemap\nimport os\nimport glob\nfrom PIL import Image\n# Initialize google earth engine\nee.Initialize()\n\n# Fetch a MODIS NDVI collection and select NDVI.\nimg_collection = ee.ImageCollection('MODIS/006/MOD13A2').select('NDVI')\n\n# Define a mask to clip the NDVI data by.\nmask = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017').filter(ee.Filter.eq('wld_rgn', 'Africa'))\n\n# Define the regional bounds of animation frames.\nregion = ee.Geometry.Polygon(\n  [[[-18.698368046353494, 38.1446395611524],\n    [-18.698368046353494, -36.16300755581617],\n    [52.229366328646506, -36.16300755581617],\n    [52.229366328646506, 38.1446395611524]]], None, False\n)\n# Add day-of-year (DOY) property to each image.\ndef clip_and_get_day_of_year(img):\n    img = img.clip(mask)\n    doy = ee.Date(img.get('system:time_start')).getRelative('day', 'year')\n    return img.set('doy', doy)\n# Apply median reduction among matching DOY collections.\ndef match_day_of_year_and_reduce(img):\n    doyCol = ee.ImageCollection.fromImages(img.get('doy_matches'))\n    return doyCol.reduce(ee.Reducer.median())\nnatural = [\n    'FFFFFF', 'CE7E45', 'DF923D', 'F1B555', 'FCD163', '99B718', '74A901',\n    '66A000', '529400', '3E8601', '207401', '056201', '004C00', '023B01',\n    '012E01', '011D01', '011301'\n]\nviridis = [\n    \"#440154FF\", \"#48186AFF\", \"#472D7BFF\", \"#424086FF\", \"#3B528BFF\", \"#33638DFF\", \n    \"#2C728EFF\", \"#26828EFF\", \"#21908CFF\", \"#1F9F88FF\", \"#27AD81FF\", \"#3EBC74FF\",\n    \"#5DC863FF\", \"#82D34DFF\", \"#AADC32FF\", \"#D5E21AFF\", \"#FDE725FF\"\n]\nmagma = [\n    \"#000004FF\", \"#0B0724FF\", \"#210C4AFF\", \"#3D0965FF\", \"#56106EFF\", \"#71196EFF\", \n    \"#89226AFF\", \"#A32C61FF\", \"#BB3754FF\", \"#D14545FF\", \"#E35932FF\", \"#F1721EFF\",\n    \"#F98C0AFF\", \"#FCAA0FFF\", \"#F9C932FF\", \"#F2E865FF\", \"#FCFFA4FF\"\n]\ncividis = [\n    \"#00204DFF\", \"#002C69FF\", \"#05366EFF\", \"#2D426CFF\", \"#414D6BFF\", \"#52596CFF\", \n    \"#61646FFF\", \"#6F7073FF\", \"#7C7B78FF\", \"#8B8779FF\", \"#9B9477FF\", \"#ACA174FF\",\n    \"#BCAF6FFF\", \"#CEBC68FF\", \"#E0CB5EFF\", \"#F2DA50FF\", \"#FFEA46FF\"\n]\n# Define visualization parameters.\nvis_params = {\n  'region': region,\n  'dimensions': 600,\n  'crs': 'EPSG:3857',\n  'framesPerSecond': 10,\n  'min': 0.0,\n  'max': 9000.0,\n  'palette': magma\n}\nimg_collection = img_collection.map(clip_and_get_day_of_year)\nimg_dates = img_collection.aggregate_array('system:index').getInfo()\nstart_yr = int(img_dates[0][:4])\nend_yr = int(img_dates[-1][:4])\nyears = range(start_yr, end_yr + 1, 1)\nindex_array = []\nfor year in years:\n    print('Downloading: ', year)\n    date_start = f'{str(year)}-01-01'\n    date_end = f'{str(year)}-12-31'\n    # Get a collection of distinct images by 'doy'.\n    distinct_doy = img_collection.filterDate(date_start, date_end)\n\n    # Define a filter that identifies which images from the complete\n    # collection match the DOY from the distinct DOY collection.\n    filtered = ee.Filter.equals(leftField = 'doy', rightField = 'doy')\n\n    # Define a join.\n    joined = ee.Join.saveAll('doy_matches')\n\n    # Apply the join and convert the resulting FeatureCollection to an ImageCollection.\n    join_img_collection = ee.ImageCollection(joined.apply(distinct_doy, img_collection, filtered))\n\n    img_composite = join_img_collection.map(match_day_of_year_and_reduce)\n    index_array = index_array + img_composite.aggregate_array('system:index').getInfo()\n    \n    temp_file_name = f\"animations/temp_ndvi_{str(year)}.gif\"\n    \n    geemap.download_ee_video(img_composite, vis_params, temp_file_name)\n# filepaths\nfp_in = \"animations/temp_*.gif\"\nfp_out = \"animations/ndvi.gif\"\n\n# https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#gif\nimg, *imgs = [Image.open(f) for f in sorted(glob.glob(fp_in))]\nimg.save(fp = fp_out, \n         format = 'GIF',\n         append_images = imgs,\n         save_all = True, \n         duration = 100, \n         loop = 1)\ngeemap.add_text_to_gif(\n    in_gif = fp_out, \n    out_gif = fp_out,\n    xy = ('75%', '1%'),\n    text_sequence = index_array,\n    font_type = 'arial.ttf',\n    font_size = 20,\n    font_color='white',\n    add_progress_bar = True,\n    progress_bar_color = 'white',\n    progress_bar_height = 5,\n    duration = 100, # milliseconds per frame so 200 is 5 fps, 100 is 10 fps etc\n    loop = 0\n)\n\n\n\n\n",
     "preview": "posts/2022-01-23-cropmosaiks-animated-ndvi/ndvi.gif",
-    "last_modified": "2022-05-29T16:39:55+00:00",
+    "last_modified": "2022-05-29T18:04:54+00:00",
     "input_file": {}
   },
   {
@@ -61,11 +114,13 @@
       "Python",
       "Spatial Analysis",
       "Remote Sensing",
-      "Google Earth Engine"
+      "Google Earth Engine",
+      "Africa",
+      "MOSAIKS"
     ],
     "contents": "\nNDVI Static Images\nThe following code is adapted from a Google Earth Engine JavaScript tutorial. The code was translated into python, made static, and reproduced with several color palettes. The python code is found on the CropMOSAIKS GitHub.\nimport ee\nfrom IPython.display import Image\nee.Initialize()\nndvi = ee.ImageCollection('MODIS/006/MOD13A2').select('NDVI')\nmask = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017').filter(ee.Filter.eq('wld_rgn', 'Africa'))\nregion = ee.Geometry.Polygon(\n  [\n      [\n          [-19.698368046353494, 38.1446395611524],\n          [-19.698368046353494, -36.16300755581617],\n          [53.229366328646506, -36.16300755581617],\n          [53.229366328646506, 38.1446395611524]\n      ]\n  ]\n)\nndvi = ndvi.filterDate('2013-01-01', '2014-01-01')\nndvi = ndvi.reduce(ee.Reducer.median())\nndvi = ndvi.clip(mask)\nnatural = [\n    'FFFFFF', 'CE7E45', 'DF923D', 'F1B555', 'FCD163', '99B718', '74A901',\n    '66A000', '529400', '3E8601', '207401', '056201', '004C00', '023B01',\n    '012E01', '011D01', '011301'\n]\nviridis = [\n    \"#440154FF\", \"#48186AFF\", \"#472D7BFF\", \"#424086FF\", \"#3B528BFF\", \"#33638DFF\", \n    \"#2C728EFF\", \"#26828EFF\", \"#21908CFF\", \"#1F9F88FF\", \"#27AD81FF\", \"#3EBC74FF\",\n    \"#5DC863FF\", \"#82D34DFF\", \"#AADC32FF\", \"#D5E21AFF\", \"#FDE725FF\"\n]\nmagma = [\n    \"#000004FF\", \"#0B0724FF\", \"#210C4AFF\", \"#3D0965FF\", \"#56106EFF\", \"#71196EFF\", \n    \"#89226AFF\", \"#A32C61FF\", \"#BB3754FF\", \"#D14545FF\", \"#E35932FF\", \"#F1721EFF\",\n    \"#F98C0AFF\", \"#FCAA0FFF\", \"#F9C932FF\", \"#F2E865FF\", \"#FCFFA4FF\"\n]\ncividis = [\n    \"#00204DFF\", \"#002C69FF\", \"#05366EFF\", \"#2D426CFF\", \"#414D6BFF\", \"#52596CFF\", \n    \"#61646FFF\", \"#6F7073FF\", \"#7C7B78FF\", \"#8B8779FF\", \"#9B9477FF\", \"#ACA174FF\",\n    \"#BCAF6FFF\", \"#CEBC68FF\", \"#E0CB5EFF\", \"#F2DA50FF\", \"#FFEA46FF\"\n  ]\n#  # Closer to True color\nvisParams = {\n  'min': 0.0,\n  'max': 9000.0,\n  'dimensions': 512,\n  'region': region, \n  'opacity': 1,\n  'palette': natural\n}\nurl = ndvi.getThumbUrl(visParams)\nImage(url=url, embed=True, format = 'png')\n\n# # Viridis\nvisParams = {\n  'min': 0.0,\n  'max': 9000.0,\n  'dimensions': 512,\n  'region': region, \n  'opacity': 1,\n  'palette': viridis\n}\nurl = ndvi.getThumbUrl(visParams)\nImage(url=url, embed=True, format = 'png')\n\nvisParams = {\n  'min': 0.0,\n  'max': 9000.0,\n  'dimensions': 512,\n  'region': region, \n  'opacity': 1,\n  'palette': magma\n}\nurl = ndvi.getThumbUrl(visParams)\nImage(url=url, embed=True, format = 'png')\n\nvisParams = {\n  'min': 0.0,\n  'max': 9000.0,\n  'dimensions': 512,\n  'region': region, \n  'opacity': 1,\n  'palette': cividis\n}\nurl = ndvi.getThumbUrl(visParams)\nImage(url=url, embed=True, format = 'png')\n\n\n\n\n",
     "preview": "posts/2022-01-22-cropmosaiks-team-graphics/output_13_0.png",
-    "last_modified": "2022-05-29T16:39:55+00:00",
+    "last_modified": "2022-05-29T18:05:15+00:00",
     "input_file": {},
     "preview_width": 432,
     "preview_height": 512
