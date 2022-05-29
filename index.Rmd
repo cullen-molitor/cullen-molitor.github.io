@@ -1,6 +1,6 @@
 ---
 title: "Cullen Molitor"
-image: "www/Molitor_Cullen_meds22.jpg"
+image: "www/Cullen_Molitor.jpg"
 links:
   - label: GitHub
     url: "https://github.com/cullen-molitor"
@@ -12,6 +12,8 @@ links:
     url: "https://bren.ucsb.edu/people/cullen-molitor"
   - label: MEDS Capstone
     url: "https://bren.ucsb.edu/projects/open-source-pipeline-remote-sensing-crop-yields-under-environmental-change-sub-saharan"
+  - label: OHI Profile
+    url: "https://oceanhealthindex.org/about/ohifellows/"
 output:
   postcards::jolla
 site: distill::distill_website

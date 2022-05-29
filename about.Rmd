@@ -7,3 +7,68 @@ output:
 ---
 
 I am is a marine ecologist with expertise in long term monitoring of kelp forest environments in California. I graduated from Humboldt State University in 2014 where I studied history, mathematics, and scientific diving. I enjoys outdoor activities such as mountain biking, camping, and freediving. I am currently a master’s candidate of Environmental Data Science at the Bren School of Environmental Science and Management at UC Santa Barbara. I have worked five seasons with Channel Islands National Park's Kelp Forest Monitoring Program where I developed my skills in subtidal field methods, data collection, data quality control, and database management. I am interested in how ecological communities change in response to environmental stressors such as climate patterns, fishing pressure, and disease events. I aspire to continue working in marine ecology with expanded data processing, modeling, and presentation skills tp apply towards improving our understanding of these complex ecosystems. My goal is to produce products that effectively synthesize long term datasets to understand the processes which drive kelp forest communities, and ultimately share this understanding with the scientific community and the broader public. 
+
+![](www/yukon.png)
+
+_Diving the wreck of the Yukon off the coast of San Diego California_
+
+![](www/MDT.jpg)
+
+_Preparing to dive heavy gear at Santa Barbara City College_
+
+
+![](www/20180514_163218247_iOS.jpg)
+
+_Diving heavy gear at Santa Barbara City College_
+
+![](www/20180621_082250820_iOS.jpg)
+
+_Diving Southeast Reef, Santa Barbara Island_
+
+![](www/20180621_092000220_iOS.jpg)
+
+_Diving Southeast Reef, Santa Barbara Island_
+
+![](www/20180621_094532950_iOS.jpg)
+
+_Diving Southeast Reef, Santa Barbara Island_
+
+![](www/20190708_211618396_iOS.png)
+
+_Preparing to dive surface supplied air at Cathedral Cove, Anacapa Island_
+
+![](www/20200612_024012576_iOS.jpg)
+
+_Cycling up Gibraltar Road, Los Padres National Forest_
+
+![](www/20200628_125706147_iOS.jpg)
+
+_Camping in Los Padres National Forest_
+
+![](www/20200715_175927285_iOS.jpg)
+
+_Mountain Biking Mammoth Mountain_
+
+![](www/20200814_180931606_iOS.jpg)
+
+_Cavern Point restoration project Santa Cruz Island_
+
+![](www/20210403_224419783_iOS.jpg)
+
+_Mountain Biking Romero Canyon, Los Padres National Forest_
+
+![](www/20210807_194453102_iOS.jpg)
+
+_Mountain Biking Big Bear, San Bernardino National Forest_
+
+![](www/admirals_pencil.jpg)
+
+_Band transects at Admirals Reef, Anacapa Island_
+
+![](www/admirals_reef.jpg)
+
+_Band transects at Admirals Reef, Anacapa Island_
+
+![](www/Van_damme.jpg)
+
+_Reef Check Calironia Survey, Van Damme Beach, Little River, California_
