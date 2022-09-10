@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -87,53 +88,53 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-<title>Cullen Molitor: Iowa's Wind Power Potential</title>
+<title>Cullen Molitor: Wrangling tidal flat data with R</title>
 
-<meta property="description" itemprop="description" content="This analysis is used to determine locations in Iowa that would be suitible for wind turbine power plant installation as well as to calculate the hypothetical potential wind energy production capacity of these areas. This type of analysis can be used as a baseline in determining the maximum cost and benefits for potential renewable energy projects."/>
+<meta property="description" itemprop="description" content="Using R to explore and make use of large raster data can be challenging. This post provides some strategies for working with tiled raster data at a global scale at 30 meter resolution. The goal of this post is to demonstrate how to summarize this data to the country level."/>
 
-<link rel="canonical" href="cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/"/>
+<link rel="canonical" href="cullen-molitor.github.io/posts/2022-09-10-tidal-flats/"/>
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-12-03"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-12-03"/>
+<meta property="article:published" itemprop="datePublished" content="2022-09-10"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-09-10"/>
 <meta name="article:author" content="Cullen Molitor"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="Cullen Molitor: Iowa&#39;s Wind Power Potential"/>
+<meta property="og:title" content="Cullen Molitor: Wrangling tidal flat data with R"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="This analysis is used to determine locations in Iowa that would be suitible for wind turbine power plant installation as well as to calculate the hypothetical potential wind energy production capacity of these areas. This type of analysis can be used as a baseline in determining the maximum cost and benefits for potential renewable energy projects."/>
-<meta property="og:url" content="cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/"/>
-<meta property="og:image" content="cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/output_58_0.png"/>
-<meta property="og:image:width" content="496"/>
-<meta property="og:image:height" content="346"/>
+<meta property="og:description" content="Using R to explore and make use of large raster data can be challenging. This post provides some strategies for working with tiled raster data at a global scale at 30 meter resolution. The goal of this post is to demonstrate how to summarize this data to the country level."/>
+<meta property="og:url" content="cullen-molitor.github.io/posts/2022-09-10-tidal-flats/"/>
+<meta property="og:image" content="cullen-molitor.github.io/posts/2022-09-10-tidal-flats/terra_hex.png"/>
+<meta property="og:image:width" content="785"/>
+<meta property="og:image:height" content="881"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="Cullen Molitor"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary_large_image"/>
-<meta property="twitter:title" content="Cullen Molitor: Iowa&#39;s Wind Power Potential"/>
-<meta property="twitter:description" content="This analysis is used to determine locations in Iowa that would be suitible for wind turbine power plant installation as well as to calculate the hypothetical potential wind energy production capacity of these areas. This type of analysis can be used as a baseline in determining the maximum cost and benefits for potential renewable energy projects."/>
-<meta property="twitter:url" content="cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/"/>
-<meta property="twitter:image" content="cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/output_58_0.png"/>
-<meta property="twitter:image:width" content="496"/>
-<meta property="twitter:image:height" content="346"/>
+<meta property="twitter:title" content="Cullen Molitor: Wrangling tidal flat data with R"/>
+<meta property="twitter:description" content="Using R to explore and make use of large raster data can be challenging. This post provides some strategies for working with tiled raster data at a global scale at 30 meter resolution. The goal of this post is to demonstrate how to summarize this data to the country level."/>
+<meta property="twitter:url" content="cullen-molitor.github.io/posts/2022-09-10-tidal-flats/"/>
+<meta property="twitter:image" content="cullen-molitor.github.io/posts/2022-09-10-tidal-flats/terra_hex.png"/>
+<meta property="twitter:image:width" content="785"/>
+<meta property="twitter:image:height" content="881"/>
 
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
-<meta name="citation_title" content="Cullen Molitor: Iowa&#39;s Wind Power Potential"/>
-<meta name="citation_fulltext_html_url" content="cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/"/>
-<meta name="citation_online_date" content="2021/12/03"/>
-<meta name="citation_publication_date" content="2021/12/03"/>
+<meta name="citation_title" content="Cullen Molitor: Wrangling tidal flat data with R"/>
+<meta name="citation_fulltext_html_url" content="cullen-molitor.github.io/posts/2022-09-10-tidal-flats/"/>
+<meta name="citation_online_date" content="2022/09/10"/>
+<meta name="citation_publication_date" content="2022/09/10"/>
 <meta name="citation_author" content="Cullen Molitor"/>
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","preview","categories","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Iowa's Wind Power Potential"]},{"type":"character","attributes":{},"value":["This analysis is used to determine locations in Iowa that would be suitible for wind turbine power plant installation as well as to calculate the hypothetical potential wind energy production capacity of these areas. This type of analysis can be used as a baseline in determining the maximum cost and benefits for potential renewable energy projects."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Cullen Molitor"]}]}]},{"type":"character","attributes":{},"value":["2021-12-03"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["output_58_0.png"]},{"type":"character","attributes":{},"value":["Python","SQL","Spatial Analysis"]},{"type":"character","attributes":{},"value":["cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/"]},{"type":"character","attributes":{},"value":["cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","preview","categories","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Wrangling tidal flat data with R"]},{"type":"character","attributes":{},"value":["Using R to explore and make use of large raster data can be challenging. This post provides some strategies for working with tiled raster data at a global scale at 30 meter resolution. The goal of this post is to demonstrate how to summarize this data to the country level."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Cullen Molitor"]},{"type":"character","attributes":{},"value":["https://github.com/cullen-molitor"]}]}]},{"type":"character","attributes":{},"value":["2022-09-10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["hide"]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["terra_hex.png"]},{"type":"character","attributes":{},"value":["R","Remote Sensing","Spatial Analysis","Ocean Data"]},{"type":"character","attributes":{},"value":["cullen-molitor.github.io/posts/2022-09-10-tidal-flats/"]},{"type":"character","attributes":{},"value":["cullen-molitor.github.io/posts/2022-09-10-tidal-flats/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["iowas-wind-power-potential_files/anchor-4.2.2/anchor.min.js","iowas-wind-power-potential_files/bowser-1.9.3/bowser.min.js","iowas-wind-power-potential_files/distill-2.2.21/template.v2.js","iowas-wind-power-potential_files/header-attrs-2.11/header-attrs.js","iowas-wind-power-potential_files/jquery-3.6.0/jquery-3.6.0.js","iowas-wind-power-potential_files/jquery-3.6.0/jquery-3.6.0.min.js","iowas-wind-power-potential_files/jquery-3.6.0/jquery-3.6.0.min.map","iowas-wind-power-potential_files/popper-2.6.0/popper.min.js","iowas-wind-power-potential_files/tippy-6.2.7/tippy-bundle.umd.min.js","iowas-wind-power-potential_files/tippy-6.2.7/tippy-light-border.css","iowas-wind-power-potential_files/tippy-6.2.7/tippy.css","iowas-wind-power-potential_files/tippy-6.2.7/tippy.umd.min.js","iowas-wind-power-potential_files/webcomponents-2.0.0/webcomponents.js","output_40_0.png","output_41_0.png","output_47_0.png","output_58_0.png"]}
+  {"type":"character","attributes":{},"value":["jitze_couperus_cargill_flats_flickr.jpg","plot_1.png","plot_2.png","terra_hex.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2399,7 +2400,7 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.15/header-attrs.js"></script>
   <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -2420,7 +2421,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Iowa's Wind Power Potential","description":"This analysis is used to determine locations in Iowa that would be suitible for wind turbine power plant installation as well as to calculate the hypothetical potential wind energy production capacity of these areas. This type of analysis can be used as a baseline in determining the maximum cost and benefits for potential renewable energy projects.","authors":[{"author":"Cullen Molitor","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-12-03T00:00:00.000-08:00","citationText":"Molitor, 2021"}
+{"title":"Wrangling tidal flat data with R","description":"Using R to explore and make use of large raster data can be challenging. This post provides some strategies for working with tiled raster data at a global scale at 30 meter resolution. The goal of this post is to demonstrate how to summarize this data to the country level.","authors":[{"author":"Cullen Molitor","authorURL":"https://github.com/cullen-molitor","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-09-10T00:00:00.000-07:00","citationText":"Molitor, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2448,524 +2449,491 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Iowa’s Wind Power Potential</h1>
+<h1>Wrangling tidal flat data with R</h1>
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
-  <a href="../../blog.html#category:Python" class="dt-tag">Python</a>
-  <a href="../../blog.html#category:SQL" class="dt-tag">SQL</a>
+  <a href="../../blog.html#category:R" class="dt-tag">R</a>
+  <a href="../../blog.html#category:Remote_Sensing" class="dt-tag">Remote Sensing</a>
   <a href="../../blog.html#category:Spatial_Analysis" class="dt-tag">Spatial Analysis</a>
+  <a href="../../blog.html#category:Ocean_Data" class="dt-tag">Ocean Data</a>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>This analysis is used to determine locations in Iowa that would be suitible for wind turbine power plant installation as well as to calculate the hypothetical potential wind energy production capacity of these areas. This type of analysis can be used as a baseline in determining the maximum cost and benefits for potential renewable energy projects.</p></p>
+<p><p>Using R to explore and make use of large raster data can be
+challenging. This post provides some strategies for working with tiled
+raster data at a global scale at 30 meter resolution. The goal of this
+post is to demonstrate how to summarize this data to the country
+level.</p></p>
 </div>
 
 <div class="d-byline">
-  Cullen Molitor  
+  Cullen Molitor <a href="https://github.com/cullen-molitor"
+class="uri">https://github.com/cullen-molitor</a> 
   
-<br/>2021-12-03
+<br/>2022-09-10
 </div>
 
 <div class="d-article">
-<h2 id="import-modules">Import Modules</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlalchemy <span class="im">as</span> sa</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> ctx</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code></pre></div>
-<h2 id="database-connection">Database Connection</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pg_uri_template <span class="op">=</span> <span class="st">&#39;postgresql+psycopg2://</span><span class="sc">{user}</span><span class="st">:</span><span class="sc">{pwd}</span><span class="st">@</span><span class="sc">{host}</span><span class="st">/</span><span class="sc">{db_name}</span><span class="st">&#39;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>db_uri <span class="op">=</span> pg_uri_template.<span class="bu">format</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    drivername<span class="op">=</span><span class="st">&#39;postgresql+psycopg2&#39;</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    host <span class="op">=</span> <span class="st">&#39;{ip address}&#39;</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    user <span class="op">=</span> <span class="st">&#39;</span><span class="sc">{username}</span><span class="st">&#39;</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    pwd <span class="op">=</span> <span class="st">&#39;</span><span class="sc">{pwd}</span><span class="st">&#39;</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    db_name <span class="op">=</span> <span class="st">&#39;osmiowa&#39;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>engine <span class="op">=</span> sa.create_engine(db_uri)</span></code></pre></div>
-<h2 id="data-details">Data Details</h2>
-<p>Database Name: - osmiowa</p>
-<p>Database Tables: - planet_osm_line - planet_osm_point - planet_osm_polygon - planet_osm_roads - spatial_ref_sys - wind - wind_cells</p>
-<p>Geometry: - Projected in <a href="https://epsg.io/26975">EPSG:26975</a> - Geodetic CRS: NAD83 - Units: meters - Coordinate system: Cartesian 2D CS - Axes: easting, northing (X,Y) - Orientations: east, north</p>
-<h1 id="query-database">Query Database</h1>
-<p>Residential Scenario 1 (3H)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sql_buildings_residential_1 <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 450) as way</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_polygon </span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">    building IN (&#39;yes&#39;, &#39;residential&#39;, &#39;apartments&#39;, &#39;house&#39;, &#39;static_caravan&#39;, &#39;detached&#39;)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">OR </span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">    landuse = &#39;residential&#39;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">OR </span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">    place = &#39;town&#39;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Residential Scenario 2 (10H)</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sql_buildings_residential_2 <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 1500) as way </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_polygon </span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    building </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">IN </span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    (&#39;yes&#39;, &#39;residential&#39;, &#39;apartments&#39;, &#39;house&#39;, &#39;static_caravan&#39;, &#39;detached&#39;)</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">OR </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">    landuse = &#39;residential&#39;</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">OR</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">    place = &#39;town&#39;</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Non-residential (3H)</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sql_buildings_nonresidential <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 450) as way</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_polygon </span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">    building </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">NOT IN </span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">    (&#39;yes&#39;, &#39;residential&#39;, &#39;apartments&#39;, &#39;house&#39;, &#39;static_caravan&#39;, &#39;detached&#39;)</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Airports</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sql_airports <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 7500) as way</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_polygon </span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">    aeroway IS NOT NULL</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Military Bases</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sql_military <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 0) as way </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_polygon </span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">    military IS NOT NULL</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">OR </span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">    landuse = &#39;military&#39;</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Railways and Roads</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sql_railways_n_roads <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 300) as way</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_line </span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">    (railway IS NOT NULL</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">     AND railway </span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">     NOT IN (&#39;abandoned&#39;, &#39;disused&#39;, &#39;razed&#39;, &#39;dismantled&#39;))</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">OR </span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">    (highway IS NOT NULL</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">AND </span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">    highway </span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">IN </span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">    (&#39;motorway&#39;, &#39;motorway_link&#39;, &#39;trunk&#39;, &#39;trunk_link&#39;, &#39;road&#39;,</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">    &#39;primary&#39;, &#39;primary_link&#39;, &#39;secondary&#39;, &#39;secondary_link&#39;))</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Nature Reserves, Parks, and Wetlands</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sql_nature <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">    way </span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_polygon </span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">    leisure </span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">IN </span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">    (&#39;nature_reserve&#39;, &#39;park&#39;)</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">OR</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;natural&quot; </span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">IN </span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">    (&#39;wetland&#39;)</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Rivers</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sql_rivers <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 150) as way </span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_line </span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">    waterway </span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">IN </span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">    (&#39;river&#39;)</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Lakes</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sql_lakes <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">    way</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_polygon</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">    water </span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">IN </span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">    (&#39;lake&#39;, &#39;reservoir&#39;, &#39;pond&#39;)</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Power Lines</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sql_powerlines <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 300) as way</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_line </span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">    power IS NOT NULL</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Power Plants</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sql_powerplants <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT </span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 150) as way</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_polygon </span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">    power IS NOT NULL</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Wind Turbines</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sql_turbines <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ST_BUFFER(way, 680) as way</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">    planet_osm_point </span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;generator:source&quot; IS NOT NULL</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">AND </span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;generator:source&quot; IN (&#39;wind&#39;)</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
-<h2 id="merge-subqueries">Merge Subqueries</h2>
-<h3 id="scenario-1">Scenario 1</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sql_siting_constraints <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ss">f&quot;&quot;&quot;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_buildings_residential_1<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_buildings_nonresidential<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_airports<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_military<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_railways_n_roads<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_nature<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_rivers<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_lakes<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_powerlines<span class="sc">}</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_powerplants<span class="sc">}</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_turbines<span class="sc">}</span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="ss">&quot;&quot;&quot;</span></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>siting_constraints <span class="op">=</span> gpd.read_postgis(sql_siting_constraints, con <span class="op">=</span> engine, geom_col <span class="op">=</span> <span class="st">&#39;way&#39;</span>)</span></code></pre></div>
-<h3 id="scenario-2">Scenario 2</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sql_siting_constraints_2 <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ss">f&quot;&quot;&quot;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_buildings_residential_2<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_buildings_nonresidential<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_airports<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_military<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_railways_n_roads<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_nature<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_rivers<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_lakes<span class="sc">}</span><span class="ss"> </span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_powerlines<span class="sc">}</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_powerplants<span class="sc">}</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="ss">UNION</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_turbines<span class="sc">}</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="ss">&quot;&quot;&quot;</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>siting_constraints_2 <span class="op">=</span> gpd.read_postgis(sql_siting_constraints_2, con <span class="op">=</span> engine, geom_col <span class="op">=</span> <span class="st">&#39;way&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>siting_constraints.plot(ax <span class="op">=</span> ax, markersize <span class="op">=</span> <span class="fl">.1</span>, color <span class="op">=</span> <span class="st">&quot;purple&quot;</span>, alpha <span class="op">=</span> <span class="fl">.5</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, color <span class="op">=</span> <span class="st">&#39;dimgray&#39;</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">&#39;Siting Constraints (Scenario 1)&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>ax.ticklabel_format(scilimits <span class="op">=</span>  [<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>])</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span><span class="st">&quot;EPSG:26975&quot;</span>)</span></code></pre></div>
-<p><img src="output_40_0.png" /></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>siting_constraints_2.plot(ax <span class="op">=</span> ax, markersize <span class="op">=</span> <span class="fl">.1</span>, color <span class="op">=</span> <span class="st">&quot;purple&quot;</span>, alpha <span class="op">=</span> <span class="fl">.5</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, color <span class="op">=</span> <span class="st">&#39;dimgray&#39;</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">&#39;Siting Constraints (Scenario 2)&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ax.ticklabel_format(scilimits <span class="op">=</span>  [<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>])</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span><span class="st">&quot;EPSG:26975&quot;</span>)</span></code></pre></div>
-<p><img src="output_41_0.png" /></p>
-<h2 id="wind-data">Wind Data</h2>
-<p>The table wind_cells_10000 contains 10 km2 square polygons with associated average annual wind speeds (m s-1), arranged to cover Iowa in a ragged grid.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sql_wind_speeds <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">SELECT * </span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">FROM </span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">    wind_cells_10000 </span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">WHERE </span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">    wind_speed IS NOT NULL</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>wind_speeds <span class="op">=</span> gpd.read_postgis(sql_wind_speeds, con <span class="op">=</span> engine, geom_col <span class="op">=</span> <span class="st">&#39;geom&#39;</span>)</span></code></pre></div>
-<h1 id="results">Results</h1>
-<h2 id="scenario-1-1">Scenario #1</h2>
-<h3 id="subtract-siting-constraints-from-wind-cells">Subtract Siting Constraints from Wind Cells</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>suitable_cells <span class="op">=</span> wind_speeds.overlay(siting_constraints, how <span class="op">=</span> <span class="st">&#39;difference&#39;</span>, keep_geom_type <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
-<h3 id="plot-suitable-wind-cells">Plot Suitable Wind Cells</h3>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>suitable_cells.plot(ax <span class="op">=</span> ax, markersize <span class="op">=</span> <span class="fl">.1</span>, color <span class="op">=</span> <span class="st">&quot;purple&quot;</span>, alpha <span class="op">=</span> <span class="fl">.5</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, color <span class="op">=</span> <span class="st">&#39;dimgray&#39;</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">&#39;Suitable Areas (Scenario 1)&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>ax.ticklabel_format(scilimits <span class="op">=</span>  [<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>])</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span><span class="st">&quot;EPSG:26975&quot;</span>)</span></code></pre></div>
-<p><img src="output_47_0.png" /></p>
-<h3 id="find-number-of-turbines">Find Number of Turbines</h3>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>rotor_5x <span class="op">=</span> math.pi <span class="op">*</span> (<span class="dv">136</span> <span class="op">*</span> <span class="dv">5</span>) <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>suitable_cells[<span class="st">&quot;area&quot;</span>] <span class="op">=</span> suitable_cells[<span class="st">&#39;geom&#39;</span>].area</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>suitable_cells[<span class="st">&quot;number_wind_turbines&quot;</span>] <span class="op">=</span> suitable_cells[<span class="st">&#39;geom&#39;</span>].area <span class="op">/</span> rotor_5x</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>total_wind_turbines <span class="op">=</span> suitable_cells[<span class="st">&quot;number_wind_turbines&quot;</span>].<span class="bu">sum</span>()</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The total number of turbines in scenario 1 is:&quot;</span>, <span class="bu">round</span>(total_wind_turbines))</span></code></pre></div>
-<pre><code>The total number of turbines in scenario 1 is: 57286</code></pre>
-<h3 id="power-production">Power production</h3>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>suitable_cells[<span class="st">&#39;energy_per_turbine&#39;</span>] <span class="op">=</span> <span class="fl">2.6</span> <span class="op">*</span> suitable_cells[<span class="st">&#39;wind_speed&#39;</span>] <span class="op">-</span> <span class="dv">5</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>suitable_cells[<span class="st">&#39;power_per_cell&#39;</span>] <span class="op">=</span> suitable_cells[<span class="st">&#39;energy_per_turbine&#39;</span>] <span class="op">*</span> suitable_cells[<span class="st">&#39;number_wind_turbines&#39;</span>]</span></code></pre></div>
-<h3 id="total-power-production">Total Power Production</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>total_scenario_1 <span class="op">=</span> suitable_cells[<span class="st">&#39;power_per_cell&#39;</span>].<span class="bu">sum</span>()</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The total power produced in scenario 1 is:&quot;</span>, <span class="bu">round</span>(total_scenario_1), <span class="st">&quot;GWH/year&quot;</span>)</span></code></pre></div>
-<pre><code>The total power produced in scenario 1 is: 1064159 GWH/year</code></pre>
-<h2 id="scenario-2-1">Scenario #2</h2>
-<h3 id="subtract-siting-constraints-from-wind-cells-1">Subtract Siting Constraints from Wind Cells</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>suitable_cells_2 <span class="op">=</span> wind_speeds.overlay(siting_constraints_2, how <span class="op">=</span> <span class="st">&#39;difference&#39;</span>, keep_geom_type <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
-<h3 id="plot-suitable-wind-cells-1">Plot Suitable Wind Cells</h3>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>suitable_cells_2.plot(ax <span class="op">=</span> ax, markersize <span class="op">=</span> <span class="fl">.1</span>, color <span class="op">=</span> <span class="st">&quot;purple&quot;</span>, alpha <span class="op">=</span> <span class="fl">.5</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, color <span class="op">=</span> <span class="st">&#39;dimgray&#39;</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">&#39;Suitable Areas (Scenario 2)&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>ax.ticklabel_format(scilimits <span class="op">=</span>  [<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>])</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span><span class="st">&quot;EPSG:26975&quot;</span>)</span></code></pre></div>
-<p><img src="output_58_0.png" /></p>
-<h3 id="find-number-of-turbines-1">Find Number of Turbines</h3>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>rotor_5x <span class="op">=</span> math.pi <span class="op">*</span> (<span class="dv">136</span> <span class="op">*</span> <span class="dv">5</span>) <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>suitable_cells_2[<span class="st">&quot;area&quot;</span>] <span class="op">=</span> suitable_cells_2[<span class="st">&#39;geom&#39;</span>].area</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>suitable_cells_2[<span class="st">&quot;number_wind_turbines&quot;</span>] <span class="op">=</span> suitable_cells_2[<span class="st">&#39;geom&#39;</span>].area <span class="op">/</span> rotor_5x</span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>total_wind_turbines_2 <span class="op">=</span> suitable_cells_2[<span class="st">&quot;number_wind_turbines&quot;</span>].<span class="bu">sum</span>()</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The total number of turbines in scenario 2 is:&quot;</span>, <span class="bu">round</span>(total_wind_turbines_2))</span></code></pre></div>
-<pre><code>The total number of turbines in scenario 2 is: 52055</code></pre>
-<h3 id="power-production-1">Power Production</h3>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>suitable_cells_2[<span class="st">&#39;energy_per_turbine&#39;</span>] <span class="op">=</span> <span class="fl">2.6</span> <span class="op">*</span> suitable_cells_2[<span class="st">&#39;wind_speed&#39;</span>] <span class="op">-</span> <span class="dv">5</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>suitable_cells_2[<span class="st">&#39;power_per_cell&#39;</span>] <span class="op">=</span> suitable_cells_2[<span class="st">&#39;energy_per_turbine&#39;</span>] <span class="op">*</span> suitable_cells_2[<span class="st">&#39;number_wind_turbines&#39;</span>]</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>wind_speeds</span></code></pre></div>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>
-</th>
-<th>
-id
-</th>
-<th>
-geom
-</th>
-<th>
-wind_speed
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>
-0
-</th>
-<td>
-1
-</td>
-<td>
-POLYGON ((1256222.769 1212179.582, 1266222.769…
-</td>
-<td>
-9.336039
-</td>
-</tr>
-<tr>
-<th>
-1
-</th>
-<td>
-2
-</td>
-<td>
-POLYGON ((1266222.769 1212179.582, 1276222.769…
-</td>
-<td>
-9.097315
-</td>
-</tr>
-<tr>
-<th>
-2
-</th>
-<td>
-3
-</td>
-<td>
-POLYGON ((1276222.769 1212179.582, 1286222.769…
-</td>
-<td>
-8.984566
-</td>
-</tr>
-<tr>
-<th>
-3
-</th>
-<td>
-4
-</td>
-<td>
-POLYGON ((1286222.769 1212179.582, 1296222.769…
-</td>
-<td>
-9.266137
-</td>
-</tr>
-<tr>
-<th>
-4
-</th>
-<td>
-5
-</td>
-<td>
-POLYGON ((1296222.769 1212179.582, 1306222.769…
-</td>
-<td>
-9.296747
-</td>
-</tr>
-<tr>
-<th>
-…
-</th>
-<td>
-…
-</td>
-<td>
-…
-</td>
-<td>
-…
-</td>
-</tr>
-<tr>
-<th>
-1437
-</th>
-<td>
-1438
-</td>
-<td>
-POLYGON ((1686222.769 902179.582, 1696222.769 …
-</td>
-<td>
-8.678687
-</td>
-</tr>
-<tr>
-<th>
-1438
-</th>
-<td>
-1439
-</td>
-<td>
-POLYGON ((1426222.769 892179.582, 1436222.769 …
-</td>
-<td>
-9.114730
-</td>
-</tr>
-<tr>
-<th>
-1439
-</th>
-<td>
-1440
-</td>
-<td>
-POLYGON ((1656222.769 892179.582, 1666222.769 …
-</td>
-<td>
-8.237385
-</td>
-</tr>
-<tr>
-<th>
-1440
-</th>
-<td>
-1441
-</td>
-<td>
-POLYGON ((1666222.769 892179.582, 1676222.769 …
-</td>
-<td>
-8.423034
-</td>
-</tr>
-<tr>
-<th>
-1441
-</th>
-<td>
-1442
-</td>
-<td>
-POLYGON ((1666222.769 882179.582, 1676222.769 …
-</td>
-<td>
-8.109468
-</td>
-</tr>
-</tbody>
-</table>
-<p>
-1442 rows × 3 columns
-</p>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#tidal-flat-data" id="toc-tidal-flat-data">Tidal flat
+Data</a>
+<ul>
+<li><a href="#data-exploration" id="toc-data-exploration">Data
+exploration</a></li>
+<li><a href="#transforming-the-data"
+id="toc-transforming-the-data">Transforming the data</a></li>
+<li><a href="#putting-it-all-together"
+id="toc-putting-it-all-together">Putting it all together</a></li>
+<li><a href="#consolidate-results"
+id="toc-consolidate-results">Consolidate results</a></li>
+</ul></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
 </div>
-<h3 id="total-power-production-1">Total Power Production</h3>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>total_scenario_2 <span class="op">=</span> suitable_cells_2[<span class="st">&#39;power_per_cell&#39;</span>].<span class="bu">sum</span>()</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The total power produced in scenario 2 is:&quot;</span>, <span class="bu">round</span>(total_scenario_2), <span class="st">&quot; GWH/year&quot;</span>)</span></code></pre></div>
-<pre><code>The total power produced in scenario 2 is: 967009  GWH/year</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h1 id="tidal-flat-data">Tidal flat Data</h1>
+<p>While working with the Ocean Health Index (OHI) during my summer
+fellowship, I was tasked with exploring and summarizing data that we
+wanted to integrate into the program to update the <a
+href="https://oceanhealthindex.org/goals/biodiversity/habitats/">habitat</a>
+subgoal of <a
+href="https://oceanhealthindex.org/goals/biodiversity/">biodiversity</a>.
+This data was for tidal flat ecosystems to complement the existing
+habitat types. Tidal flat habitat is defined as sand, rock, or mud flats
+that undergo regular tidal inundation. This vital habitat is distributed
+globally, but up until this recently there was very limited data on the
+extent of these ecosystems, especially at the global scale.</p>
+<p>The data come from a paper, <a
+href="https://www.nature.com/articles/s41586-018-0805-8">The global
+distribution and trajectory of tidal flats</a> (Murray et al. 2019),
+which used satellite imagery and machine learning methods to classify
+tidal flat habitat from over 700,000 satellite images between 1984 and
+2016.</p>
+<p>This new dataset has given OHI the opportunity to further improve
+their methods and in turn, the ability to understand the health of the
+world’s oceans. For example, the paper found that:</p>
+<blockquote>
+<p>“Extensive degradation from coastal development, reduced sediment
+delivery from major rivers, sinking of riverine deltas, increased
+coastal erosion, and sea-level rise signal a continuing negative
+trajectory for tidal flat ecosystems around the world.”</p>
+</blockquote>
+<p><img src="jitze_couperus_cargill_flats_flickr.jpg" /></p>
+<p>     <em>The interface of coastal development with tidal flat habitat
+off Redwood City, California (Photo: <a
+href="https://www.flickr.com/photos/jitze1942/5244615529/in/photolist-8Zs2tF-2mcBSEz-2mbaQWz-2eGrCBb-2mcR9AJ-riuRXd-2m9pjVX-dfpp5f-2ni8fyW-2maeZuS-237cW2k-2mbDn5Z-2mbfbXK-ZRJNMp-2mbvHuj-2mbaigy-2m9okJm-2m9KhCq-2ma4UN8-2maC7zZ-2m9H5Uu-2mb6sxZ-5A7XK2-SCXCLN-mEucZb-2mcJVgv-SCXCuA-5Q9qm-5qWU36-SCXCHG-r4fDrf-2maKF6K-2mbKNm7-2maWHYx-SCXC9f-of2jqp-PagPZo-24aBQVg-aMC5Jz-oJMgpT-9gsEyT-VRTZsv-P5Aez8-xsSKEo-3Yz3Si-YT1xo3-24Z2DH7-xbXZ3Q-qDc4vo-2kSmqmB">Jitze
+Couperus</a>)</em>.</p>
+<p>Tidal flats will affect the OHI global scores by adding additional
+layers to the habitat subgoal and carbon storage goal. The three new
+data layers created are tidal flat extent (measured in <span
+class="math inline">\(km^2\)</span>), tidal flat trend (proportional
+change), and tidal flat condition (current status compared to historic
+status).</p>
+<p>This post will give a brief explanation of tidal flat habitat,
+explore the new dataset, and demonstrate how to programmatically
+summarize the data in the R software environment. The goal of data
+summarization is to distill the large raster dataset into simple tabular
+data which can be integrated into the OHI annual analysis as new data
+layers for 2022 and beyond.</p>
+<h2 id="data-exploration">Data exploration</h2>
+<p>The published data product includes 11 sets (1 for each time step) of
+global tidal flat extent maps at 30 meter Ground Sample Distance (GSD;
+AKA resolution). This means that each pixel in each raster represents 30
+m<sup>2</sup>, and contains either 0 for “not tidal flat”, or 1 for
+“tidal flat.” This is a massive amount of data, but thankfully, each of
+the 11 time steps were broken into 108 files with discrete spatial
+extents, making individual files easy to work with.</p>
+<p>So where to begin? Well first, we needed to access the data. The
+authors provide several options for <a
+href="https://www.intertidal.app/download">data access</a> including
+through <a
+href="https://developers.google.com/earth-engine/datasets/tags/tidal-flats">Google
+Earth Engine</a>, <a
+href="https://data.unep-wcmc.org/datasets/47">UNEP-WCMC Ocean Data
+Viewer</a>, and finally through <a
+href="https://www.intertidal.app/download/direct-download">direct
+download</a>. We chose the direct download option and wrote a simple
+shell script that is executed in an R Markdown code chunk.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Make the new directory and move into it</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /<span class="op">&lt;</span>path<span class="op">&gt;</span>/<span class="op">&lt;</span>to<span class="op">&gt;</span>/<span class="op">&lt;</span>directory<span class="op">&gt;</span>/<span class="op">&lt;</span>of<span class="op">&gt;</span>/<span class="op">&lt;</span>choice<span class="op">&gt;</span>/tidal_flats <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> <span class="va">$_</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">### Declare an array of strings, one for each time step</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">declare</span> <span class="at">-a</span> <span class="va">StringArray</span><span class="op">=</span><span class="va">(</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;1984-1986&quot;</span> <span class="st">&quot;1987-1989&quot;</span> <span class="st">&quot;1990-1992&quot;</span> <span class="st">&quot;1993-1995&quot;</span> <span class="st">&quot;1996-1998&quot;</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;1999-2001&quot;</span> <span class="st">&quot;2002-2004&quot;</span> <span class="st">&quot;2005-2007&quot;</span> <span class="st">&quot;2008-2010&quot;</span> <span class="st">&quot;2011-2013&quot;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;2014-2016&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="va">)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">### Iterate through the array using for loop</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> val <span class="kw">in</span> <span class="va">${StringArray</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="va">$val</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wget</span> https://storage.googleapis.com/uq-intertidal/v1_1/global_intertidal/<span class="va">$val</span>.zip</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span> <span class="va">$val</span>.zip <span class="at">-d</span> ./<span class="va">$val</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span> <span class="va">$val</span>.zip</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<p>With the data in hand, we first do some basic exploration and ensure
+it is what we expect, and that it makes sense. The <code>terra</code>
+package has some handy functions for doing this. After reading the first
+file of the first time step with <code>terra::rast()</code>, I used
+<code>terra::freq()</code> to check how many unique values there were,
+expecting only 0 or 1 based on the metadata.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>image <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidal_flats&quot;</span>, <span class="st">&quot;1984-1986&quot;</span>, <span class="st">&quot;-100_-20.tif&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">rast</span>() </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>image <span class="co"># print the raster metadata</span></span></code></pre></div>
+<details>
+<summary>
+Output (raster metadata)
+</summary>
+<pre class="console"><code>class       : SpatRaster 
+dimensions  : 74213, 74213, 1  (nrow, ncol, nlyr)
+resolution  : 0.0002694946, 0.0002694946  (x, y)
+extent      : -160, -140, -20, 0  (xmin, xmax, ymin, ymax)
+coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+source      : -160_0.tif 
+name        : classification</code></pre>
+</details>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">freq</span>(image)</span></code></pre></div>
+<details>
+<summary>
+Output (frequency table)
+</summary>
+<pre class="console"><code>     layer value      count
+[1,]     1     0 5507569369</code></pre>
+</details>
+<p>Dang! All 0’s. This is most likely due to the spatial tile not
+intersecting any intertidal region. There will be many tiles over
+nothing but ocean or land. While not a satisfying result for our first
+data exploration, it is important to anticipate what you are looking for
+and what you might find. Lets take a look at this files spatial extent
+in relation to the global coastline to make sure that our results match
+what we now expect of it.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearthdata)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyterra)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>world <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">&quot;medium&quot;</span>, <span class="at">returnclass =</span> <span class="st">&quot;sf&quot;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>extent <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">ext</span>(image)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>extent_polygon <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">as.polygons</span>(extent)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">crs</span>(extent_polygon) <span class="ot">&lt;-</span> <span class="st">&quot;epsg:4326&quot;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> world) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  tidyterra<span class="sc">::</span><span class="fu">geom_spatvector</span>(<span class="at">data =</span> extent_polygon, <span class="at">color =</span> <span class="st">&quot;Red&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<center>
+<img src="plot_1.png"/>
+</center>
+<p>Looks like our intuition matches the result! This plot shows the
+extent only covers open ocean.</p>
+<p>Now lets examine another raster to see what kind of unique value we
+get.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>image <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidal_flats&quot;</span>, <span class="st">&quot;1984-1986&quot;</span>, <span class="st">&quot;0_-20.tif&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">rast</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">freq</span>()</span></code></pre></div>
+<details>
+<summary>
+Output (frequency table)
+</summary>
+<pre class="console"><code>     layer value      count
+[1,]     1     0 5506916280
+[2,]     1     1     653089</code></pre>
+</details>
+<p>That is better! Now lets see where this file lands on the globe.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>extent_polygon <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">ext</span>(image) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">as.polygons</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">crs</span>(extent_polygon) <span class="ot">&lt;-</span> <span class="st">&quot;epsg:4326&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> world) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  tidyterra<span class="sc">::</span><span class="fu">geom_spatvector</span>(<span class="at">data =</span> extent_polygon, <span class="at">color =</span> <span class="st">&quot;Red&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<center>
+<img src="plot_2.png"/>
+</center>
+<p>Now we can see that this tile falls along a section of coastline, and
+has both 0 and 1 values. Things look good so far.</p>
+<h2 id="transforming-the-data">Transforming the data</h2>
+<p>Now that we know our files contain what we expect, and have seen a
+few outputs, it is time to design a workflow that will allow us to
+extract the information we want from the files. For OHI, our goal is to
+summarize the extent of habitat in each region, for each time step. Our
+ideal final product will have an extent measured in <span
+class="math inline">\(km^2\)</span>, the region ID, the year, and the
+habitat type.</p>
+<p>Even though each time step is broken into 108 files, the resolution
+still makes this data hard to work with. The <code>terra</code> package
+offers a solution to reduce resolution, often referred to as
+down-sampling. The function <code>terra::aggregate()</code> allows a
+user to specify how many pixels should be connected into one and what
+function to use on the pixels being aggregated. In our case we want to
+sum the pixels to retain all of the habitat information. We want to
+choose a resolution that will allow us to continue using the rasters for
+analysis without bogging down our computer. We chose to down-sample to
+~1 <span class="math inline">\(km^2\)</span> resolution by choosing 30
+pixels as our aggregation factor. Our function then looks like:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>down_sampled_image <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">aggregate</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> image, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fact =</span> <span class="dv">30</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fun =</span> sum, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> T</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>The true resolution in <span class="math inline">\(km^2\)</span> can
+be found with a bit of simple math, 30 meters by 30 pixels is 900 meters
+to a side, and squaring that gives our new pixel dimensions of <span
+class="math inline">\(900 x 900\)</span> meters. We then divide these
+new dimensions by by a pixel with an area of 1 <span
+class="math inline">\(km^2\)</span>: <span
+class="math display">\[\frac{900 * 900}{1,000 * 1,000}  = .81 \text{
+}km^2\]</span> Using 33 pixels would have brought us closer to 1 <span
+class="math inline">\(km^2\)</span>, but this brings the image to a
+reasonable size, and in general we would like to keep the resolution as
+high as possible.</p>
+<p>Our next goal is to convert pixel counts into area. If the native
+raster cells are 30 x 30 meters, then a raster cell with a value of 1
+would be equivalent to 0.0009 <span class="math inline">\(km^2\)</span>
+habitat area. This can be found by multiplying the pixel dimensions
+together and dividing by a pixel with an area of 1 <span
+class="math inline">\(km^2\)</span>: <span
+class="math display">\[\frac{30 * 30}{1,000 * 1,000}  = 0.0009 \text{
+}km^2\]</span> The simplest way to convert to area in this scenario is
+to simply multiply our down-sampled raster by 0.0009.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>down_sampled_image <span class="ot">&lt;-</span> down_sampled_image <span class="sc">*</span> <span class="fl">0.0009</span></span></code></pre></div>
+<p>This works because each pixel started out as a 0 or a 1, so the
+aggregated raster has values in multiples of 1. We can check this by
+again using <code>terra::freq()</code> to see that our new raster has
+values in multiples of 0.0009. We use the <code>digits</code> argument
+to make sure values are not rounded to 0 in the output table.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">freq</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  down_sampled_image, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">6</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div>
+<details>
+<summary>
+Output (frequency table)
+</summary>
+<pre class="console"><code>     layer  value   count
+[1,]     1 0.0000 6117245
+[2,]     1 0.0009      61
+[3,]     1 0.0018      59
+(cropped for brevity)</code></pre>
+</details>
+<p>Results look good! Just as expected, we now have raster cells at ~1
+<span class="math inline">\(km^2\)</span> resolution, with cell values
+representing the area in <span class="math inline">\(km^2\)</span> of
+tidal flat habitat. In this case there are 61 cells which contained a
+single cell of tidal flat, prior to aggregation, 59 which had two, and
+so on.</p>
+<p>Now we need to extract the values that fall with each OHI region
+polygon. To do this we use another package new to OHI,
+<code>exactextractr</code>. As we saw in the previous post on soft
+bottom habitat analysis, this package allows us to extract values from
+polygons and return an estimate if a polygon goes through a raster cell.
+This is handy to implement after aggregation as it allows us to maintain
+a higher level of precision. The <code>raster::extract()</code> function
+will only include a cell if the center of the cell falls inside a
+polygon. Our shapefile has separate polygons for all regions’ EEZ’s and
+for their land area. We want to use both because our data primarily goes
+through the intersection of these two polygons.</p>
+<p>The first thing we need to do is <a
+href="https://oceanhealthindex.org/global-scores/data-download/">download</a>
+the OHI region <a href="https://mazu.nceas.ucsb.edu/data/">polygon
+file</a>.</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /<span class="op">&lt;</span>path<span class="op">&gt;</span>/<span class="op">&lt;</span>to<span class="op">&gt;</span>/<span class="op">&lt;</span>directory<span class="op">&gt;</span>/<span class="op">&lt;</span>of<span class="op">&gt;</span>/<span class="op">&lt;</span>choice<span class="op">&gt;</span>/regions <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> <span class="va">$_</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ohi.nceas.ucsb.edu/data/data/regions.zip</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> regions.zip </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> regions.zip</span></code></pre></div>
+<p>Next we read in the data and filter for what we want. We also create
+a dummy dataframe to use when reconstructing the extracted values into a
+usable data format.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>regions_eez_and_land <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&#39;regions&#39;</span>, <span class="st">&#39;regions.shp&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">read_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(rgn_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;eez&quot;</span>, <span class="st">&#39;land&#39;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>dummy_df <span class="ot">&lt;-</span> regions_eez_and_land <span class="sc">%&gt;%</span> </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(rgn_id, rgn_name) </span></code></pre></div>
+<p>We use the sum of values in our extraction because our downsampled
+image has also been converted to area in each pixel. The sum will give
+us the total area inside each polygon. Our function to extract values
+then looks like:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>exactextractr<span class="sc">::</span><span class="fu">exact_extract</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a> <span class="at">x =</span> down_sampled_image, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a> <span class="at">y =</span> regions_eez_and_land, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a> <span class="at">fun =</span> <span class="st">&#39;sum&#39;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h2 id="putting-it-all-together">Putting it all together</h2>
+<p>Now that we have a workflow that has been tested on a single raster,
+all we have to do is design a loop that goes through each raster file
+and outputs a simple <code>.csv</code> file.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create an empty intermediate output folder</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;int&quot;</span>) </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>() <span class="co"># time this code </span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>folders <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidal_flats&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list.files</span>()</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="do">### To run this code in parallel, </span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="do">### Uncomment next two lines and comment out one after</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="do">### You will loose the pretty output messages :(</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># doParallel::registerDoParallel(11)</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># foreach::foreach (dir = folders) %dopar% {</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (dir <span class="cf">in</span> folders) { </span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  files <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidal_flats&quot;</span>, dir) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list.files</span>()</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">=</span> stringr<span class="sc">::</span><span class="fu">str_split</span>(dir, <span class="at">pattern =</span> <span class="st">&quot;-&quot;</span>, <span class="at">n =</span> <span class="dv">2</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (file <span class="cf">in</span> files){</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(j, <span class="st">&quot;/&quot;</span>, <span class="fu">length</span>(files), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>    j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>    fn <span class="ot">&lt;-</span> file <span class="sc">%&gt;%</span> </span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>      stringr<span class="sc">::</span><span class="fu">str_replace</span>(</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">pattern     =</span> <span class="st">&quot;.tif&quot;</span>,</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">replacement =</span> <span class="fu">paste0</span>(<span class="st">&quot;_&quot;</span>, year, <span class="st">&quot;.csv&quot;</span>))</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>    <span class="do">### make a new int folder to hold the output</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>    file_name <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;int&quot;</span>, <span class="st">&quot;tidal_flat&quot;</span>, fn)</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(file_name)){</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(fn, <span class="st">&quot; is being created!</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">&quot;    down sampling...</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>      image <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidal_flats&quot;</span>, dir, file) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>        terra<span class="sc">::</span><span class="fu">rast</span>() </span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>      down_sampled_image <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">aggregate</span>(</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> image, </span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>        <span class="at">fact =</span> <span class="dv">30</span>, </span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>        <span class="at">fun =</span> sum,</span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> T</span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">&quot;    converting to area (km2)...</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>      down_sampled_image <span class="ot">&lt;-</span> down_sampled_image <span class="sc">*</span> <span class="fl">0.0009</span></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">&quot;    extracting...</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a>      extracted_values <span class="ot">&lt;-</span> exactextractr<span class="sc">::</span><span class="fu">exact_extract</span>(</span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> down_sampled_image, <span class="at">y =</span> regions_eez_and_land, <span class="at">fun =</span> <span class="st">&#39;sum&#39;</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cbind</span>(<span class="st">&quot;km2&quot;</span> <span class="ot">=</span> extracted_values, dummy_df) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">group_by</span>(rgn_id, rgn_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">km2 =</span> <span class="fu">sum</span>(km2)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">year =</span> year, <span class="at">habitat =</span> <span class="st">&quot;tidal flat&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a>        readr<span class="sc">::</span><span class="fu">write_csv</span>(file_name)</span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {<span class="fu">cat</span>(<span class="fu">paste0</span>(fn, <span class="st">&quot; already exists!</span><span class="sc">\n</span><span class="st">&quot;</span>))}</span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span></code></pre></div>
+<p>There is a lot to take in there, but if you follow it line by line it
+isn’t too bad.</p>
+<blockquote>
+<p><strong>To recap:</strong><br />
+List raw data folders<br />
+Outer loop iterates through folders<br />
+List files in the folder<br />
+Find the year by splitting the folder name<br />
+Inner loop iterates through files in folder<br />
+Check if desired output already esists, if not, create it!<br />
+Create the SpatRaster<br />
+Down-sample resolution<br />
+Convert cell values to area<br />
+Extract area inside region polygons<br />
+Assign values to dummy dataframe Summarize to the region level<br />
+Write the results!</p>
+</blockquote>
+<h2 id="consolidate-results">Consolidate results</h2>
+<p>The end result of the above workflow produces a single
+<code>.csv</code> file for every raster in every time step with the
+extent of tidal wetland in every OHI region. We also know that each
+raster only covers a 1/108 chunk of the globe, which means there are a
+lot of 0 values in each of the files. These can be further condensed and
+summarized with a simple for loop.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create an empty output folder</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;output&quot;</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="do">### list csv files with extracted tidal flat values</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;int&quot;</span>, <span class="st">&quot;tidal_flat&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list.files</span>(<span class="at">full.names =</span> T)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="do">### make an empty tibble to fill through iteration</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>()</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="do">### loop through files</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (file <span class="cf">in</span> files) {</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">### read in files, suppress messages with col_types argument</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(file, <span class="at">col_types =</span> <span class="fu">cols</span>()) </span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="do">### bind temporary output to complete output</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">rbind</span>(output, tmp) </span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="do">### summarize results and write final output</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>final <span class="ot">&lt;-</span> output <span class="sc">%&gt;%</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(rgn_id, year, habitat) <span class="sc">%&gt;%</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">km2 =</span> <span class="fu">sum</span>(km2, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(rgn_id <span class="sc">!=</span> <span class="dv">213</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&#39;output&#39;</span>, <span class="st">&quot;tidal_flat_extent.csv&quot;</span>))</span></code></pre></div>
+<p>Now we have a single <code>.csv</code> file with every OHI region
+listed a single time for each time step, and a corresponding tidal flat
+extent for that region. This data is then used as a new layer when
+calculating the OHI scores.</p>
+<p><strong><a
+href="https://github.com/OHI-Science/ohiprep_v2022/tree/gh-pages/globalprep/hab_tidal_flat/v2022">Check
+out the full data prep used in the 2022 OHI assessment
+here.</a></strong></p>
+<h1 id="references">References</h1>
+<ul>
+<li><p>Daniel Baston (2022). <em>exactextractr: Fast Extraction from
+Raster Datasets using Polygons</em>. R package version 0.8.2, <a
+href="https://CRAN.R-project.org/package=exactextractr"
+class="uri">https://CRAN.R-project.org/package=exactextractr</a>.</p></li>
+<li><p>Hijmans R (2022). <em>terra: Spatial Data Analysis</em>. R
+package version 1.6-3, <a
+href="https://CRAN.R-project.org/package=terra"
+class="uri">https://CRAN.R-project.org/package=terra</a>.</p></li>
+<li><p>Murray, N.J., Phinn, S.R., DeWitt, M. et al. The global
+distribution and trajectory of tidal flats. Nature 565, 222–225 (2019).
+<a href="https://doi.org/10.1038/s41586-018-0805-8"
+class="uri">https://doi.org/10.1038/s41586-018-0805-8</a></p></li>
+<li><p>R Core Team (2022). R: A language and environment for statistical
+computing. R Foundation for Statistical Computing, Vienna, Austria. URL
+<a href="https://www.R-project.org/"
+class="uri">https://www.R-project.org/</a>.</p></li>
+<li><p>Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R,
+Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E,
+Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K,
+Vaughan D, Wilke C, Woo K, Yutani H (2019). “Welcome to the tidyverse.”
+<em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a
+href="doi:10.21105/joss.01686" class="uri">doi:10.21105/joss.01686</a>
+<a href="https://doi.org/10.21105/joss.01686"
+class="uri">https://doi.org/10.21105/joss.01686</a>.</p></li>
+</ul>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2973,6 +2941,15 @@ POLYGON ((1666222.769 882179.582, 1676222.769 …
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
@@ -2980,13 +2957,13 @@ POLYGON ((1666222.769 882179.582, 1676222.769 …
 <div class="appendix-bottom">
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
-  <pre class="citation-appendix short">Molitor (2021, Dec. 3). Cullen Molitor: Iowa's Wind Power Potential. Retrieved from cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/</pre>
+  <pre class="citation-appendix short">Molitor (2022, Sept. 10). Cullen Molitor: Wrangling tidal flat data with R. Retrieved from cullen-molitor.github.io/posts/2022-09-10-tidal-flats/</pre>
   <p>BibTeX citation</p>
-  <pre class="citation-appendix long">@misc{molitor2021iowa's,
+  <pre class="citation-appendix long">@misc{molitor2022wrangling,
   author = {Molitor, Cullen},
-  title = {Cullen Molitor: Iowa's Wind Power Potential},
-  url = {cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/},
-  year = {2021}
+  title = {Cullen Molitor: Wrangling tidal flat data with R},
+  url = {cullen-molitor.github.io/posts/2022-09-10-tidal-flats/},
+  year = {2022}
 }</pre>
 </div>
 <!--/radix_placeholder_appendices-->

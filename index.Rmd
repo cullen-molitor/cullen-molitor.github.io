@@ -19,6 +19,6 @@ output:
 site: distill::distill_website
 listing: posts
 ---
-Welcome, I am currently a student with the Master of Environmental Data Science ([MEDS](https://ucsb-meds.github.io/)) program at the Bren School of Environmental Science and Management at UCSB. You can learn more about me and my interests on the about tab through my resume. See my blog to see what coding projects I have done for school and fun. 
+Welcome, I am a recent graduate of the Master of Environmental Data Science ([MEDS](https://ucsb-meds.github.io/)) program at the Bren School of Environmental Science and Management, UCSB. You can learn more about me and my interests on the about tab or through my resume. See my blog to see a select few coding projects I have done for school and fun. 
 
 

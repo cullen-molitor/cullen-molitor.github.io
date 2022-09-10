@@ -7,7 +7,20 @@
     <description>My Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 29 May 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Wrangling tidal flat data with R</title>
+      <dc:creator>Cullen Molitor</dc:creator>
+      <link>cullen-molitor.github.io/posts/2022-09-10-tidal-flats</link>
+      <description>Using R to explore and make use of large raster data can be challenging. This post provides some strategies for working with tiled raster data at a global scale at 30 meter resolution. The goal of this post is to demonstrate how to summarize this data to the country level.</description>
+      <category>R</category>
+      <category>Remote Sensing</category>
+      <category>Spatial Analysis</category>
+      <category>Ocean Data</category>
+      <guid>cullen-molitor.github.io/posts/2022-09-10-tidal-flats</guid>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      <media:content url="cullen-molitor.github.io/posts/2022-09-10-tidal-flats/terra_hex.png" medium="image" type="image/png" width="785" height="881"/>
+    </item>
     <item>
       <title>2022 MEDS Public Presentations</title>
       <dc:creator>Cullen Molitor</dc:creator>
