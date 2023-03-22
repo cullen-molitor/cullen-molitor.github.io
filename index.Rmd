@@ -6,14 +6,16 @@ links:
     url: "https://github.com/cullen-molitor"
   - label: Email
     url: "mailto:cullen.molitor@gmail.com"
-  - label: KFM App
-    url: "http://34.94.133.101/"
-  - label: Bren Profile
-    url: "https://bren.ucsb.edu/people/cullen-molitor"
   - label: MEDS Capstone
     url: "https://bren.ucsb.edu/projects/open-source-pipeline-remote-sensing-crop-yields-under-environmental-change-sub-saharan"
+  - label: MEDS Profile
+    url: "https://bren.ucsb.edu/people/cullen-molitor"
   - label: OHI Profile
     url: "https://oceanhealthindex.org/about/ohifellows/"
+  - label: emLab Profile
+    url: "https://emlab.ucsb.edu/about/our-team/cullen-molitor"
+  - label: KFM App
+    url: "http://34.94.133.101/"
 output:
   postcards::jolla
 site: distill::distill_website

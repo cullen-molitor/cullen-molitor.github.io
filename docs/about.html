@@ -785,6 +785,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1857,15 +1858,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2374,7 +2381,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2430,35 +2437,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
-<p>I am is a marine ecologist with expertise in long term monitoring of
-kelp forest environments in California. I graduated from Humboldt State
-University in 2014 where I studied history, mathematics, and scientific
-diving. I enjoys outdoor activities such as mountain biking, camping,
-and freediving. I am a recent graduate of the Master of Environmental
-Data Science program at the Bren School of Environmental Science and
-Management at UC Santa Barbara. Before going back to school, I have
-worked five seasons with Channel Islands National Park’s Kelp Forest
-Monitoring Program where I developed my skills in subtidal field
-methods, data collection, data quality control, and database management.
-I am interested in how ecological communities change in response to
-environmental stressors such as climate patterns, fishing pressure, and
-disease events. I aspire to continue working in marine ecology with
-expanded data processing, modeling, and presentation skills tp apply
-towards improving our understanding of these complex ecosystems. My goal
-is to produce products that effectively synthesize long term datasets to
-understand the processes which drive kelp forest communities, and
-ultimately share this understanding with the scientific community and
-the broader public. In school I also became interested in remote sensing
-and spatial analysis which is currently the field I am pursuing.</p>
+<p>I am is a marine ecologist with expertise in long term monitoring of kelp forest environments in California. I graduated from Humboldt State University in 2014 where I studied history, mathematics, and scientific diving. I enjoys outdoor activities such as mountain biking, camping, and freediving. I am a recent graduate of the Master of Environmental Data Science program at the Bren School of Environmental Science and Management at UC Santa Barbara. Before going back to school, I have worked five seasons with Channel Islands National Park’s Kelp Forest Monitoring Program where I developed my skills in subtidal field methods, data collection, data quality control, and database management. I am interested in how ecological communities change in response to environmental stressors such as climate patterns, fishing pressure, and disease events. I aspire to continue working in marine ecology with expanded data processing, modeling, and presentation skills tp apply towards improving our understanding of these complex ecosystems. My goal is to produce products that effectively synthesize long term datasets to understand the processes which drive kelp forest communities, and ultimately share this understanding with the scientific community and the broader public. In school I also became interested in remote sensing and spatial analysis which is currently the field I am pursuing.</p>
 <p><img src="www/yukon.png" /></p>
-<p><em>Diving the wreck of the Yukon off the coast of San Diego
-California</em></p>
+<p><em>Diving the wreck of the Yukon off the coast of San Diego California</em></p>
 <p><img src="www/yukon_2.jpg" /></p>
-<p><em>Diving the wreck of the Yukon off the coast of San Diego
-California</em></p>
+<p><em>Diving the wreck of the Yukon off the coast of San Diego California</em></p>
 <p><img src="www/MDT.jpg" /></p>
-<p><em>Preparing to dive heavy gear at Santa Barbara City
-College</em></p>
+<p><em>Preparing to dive heavy gear at Santa Barbara City College</em></p>
 <p><img src="www/20180514_163218247_iOS.jpg" /></p>
 <p><em>Diving heavy gear at Santa Barbara City College</em></p>
 <p><img src="www/20220529_172920000_iOS.jpg" /></p>
@@ -2472,8 +2457,7 @@ College</em></p>
 <p><img src="www/20180621_094532950_iOS.jpg" /></p>
 <p><em>Diving Southeast Reef, Santa Barbara Island</em></p>
 <p><img src="www/20190708_211618396_iOS.png" /></p>
-<p><em>Preparing to dive surface supplied air at Cathedral Cove, Anacapa
-Island</em></p>
+<p><em>Preparing to dive surface supplied air at Cathedral Cove, Anacapa Island</em></p>
 <p><img src="www/20200612_024012576_iOS.jpg" /></p>
 <p><em>Cycling up Gibraltar Road, Los Padres National Forest</em></p>
 <p><img src="www/20200628_125706147_iOS.jpg" /></p>
@@ -2483,8 +2467,7 @@ Island</em></p>
 <p><img src="www/20200814_180931606_iOS.jpg" /></p>
 <p><em>Cavern Point restoration project Santa Cruz Island</em></p>
 <p><img src="www/20210403_224419783_iOS.jpg" /></p>
-<p><em>Mountain Biking Romero Canyon, Los Padres National
-Forest</em></p>
+<p><em>Mountain Biking Romero Canyon, Los Padres National Forest</em></p>
 <p><img src="www/20210807_194453102_iOS.jpg" /></p>
 <p><em>Mountain Biking Big Bear, San Bernardino National Forest</em></p>
 <p><img src="www/admirals_pencil.jpg" /></p>
@@ -2492,10 +2475,8 @@ Forest</em></p>
 <p><img src="www/admirals_reef.jpg" /></p>
 <p><em>Band transects at Admirals Reef, Anacapa Island</em></p>
 <p><img src="www/Van_damme.jpg" /></p>
-<p><em>Reef Check Calironia Survey, Van Damme Beach, Little River,
-California</em></p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><em>Reef Check Calironia Survey, Van Damme Beach, Little River, California</em></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
