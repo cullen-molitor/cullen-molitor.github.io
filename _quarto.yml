@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - cv/Molitor_Cullen_CV.pdf
+
+website:
+  title: "Cullen Molitor"
+  description: "Data scientist working at the intersection of remote sensing, machine learning, climate, and human well-being."
+  site-url: https://cullen-molitor.github.io
+  repo-url: https://github.com/cullen-molitor/cullen-molitor.github.io
+  open-graph: true
+  navbar:
+    left:
+      - text: Home
+        href: index.qmd
+      - text: CV
+        href: cv.qmd
+      - text: Blog
+        href: blog.qmd
+      # - text: Photos
+      #   href: photos.qmd
+    right:
+      - icon: github
+        href: https://github.com/cullen-molitor
+        aria-label: GitHub
+      - icon: envelope
+        href: mailto:cullen.molitor@gmail.com
+        aria-label: Email
+      - icon: rss
+        href: blog.xml
+        aria-label: RSS feed
+  page-footer:
+    left: "© 2026 Cullen Molitor"
+    right: "Built with [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme:
+      light: [litera, styles/light.scss]
+      dark: [slate, styles/dark.scss]
+    css: styles/site.css
+    toc: true
+    smooth-scroll: true
+    link-external-newwindow: true
+    code-copy: true
+    highlight-style: github

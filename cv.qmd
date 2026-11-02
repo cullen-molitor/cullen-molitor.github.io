@@ -1,0 +1,462 @@
+---
+title: "Curriculum Vitae"
+toc: true
+toc-depth: 2
+---
+
+::: {.callout-tip appearance="simple"}
+[Download the PDF version](cv/Molitor_Cullen_CV.pdf){.btn .btn-primary .btn-sm} &nbsp; Updated November 2026
+:::
+
+## Education
+
+::: cv-entry
+::: cv-when
+2022
+:::
+::: cv-what
+**Master of Environmental Data Science**, *Bren School of Environmental Science & Management*, University of California, Santa Barbara
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2018
+:::
+::: cv-what
+**Certificate of Marine Diving Technology**, *Santa Barbara City College*
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2014
+:::
+::: cv-what
+**B.A. in History**, *Humboldt State University*
+
+[Minors in Mathematics and Scientific Diving]{.cv-detail}
+:::
+:::
+
+## Work Experience
+
+::: cv-entry
+::: cv-when
+2024–Present
+:::
+::: cv-what
+**Data Scientist**, *University of California, Berkeley*
+
+[Investigating the impacts of climate change on human well-being and the environment with remote sensing and machine learning at the Center for Effective Global Action.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2023–2024
+:::
+::: cv-what
+**Data Scientist**, *University of California, Santa Barbara*
+
+[Mapping the footprint of artisanal-scale mining in Africa using remote sensing and machine learning at the Environmental Markets Lab.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2022
+:::
+::: cv-what
+**Data Science Fellow**, *University of California, Santa Barbara*
+
+[Preparing, processing, and synthesizing the data used to calculate Ocean Health Index scores at the National Center for Ecological Analysis and Synthesis.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2021
+:::
+::: cv-what
+**Teaching Assistant**, *University of California, Santa Barbara*
+
+[Twentieth-Century United States Economic History, Department of Economics.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2017–2021
+:::
+::: cv-what
+**Biological Science Technician**, *Channel Islands National Park*, Ventura, CA
+
+[Scientific diver for the Kelp Forest Monitoring Program for five seasons.]{.cv-detail}
+:::
+:::
+
+## Publications
+
+### Refereed
+
+::: cv-entry
+::: cv-when
+2026
+:::
+::: cv-what
+Carlson, C.J., Carleton, T., Odoulami, R.C., **Molitor, C.**, Trisos, C.H. "The past and future impact of climate change on childhood malaria in Africa." *Nature*, 657(8131), 487–494. [doi:10.1038/s41586-026-10840-w](https://doi.org/10.1038/s41586-026-10840-w)
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2026
+:::
+::: cv-what
+Betti, L., Sanni, F., Sogoyou, G.Z., Agbagla, T., **Molitor, C.**, Carleton, T., Rolf, E. "Mapping on a Budget: Optimizing Spatial Data Collection for ML." *Proceedings of the AAAI Conference on Artificial Intelligence*, 40(45), 38233–38241. [doi:10.1609/aaai.v40i45.41162](https://doi.org/10.1609/aaai.v40i45.41162)
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2026
+:::
+::: cv-what
+Frazier, A.E., Nelson, T., Kedron, P., et al. (31 authors, incl. **Molitor, C.**) "Advancing Conservation Science and Practice through a Geographic Approach: Platforms, Personnel, and Partnerships." *Conservation Science and Practice*, e70410. [doi:10.1111/csp2.70410](https://doi.org/10.1111/csp2.70410)
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2025
+:::
+::: cv-what
+**Molitor, C.**, Cohen, J., Lewin, G., Cognac, S., Hadunka, P., Proctor, J., Carleton, T. "Monitoring Maize Yield Variability over Space and Time with Unsupervised Satellite Imagery Features." *Remote Sensing*, 17(21). [doi:10.3390/rs17213641](https://doi.org/10.3390/rs17213641)
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2024
+:::
+::: cv-what
+Ogunniyi, O.E., Carleton, T., Carlson, C., Odoulami, R., Trisos, C., Agboka, K.M., Donat, M., Delgado, C., **Molitor, C.** "Decadal Prediction of Climate Change Impacts on Childhood Malaria in Africa." *AGU Fall Meeting*. [Abstract](https://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1674891)
+:::
+:::
+
+### In review
+
+::: cv-entry
+::: cv-when
+In review
+:::
+::: cv-what
+Christensen, D., Carleton, T., **Molitor, C.**, Rolf, E., Yan, K., Biswas, S., Blair, G. "Estimating the Footprint of Artisanal Mining in Africa." *NBER Working Paper*. [doi:10.3386/w33646](https://doi.org/10.3386/w33646)
+:::
+:::
+
+### Datasets
+
+::: cv-entry
+::: cv-when
+2026
+:::
+::: cv-what
+Carlson, C., Carleton, T., Odoulami, R., **Molitor, C.**, Trisos, C. "Dataset: The past and future impact of climate change on childhood malaria in Africa" (Version v1.0). *Zenodo*. [doi:10.5281/zenodo.20399793](https://doi.org/10.5281/zenodo.20399793)
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2022
+:::
+::: cv-what
+Clawson, S., Frazier, M., Halpern, B., Cohen, J., Menzies, P., **Molitor, C.** "Global Ocean Health Index 2022 assessment." *Knowledge Network for Biocomplexity*. [doi:10.5063/F1GT5KNH](https://doi.org/10.5063/F1GT5KNH)
+:::
+:::
+
+### Books
+
+::: cv-entry
+::: cv-when
+2025
+:::
+::: cv-what
+**Molitor, C.**, Carleton, T., Rolf, E. "[MOSAIKS Training Manual](https://center-for-effective-global-action-cega.github.io/MOSAIKS-Training-Manual/en/index.html)."
+:::
+:::
+
+### Reports
+
+::: cv-entry
+::: cv-when
+2024
+:::
+::: cv-what
+Carleton, T., Mangin, T., Ludwig, M., **Molitor, C.**, O'Reilly, E. "A framework for integrating wildfire into the Climate Vulnerability Metric." *Environmental Markets Lab*.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2022
+:::
+::: cv-what
+Sprague, J., Moore, K., McClain, J., **Molitor, C.**, Kushner, D. "Channel Islands National Park Kelp Forest Monitoring Program: Annual Report 2015." *National Park Service*. [doi:10.36967/nrr-2288646](https://doi.org/10.36967/nrr-2288646)
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2022
+:::
+::: cv-what
+Sprague, J., Kushner, D., Grunden, J., McClain, J., Grime, B., **Molitor, C.** "Channel Islands National Park Kelp Forest Monitoring Program: Annual Report 2014." *National Park Service*. [doi:10.36967/2293855](https://doi.org/10.36967/2293855)
+:::
+:::
+
+::: cv-entry
+::: cv-when
+In prep.
+:::
+::: cv-what
+**Molitor, C.**, McClure, T., et al. "Channel Islands National Park Kelp Forest Monitoring Program Kelp Forest Community Trend Report for 2005–2019." *Natural Resource Report Series*. National Park Service.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+In prep.
+:::
+::: cv-what
+**Molitor, C.**, Sprague, J., et al. "Channel Islands National Park Kelp Forest Monitoring Program Annual Report 2019." *Natural Resource Data Series*. National Park Service.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+In prep.
+:::
+::: cv-what
+**Molitor, C.**, Sprague, J., et al. "Channel Islands National Park Kelp Forest Monitoring Program Annual Report 2018." *Natural Resource Data Series*. National Park Service.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+In prep.
+:::
+::: cv-what
+Sprague, J., **Molitor, C.**, et al. "Channel Islands National Park Kelp Forest Monitoring Program Annual Report 2017." *Natural Resource Report Series*. National Park Service.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+In prep.
+:::
+::: cv-what
+Sprague, J., **Molitor, C.**, et al. "Channel Islands National Park Kelp Forest Monitoring Program Annual Report 2016." *Natural Resource Report Series*. National Park Service.
+:::
+:::
+
+## Conferences and Talks
+
+::: cv-entry
+::: cv-when
+2026
+:::
+::: cv-what
+**Invited workshop member.** "Environmental Data Science Summit: Turning Data into Action." National Center for Ecological Analysis and Synthesis (NCEAS), UC Santa Barbara.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2025
+:::
+::: cv-what
+**Summit leadership and facilitation team.** "Innovation Summit: Environmental Tipping Points & Transformations." Environmental Data Science Innovation & Impact Lab (ESIIL), University of Colorado Boulder.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2025
+:::
+::: cv-what
+**Instructor.** "Multi-task Observation using Satellite Imagery & Kitchen Sinks (MOSAIKS) Togo Data Lab Training." Environmental Markets Lab (emLab), UC Santa Barbara.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2024
+:::
+::: cv-what
+**Invited workshop member.** "Specialist Meetings to Advance a Geographic Approach to Conservation Science." Center for Spatial Studies and Data Science, UC Santa Barbara.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2024
+:::
+::: cv-what
+**Instructor.** "MOSAIKS Workshop: Combining Satellite Imagery with Machine Learning to Address Global Challenges." Indaba X Autour De L'IA: Le Grand Atelier du Digital 2024, Lomé, Togo.
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2022
+:::
+::: cv-what
+**Presenter.** "[An open-source pipeline for remote sensing of crop yields under environmental change in sub-Saharan Africa](posts/2022-04-23-new-horizons/)." New Horizons in Conservation Conference, Yale School of the Environment.
+:::
+:::
+
+## Awards
+
+::: cv-entry
+::: cv-when
+2022
+:::
+::: cv-what
+MEDS Academic Achievement Award
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2021
+:::
+::: cv-what
+MEDS Recruitment Fellowship · Advanced Technology Grant · National Park Service STAR Award · PADI Elite Instructor Award
+:::
+:::
+
+## Other Work Experience
+
+::: cv-entry
+::: cv-when
+2019
+:::
+::: cv-what
+**Second Captain**, *Truth Aquatics*, Santa Barbara, CA
+
+[Operating a 75' vessel and accompanying skiff.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2019
+:::
+::: cv-what
+**Diver/Tender**, *Underwater Construction Corporation*, Stevensville, MI
+
+[Commercial diver and tender at the Donald C. Cook Nuclear Power Plant.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2017–2019
+:::
+::: cv-what
+**Deckhand/Divemaster**, *Spectre Dive Boat*, Ventura, CA
+
+[Recreational dive boat operating in Channel Islands National Park.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2015–2017
+:::
+::: cv-what
+**Head of Water Department**, *Pacific Outfitters*, Eureka, CA
+
+[Managed the scuba, fishing, and kayak departments for a locally owned outdoor store.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2014–2015
+:::
+::: cv-what
+**Director of Scuba**, *Malibu Divers*, Malibu, CA
+
+[Managed dive staff and scuba classes for Camp Emerald Bay on Catalina Island.]{.cv-detail}
+:::
+:::
+
+## Volunteer Experience
+
+::: cv-entry
+::: cv-when
+2019–2021
+:::
+::: cv-what
+**Education Program**, *Channel Islands National Park*, Ventura, CA
+
+[Developed an R Shiny web application to engage students in learning about kelp forest ecology.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2014–2017
+:::
+::: cv-what
+**Scuba Instructor**, *Humboldt State University*, Arcata, CA
+
+[Volunteer dive instructor for the Scientific Diving Program.]{.cv-detail}
+:::
+:::
+
+::: cv-entry
+::: cv-when
+2013–2015
+:::
+::: cv-what
+**Diver**, *Reef Check California*, Mendocino, CA
+
+[Volunteer diver for nearshore rocky reef citizen-science monitoring.]{.cv-detail}
+:::
+:::
+
+## Technical Skills
+
+| | |
+|---|---|
+| **Languages (fluent)** | Python, R, Bash, LaTeX, SLURM |
+| **Languages (proficient)** | SQL, PowerShell, MATLAB |
+| **IDEs** | VS Code, Positron, RStudio, JupyterLab, MATLAB, JMP, Overleaf |
+| **Version control & containers** | Git, GitHub, Docker, Apptainer |
+| **Virtualization** | Kubernetes, VirtualBox, Hyper-V, VMware Workstation |
+| **Databases** | pgAdmin, SQLite, Microsoft Access |
+| **Google Cloud** | Earth Engine, Kubernetes Engine, Compute Engine, Cloud Build, Container Registry, Cloud Run, Vertex AI, Kaggle Notebooks, Colab |
+| **Microsoft** | Planetary Computer, Azure Machine Learning Studio |
+| **HPC** | UC Berkeley Savio condo cluster; UCSB Braid-2 condo cluster and Pod cluster |
+
+## Diving and Boating
+
+| | |
+|---|---|
+| **Boating** | USCG Merchant Mariner Credential, Master Near Coastal (≤100 tons), 2019 · USCG Assistance Towing Endorsement, 2019 · California Waterways Boating Safety Certificate, 2012 · Michigan DNR Boating Safety Certificate, 2003 |
+| **Scientific & commercial** | National Park Service Dive Examiner, 2020 · National Emergency Response Dive Team, 2020 · AAUS Scientific Diver, 2012 · ADCI and ACDE Commercial Diver, 2018 · Hyperbaric Chamber Operator, 2018 |
+| **Instruction** | PADI Master Scuba Diver Trainer, 2015 · NAUI Instructor, 2014 |
+| **Technical** | rEvo III Closed Circuit Rebreather (200'), 2015 · AP Inspiration Closed Circuit Rebreather (150'), 2018 · ANDI Occupational Nitrox, 2018 · STI Ice Diver, 2011 |
+| **Equipment** | Regulator Repair Technician (Atomic & Aqualung), 2014 · Cylinder Visual Inspector, 2014 |
+
+## Links
+
+- CEGA: [cega.berkeley.edu/person/cullen-molitor](https://cega.berkeley.edu/person/cullen-molitor)
+- emLab: [emlab.ucsb.edu/about/our-team/cullen-molitor](https://emlab.ucsb.edu/about/our-team/cullen-molitor)
+- Bren School: [bren.ucsb.edu/people/cullen-molitor](https://bren.ucsb.edu/people/cullen-molitor)
+- GitHub: [github.com/cullen-molitor](https://github.com/cullen-molitor)
+- Capstone GitHub: [github.com/cropmosaiks](https://github.com/cropmosaiks)

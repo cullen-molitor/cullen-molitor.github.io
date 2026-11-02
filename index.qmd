@@ -1,0 +1,34 @@
+---
+title: "Cullen Molitor"
+subtitle: "Data Scientist · Center for Effective Global Action, UC Berkeley"
+image: images/profile.jpg
+toc: false
+about:
+  template: trestles
+  image-shape: rounded
+  image-width: 16em
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/cullen-molitor
+    - icon: envelope
+      text: Email
+      href: mailto:cullen.molitor@gmail.com
+    - icon: file-earmark-text
+      text: CV
+      href: cv.qmd
+    - icon: building
+      text: CEGA
+      href: https://cega.berkeley.edu/person/cullen-molitor
+---
+
+I'm a data scientist at [CEGA](https://cega.berkeley.edu/), UC Berkeley, using satellite imagery, climate data, and machine learning to measure how climate change affects people and the environment, especially where ground data is scarce.
+
+Much of my work builds on [MOSAIKS](https://www.mosaiks.org/); I co-wrote its [Training Manual](https://center-for-effective-global-action-cega.github.io/MOSAIKS-Training-Manual/en/index.html). Recent work:
+
+- Climate change and childhood malaria in Africa ([*Nature*, 2026](https://doi.org/10.1038/s41586-026-10840-w))
+- Maize yields from satellite features ([*Remote Sensing*, 2025](https://doi.org/10.3390/rs17213641))
+- Where to collect ground data for ML maps ([AAAI, 2026](https://doi.org/10.1609/aaai.v40i45.41162))
+- Artisanal mining across Africa ([NBER](https://doi.org/10.3386/w33646), with [emLab](https://emlab.ucsb.edu/))
+
+Before my [MEDS](https://bren.ucsb.edu/masters-programs/master-environmental-data-science) degree at UCSB (2022), I was a scientific diver with Channel Islands National Park's [Kelp Forest Monitoring Program](https://www.nps.gov/chis/learn/nature/kelp-forest-monitoring.htm). Off the keyboard, I'm diving, mountain biking, or camping.

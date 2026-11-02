@@ -1,83 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>cullen-molitor.github.io/about.html</loc>
-    <lastmod>2023-03-22T11:12:29-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/blog.html</loc>
+    <lastmod>2026-11-02T18:12:45.330Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/blog.html</loc>
-    <lastmod>2023-03-22T11:12:29-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/photos.html</loc>
+    <lastmod>2026-11-02T18:13:17.828Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/capstone.html</loc>
-    <lastmod>2023-03-22T11:12:29-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2022-04-23-new-horizons/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.175Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/cv.html</loc>
-    <lastmod>2023-03-22T11:12:29-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2021-12-04-precipitation-and-ndvi/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.175Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/</loc>
-    <lastmod>2023-03-22T11:15:49-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2025-11-25-maize-yields-zambia/index.html</loc>
+    <lastmod>2026-11-02T18:35:10.814Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/resume.html</loc>
-    <lastmod>2023-03-22T11:12:29-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2026-04-04-mapping-on-a-budget/index.html</loc>
+    <lastmod>2026-11-02T18:35:10.815Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2022-09-10-tidal-flats/</loc>
-    <lastmod>2023-03-22T11:12:29-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2026-08-19-climate-change-childhood-malaria/index.html</loc>
+    <lastmod>2026-11-02T18:35:10.815Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2022-05-29-publicpresentation/</loc>
-    <lastmod>2023-03-22T11:12:29-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2021-12-03-houston-blackout-analysis-2021/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.174Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2022-04-23-new-horizons/</loc>
-    <lastmod>2023-03-22T11:12:29-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2022-05-29-publicpresentation/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.174Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2022-01-23-cropmosaiks-animated-ndvi/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2022-01-22-channel-islands-sst/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.174Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2022-01-22-cropmosaiks-team-graphics/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2021-11-29-cartography-in-r/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.173Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2022-01-22-channel-islands-sst/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.174Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2021-12-05-species-density-sst-lagsst/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2021-12-04-modeling-enso-and-wave-height/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.174Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2021-12-04-effect-of-enso-on-coral-reefs/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2022-01-22-cropmosaiks-team-graphics/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.174Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2021-12-04-modeling-enso-and-wave-height/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2022-01-23-cropmosaiks-animated-ndvi/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.174Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2021-12-04-precipitation-and-ndvi/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2021-12-05-species-density-sst-lagsst/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.175Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2021-12-03-houston-blackout-analysis-2021/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2022-09-10-tidal-flats/index.html</loc>
+    <lastmod>2026-11-02T18:16:03.492Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2021-12-04-effect-of-enso-on-coral-reefs/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.175Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/index.html</loc>
+    <lastmod>2026-11-02T18:10:47.175Z</lastmod>
   </url>
   <url>
-    <loc>cullen-molitor.github.io/posts/2021-11-29-cartography-in-r/</loc>
-    <lastmod>2023-03-22T11:12:28-07:00</lastmod>
+    <loc>https://cullen-molitor.github.io/index.html</loc>
+    <lastmod>2026-11-02T18:46:20.485Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cullen-molitor.github.io/cv.html</loc>
+    <lastmod>2026-11-02T18:12:44.500Z</lastmod>
   </url>
 </urlset>

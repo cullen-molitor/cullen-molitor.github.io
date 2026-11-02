@@ -42,3 +42,9 @@ data/
 rosm.cache/
 
 _posts/*/data/
+# Quarto
+/.quarto/
+**/*.quarto_ipynb
+
+# macOS
+.DS_Store
