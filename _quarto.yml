@@ -18,8 +18,8 @@ website:
         href: cv.qmd
       - text: Blog
         href: blog.qmd
-      # - text: Photos
-      #   href: photos.qmd
+      - text: Photos
+        href: photos.qmd
     right:
       - icon: github
         href: https://github.com/cullen-molitor
