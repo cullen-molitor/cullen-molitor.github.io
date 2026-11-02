@@ -28,7 +28,7 @@ This new dataset has given OHI the opportunity to further improve their methods 
 
      *The interface of coastal development with tidal flat habitat off Redwood City, California (Photo: [Jitze Couperus](https://www.flickr.com/photos/jitze1942/5244615529/in/photolist-8Zs2tF-2mcBSEz-2mbaQWz-2eGrCBb-2mcR9AJ-riuRXd-2m9pjVX-dfpp5f-2ni8fyW-2maeZuS-237cW2k-2mbDn5Z-2mbfbXK-ZRJNMp-2mbvHuj-2mbaigy-2m9okJm-2m9KhCq-2ma4UN8-2maC7zZ-2m9H5Uu-2mb6sxZ-5A7XK2-SCXCLN-mEucZb-2mcJVgv-SCXCuA-5Q9qm-5qWU36-SCXCHG-r4fDrf-2maKF6K-2mbKNm7-2maWHYx-SCXC9f-of2jqp-PagPZo-24aBQVg-aMC5Jz-oJMgpT-9gsEyT-VRTZsv-P5Aez8-xsSKEo-3Yz3Si-YT1xo3-24Z2DH7-xbXZ3Q-qDc4vo-2kSmqmB))*.
 
-Tidal flats will affect the OHI global scores by adding additional layers to the habitat subgoal and carbon storage goal. The three new data layers created are tidal flat extent (measured in \\(km\^2\\)), tidal flat trend (proportional change), and tidal flat condition (current status compared to historic status).
+Tidal flats will affect the OHI global scores by adding additional layers to the habitat subgoal and carbon storage goal. The three new data layers created are tidal flat extent (measured in $km^2$), tidal flat trend (proportional change), and tidal flat condition (current status compared to historic status).
 
 This post will give a brief explanation of tidal flat habitat, explore the new dataset, and demonstrate how to programmatically summarize the data in the R software environment. The goal of data summarization is to distill the large raster dataset into simple tabular data which can be integrated into the OHI annual analysis as new data layers for 2022 and beyond.
 
@@ -66,7 +66,8 @@ image <- here::here("tidal_flats", "1984-1986", "-100_-20.tif") %>%
 image # print the raster metadata
 ```
 
-Output (raster metadata)
+<details>
+<summary>Output (raster metadata)</summary>
 
 ``` console
 class       : SpatRaster 
@@ -85,7 +86,8 @@ name        : classification
 terra::freq(image)
 ```
 
-Output (frequency table)
+<details>
+<summary>Output (frequency table)</summary>
 
 ``` console
      layer value      count
@@ -96,6 +98,9 @@ Output (frequency table)
 </details>
 
 Dang! All 0's. This is most likely due to the spatial tile not intersecting any intertidal region. There will be many tiles over nothing but ocean or land. While not a satisfying result for our first data exploration, it is important to anticipate what you are looking for and what you might find. Lets take a look at this files spatial extent in relation to the global coastline to make sure that our results match what we now expect of it.
+
+<details>
+<summary>Show code</summary>
 
 ``` r
 library(rnaturalearth)
@@ -115,6 +120,8 @@ ggplot(data = world) +
   tidyterra::geom_spatvector(data = extent_polygon, color = "Red", fill = NA)
 ```
 
+</details>
+
 ![](plot_1.png)
 
 Looks like our intuition matches the result! This plot shows the extent only covers open ocean.
@@ -127,7 +134,8 @@ image <- here::here("tidal_flats", "1984-1986", "0_-20.tif") %>%
   terra::freq()
 ```
 
-Output (frequency table)
+<details>
+<summary>Output (frequency table)</summary>
 
 ``` console
      layer value      count
@@ -140,6 +148,9 @@ Output (frequency table)
 
 That is better! Now lets see where this file lands on the globe.
 
+<details>
+<summary>Show code</summary>
+
 ``` r
 extent_polygon <- terra::ext(image) %>% 
   terra::as.polygons()
@@ -151,15 +162,17 @@ ggplot(data = world) +
   tidyterra::geom_spatvector(data = extent_polygon, color = "Red", fill = NA)
 ```
 
+</details>
+
 ![](plot_2.png)
 
 Now we can see that this tile falls along a section of coastline, and has both 0 and 1 values. Things look good so far.
 
 ## Transforming the data
 
-Now that we know our files contain what we expect, and have seen a few outputs, it is time to design a workflow that will allow us to extract the information we want from the files. For OHI, our goal is to summarize the extent of habitat in each region, for each time step. Our ideal final product will have an extent measured in \\(km\^2\\), the region ID, the year, and the habitat type.
+Now that we know our files contain what we expect, and have seen a few outputs, it is time to design a workflow that will allow us to extract the information we want from the files. For OHI, our goal is to summarize the extent of habitat in each region, for each time step. Our ideal final product will have an extent measured in $km^2$, the region ID, the year, and the habitat type.
 
-Even though each time step is broken into 108 files, the resolution still makes this data hard to work with. The `terra` package offers a solution to reduce resolution, often referred to as down-sampling. The function `terra::aggregate()` allows a user to specify how many pixels should be connected into one and what function to use on the pixels being aggregated. In our case we want to sum the pixels to retain all of the habitat information. We want to choose a resolution that will allow us to continue using the rasters for analysis without bogging down our computer. We chose to down-sample to \~1 \\(km\^2\\) resolution by choosing 30 pixels as our aggregation factor. Our function then looks like:
+Even though each time step is broken into 108 files, the resolution still makes this data hard to work with. The `terra` package offers a solution to reduce resolution, often referred to as down-sampling. The function `terra::aggregate()` allows a user to specify how many pixels should be connected into one and what function to use on the pixels being aggregated. In our case we want to sum the pixels to retain all of the habitat information. We want to choose a resolution that will allow us to continue using the rasters for analysis without bogging down our computer. We chose to down-sample to \~1 $km^2$ resolution by choosing 30 pixels as our aggregation factor. Our function then looks like:
 
 ``` r
 down_sampled_image <- terra::aggregate(
@@ -170,9 +183,21 @@ down_sampled_image <- terra::aggregate(
 )
 ```
 
-The true resolution in \\(km\^2\\) can be found with a bit of simple math, 30 meters by 30 pixels is 900 meters to a side, and squaring that gives our new pixel dimensions of \\(900 x 900\\) meters. We then divide these new dimensions by by a pixel with an area of 1 \\(km\^2\\): \\\[\\frac{900 \* 900}{1,000 \* 1,000} = .81 \\text{ }km\^2\\\] Using 33 pixels would have brought us closer to 1 \\(km\^2\\), but this brings the image to a reasonable size, and in general we would like to keep the resolution as high as possible.
+The true resolution in $km^2$ can be found with a bit of simple math, 30 meters by 30 pixels is 900 meters to a side, and squaring that gives our new pixel dimensions of $900 \times 900$ meters. We then divide these new dimensions by by a pixel with an area of 1 $km^2$:
 
-Our next goal is to convert pixel counts into area. If the native raster cells are 30 x 30 meters, then a raster cell with a value of 1 would be equivalent to 0.0009 \\(km\^2\\) habitat area. This can be found by multiplying the pixel dimensions together and dividing by a pixel with an area of 1 \\(km\^2\\): \\\[\\frac{30 \* 30}{1,000 \* 1,000} = 0.0009 \\text{ }km\^2\\\] The simplest way to convert to area in this scenario is to simply multiply our down-sampled raster by 0.0009.
+$$
+\frac{900 * 900}{1,000 * 1,000} = .81 \text{ }km^2
+$$
+
+Using 33 pixels would have brought us closer to 1 $km^2$, but this brings the image to a reasonable size, and in general we would like to keep the resolution as high as possible.
+
+Our next goal is to convert pixel counts into area. If the native raster cells are 30 x 30 meters, then a raster cell with a value of 1 would be equivalent to 0.0009 $km^2$ habitat area. This can be found by multiplying the pixel dimensions together and dividing by a pixel with an area of 1 $km^2$:
+
+$$
+\frac{30 * 30}{1,000 * 1,000} = 0.0009 \text{ }km^2
+$$
+
+The simplest way to convert to area in this scenario is to simply multiply our down-sampled raster by 0.0009.
 
 ``` r
 down_sampled_image <- down_sampled_image * 0.0009
@@ -187,7 +212,8 @@ terra::freq(
 ) 
 ```
 
-Output (frequency table)
+<details>
+<summary>Output (frequency table)</summary>
 
 ``` console
      layer  value   count
@@ -200,7 +226,7 @@ Output (frequency table)
 
 </details>
 
-Results look good! Just as expected, we now have raster cells at \~1 \\(km\^2\\) resolution, with cell values representing the area in \\(km\^2\\) of tidal flat habitat. In this case there are 61 cells which contained a single cell of tidal flat, prior to aggregation, 59 which had two, and so on.
+Results look good! Just as expected, we now have raster cells at \~1 $km^2$ resolution, with cell values representing the area in $km^2$ of tidal flat habitat. In this case there are 61 cells which contained a single cell of tidal flat, prior to aggregation, 59 which had two, and so on.
 
 Now we need to extract the values that fall with each OHI region polygon. To do this we use another package new to OHI, `exactextractr`. As we saw in the previous post on soft bottom habitat analysis, this package allows us to extract values from polygons and return an estimate if a polygon goes through a raster cell. This is handy to implement after aggregation as it allows us to maintain a higher level of precision. The `raster::extract()` function will only include a cell if the center of the cell falls inside a polygon. Our shapefile has separate polygons for all regions' EEZ's and for their land area. We want to use both because our data primarily goes through the intersection of these two polygons.
 
@@ -382,6 +408,3 @@ Now we have a single `.csv` file with every OHI region listed a single time for 
 -   R Core Team (2022). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL <https://www.R-project.org/>.
 
 -   Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). "Welcome to the tidyverse." *Journal of Open Source Software*, *4*(43), 1686. <https://doi.org/10.21105/joss.01686>.
-
-``` {.r .distill-force-highlighting-css}
-```

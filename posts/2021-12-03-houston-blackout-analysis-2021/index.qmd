@@ -646,6 +646,3 @@ freq=FALSE
 <img src="figures/unnamed-chunk-11-1.png" width="624" />
 
 We thought it would be interesting to compare the median incomes of households affected by the blackout, to median incomes in Houston in general, but because the blackouts seem to have occured in a more metropolitan area, it is likely the incomes are skewed higher for that area, and it does not give a clear indication of whether median income had an effect on whether or not a household experienced a blackout.
-
-``` {.r .distill-force-highlighting-css}
-```

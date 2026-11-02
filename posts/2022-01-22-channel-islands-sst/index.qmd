@@ -261,6 +261,3 @@ if (!file.exists("sst.gif") | redo){
 </details>
 
 ![](sst.gif)
-
-``` {.r .distill-force-highlighting-css}
-```

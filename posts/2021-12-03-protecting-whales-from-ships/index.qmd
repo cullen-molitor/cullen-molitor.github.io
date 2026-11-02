@@ -15,6 +15,9 @@ categories:
 
 Import Modules
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 import geopandas as gpd 
 import rasterio as rio
@@ -31,7 +34,12 @@ from shapely.geometry import Polygon
 %matplotlib inline
 ```
 
+</details>
+
 Set Parameters and constants
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 shoreline_shapefile  = 'data/dominica/dma_admn_adm0_py_s1_dominode_v2.shp'
@@ -42,14 +50,21 @@ projected_EPSG = 2002   # Dominica 1945 / British West Indies Grid
 geodetic_EPSG  = 4326   # WGS 84 (use as default CRS for incoming latlon)
 ```
 
+</details>
+
 ## Load Data
 
 Dominica Shape File
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 dominica_shp = gpd.read_file(shoreline_shapefile)
 dominica_shp.head()
 ```
+
+</details>
 
       ADM0_PCODE   ADM0_EN    geometry
   --- ------------ ---------- ---------------------------------------------------
@@ -57,10 +72,15 @@ dominica_shp.head()
 
 Set CRS to [EPSG 2002](https://epsg.io/2002)
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 dominica_shp = dominica_shp.to_crs(projected_EPSG)
 dominica_shp.crs
 ```
+
+</details>
 
     <Projected CRS: EPSG:2002>
     Name: Dominica 1945 / British West Indies Grid
@@ -79,6 +99,9 @@ dominica_shp.crs
 
 ## Plot Dominica
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 fig, ax = plt.subplots(figsize=(5, 5))
 ax.grid(True, color = 'dimgray')
@@ -88,16 +111,23 @@ dominica_shp.plot(ax = ax, edgecolor = "k", facecolor="None")
 ctx.add_basemap(ax, crs=projected_EPSG)
 ```
 
+</details>
+
 ![](output_15_0.png)
 
 ## Load Data
 
 Whale Sightings
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 whales = gpd.read_file(whales_CSV)
 whales
 ```
+
+</details>
 
          field_1   GPStime               Lat           Long           geometry
   ------ --------- --------------------- ------------- -------------- ----------
@@ -117,13 +147,21 @@ whales
 
 Create GeoDataFrame
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 points = gpd.points_from_xy(whales['Long'], whales['Lat'], crs = geodetic_EPSG)
 whales_gdf = gpd.GeoDataFrame(whales, geometry = points)
 whales_gdf = whales_gdf.to_crs(projected_EPSG)
 ```
 
+</details>
+
 Plot Whale Sightings
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 fig, ax = plt.subplots(figsize = (10, 10))
@@ -137,9 +175,14 @@ ax.ticklabel_format(scilimits =  [-5, 5])
 ctx.add_basemap(ax, crs = projected_EPSG)
 ```
 
+</details>
+
 ![](output_24_0.png)
 
 ## Create Grid
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 xmin, ymin, xmax, ymax = whales_gdf.total_bounds
@@ -164,11 +207,18 @@ grid = gpd.GeoDataFrame({'geometry': cells}, crs = geodetic_EPSG)
 grid = grid.set_geometry(crs = projected_EPSG, col = grid['geometry'])
 ```
 
+</details>
+
 Plot Grid
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 grid.plot(facecolor = "none", figsize = (10, 10), linewidth = 1)
 ```
+
+</details>
 
     <AxesSubplot:>
 
@@ -176,15 +226,25 @@ grid.plot(facecolor = "none", figsize = (10, 10), linewidth = 1)
 
 Extract Whale Habitat
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 whale_grid = grid.sjoin(whales_gdf, how="inner")
 ```
 
+</details>
+
 Plot whale sighting grid cells
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 whale_grid.plot(facecolor = "none", figsize = (10, 10), linewidth = .75)
 ```
+
+</details>
 
     <AxesSubplot:>
 
@@ -192,16 +252,26 @@ whale_grid.plot(facecolor = "none", figsize = (10, 10), linewidth = .75)
 
 ### Summarise Whale Counts
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 grid['count'] = whale_grid.groupby(whale_grid.index).count()['index_right']
 grid = grid[grid['count'] > 20]
 ```
 
+</details>
+
 Plot Whale Habitat
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 grid.plot(facecolor = "none", figsize = (10, 10), linewidth = .75)
 ```
+
+</details>
 
     <AxesSubplot:>
 
@@ -209,10 +279,15 @@ grid.plot(facecolor = "none", figsize = (10, 10), linewidth = .75)
 
 ### Create Unary Union
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 grid_union = grid.unary_union
 grid_union
 ```
+
+</details>
 
 ![](output_49_0.svg)
 
@@ -220,20 +295,33 @@ grid_union
 
 The vessel speed reduction zone is determined by the whale habitat areas in which more than 20 whales were observed per 2,000 m².
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 grid_convex = grid_union.convex_hull
 grid_convex
 ```
 
+</details>
+
 ![](output_52_0.svg)
 
 Make GeoDataFrame
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 whale_habitat = gpd.GeoDataFrame(index = [0], geometry = [grid_convex], crs = projected_EPSG)
 ```
 
+</details>
+
 Plot
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 fig, ax = plt.subplots(figsize = (10, 10))
@@ -246,7 +334,12 @@ ax.ticklabel_format(scilimits =  [-5, 5])
 ctx.add_basemap(ax, crs = projected_EPSG)
 ```
 
+</details>
+
 ![](output_56_0.png)
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 whale_habitat_diff = whale_habitat.difference(dominica_shp)
@@ -254,9 +347,14 @@ whale_habitat = gpd.GeoDataFrame(geometry = whale_habitat_diff)
 whale_habitat
 ```
 
+</details>
+
       geometry
   --- ---------------------------------------------------
   0   POLYGON ((456480.652 1682792.746, 454480.652 1...
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 fig, ax = plt.subplots(figsize = (10, 10))
@@ -269,17 +367,27 @@ ax.ticklabel_format(scilimits =  [-5, 5])
 ctx.add_basemap(ax, crs = projected_EPSG)
 ```
 
+</details>
+
 ![](output_58_0.png)
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 whale_habitat
 ```
+
+</details>
 
       geometry
   --- ---------------------------------------------------
   0   POLYGON ((456480.652 1682792.746, 454480.652 1...
 
 ## Load AIS Vessel Data
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 vessels = gpd.read_file(vessels_CSV)
@@ -289,6 +397,8 @@ vessels_gdf = vessels_gdf.to_crs(projected_EPSG)
 vessels_gdf['TIMESTAMP'] = pd.to_datetime(vessels_gdf['TIMESTAMP'])
 vessels_gdf
 ```
+
+</details>
 
            field_1   MMSI        LON         LAT        TIMESTAMP             geometry
   -------- --------- ----------- ----------- ---------- --------------------- ----------------------------
@@ -308,10 +418,15 @@ vessels_gdf
 
 ### Select Vessels Inside Whale Habitat
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 vessels_whale = vessels_gdf.sjoin(whale_habitat, how = 'inner')
 vessels_whale
 ```
+
+</details>
 
            field_1   MMSI        LON         LAT        TIMESTAMP             geometry                         index_right
   -------- --------- ----------- ----------- ---------- --------------------- -------------------------------- -------------
@@ -331,6 +446,9 @@ vessels_whale
 
 ### Plot Vessel Data
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 fig, ax = plt.subplots(figsize = (10, 10))
 ax.grid(True, color = 'dimgray')
@@ -342,9 +460,14 @@ ax.ticklabel_format(scilimits =  [-5, 5])
 ctx.add_basemap(ax, crs = projected_EPSG)
 ```
 
+</details>
+
 ![](output_74_0.png)
 
 ## Calculate Vessel Speeds
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 vessels_whale_sorted = vessels_whale.sort_values(['MMSI', 'TIMESTAMP'])
@@ -361,7 +484,12 @@ vw_matched['time_diff'] = vw_matched['10_kn_time'].sub(vw_matched['time_s'])
 vw_matched = vw_matched[vw_matched['time_diff'] > 0]
 ```
 
+</details>
+
 ### Plot Vessels travelling over 10 knots
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 fig, ax = plt.subplots(figsize = (10, 10))
@@ -374,31 +502,50 @@ ax.ticklabel_format(scilimits =  [-5, 5])
 ctx.add_basemap(ax, crs = projected_EPSG)
 ```
 
+</details>
+
 ![](output_97_0.png)
 
 ## Impact of a 10 knot Speed Reduction Zone
 
 We calculated that ship vessel traffic would be slowed by 2 minutes per mile on average. Over the course of the year, this equated to approximately 28 days of increased shipping time.
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 num_days = vw_matched['time_diff'].sum() / 60 / 60 /24
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 num_days
 ```
 
+</details>
+
     27.9423247732646
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 mean_time_lost = vw_matched['time_diff'].mean() / 60
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 mean_time_lost
 ```
 
-    1.8906563139508044
+</details>
 
-``` {.r .distill-force-highlighting-css}
-```
+    1.8906563139508044

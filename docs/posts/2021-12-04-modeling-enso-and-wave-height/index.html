@@ -73,11 +73,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-86daaaaad7353f9cc0c554efc1dd6d94.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f8dc6eab18fde03278982b0b35885446.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f8dc6eab18fde03278982b0b35885446.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f58410fdad43ccd61b771e076d184ba0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-fac110a418399a2b9e30eb7011908357.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-dark-fac110a418399a2b9e30eb7011908357.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,6 +107,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles/site.css">
 <meta property="og:title" content="Modeling ENSO and Wave Height – Cullen Molitor">
@@ -334,6 +363,10 @@ Marie Rivers, UC Santa Barbara (<a href="mailto:mrivers@bren.ucsb.edu" class="em
 <h3 class="anchored" data-anchor-id="buoy-dataset-inputoutput">Buoy Dataset Input/Output</h3>
 <section id="import-required-packages" class="level4">
 <h4 class="anchored" data-anchor-id="import-required-packages">Import required packages</h4>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> netCDF4</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -344,6 +377,7 @@ Marie Rivers, UC Santa Barbara (<a href="mailto:mrivers@bren.ucsb.edu" class="em
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> gridspec</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> cm</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="set-parameters" class="level4">
 <h4 class="anchored" data-anchor-id="set-parameters">Set parameters</h4>
@@ -354,8 +388,13 @@ Marie Rivers, UC Santa Barbara (<a href="mailto:mrivers@bren.ucsb.edu" class="em
 </ul>
 <p>The harvest buoy, CDIP station number of 071, was selected for our regional analysis of the Santa Barbara Coast.</p>
 <p><a href="https://cdip.ucsd.edu/m/deployment/station_view/">Link to other buoy stations</a></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>stn <span class="op">=</span> <span class="st">'071'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="read-in-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="read-in-the-data">Read in the data</h4>
@@ -418,11 +457,16 @@ float32 sstSeaSurfaceTemperature(sstTime)
 unlimited dimensions: 
 current shape = (372015,)
 filling off</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Other Variables</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data.variables</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Hs = data.variables['waveHs']</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tp = data.variables['waveTp']</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Dp = data.variables['waveDp'] </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <section id="clean-data" class="level4">
 <h4 class="anchored" data-anchor-id="clean-data">Clean data</h4>
 <p>Thanks to the data processing methods used by CDIP, the downloaded datafiles did not require much actual cleaning. Since the sea surface temperature and wave height variables had different timestamps associated with each measurements we pulled out these variables for use in creating new dataframes that were used as an intermediate step in our overall analysis</p>
@@ -461,14 +505,28 @@ filling off</code></pre>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out year from datetime</span></span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>sst_df[<span class="st">'year'</span>] <span class="op">=</span> sst_df[<span class="st">'date_time'</span>].dt.year</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use num2date on wave_time_var</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>wave_time <span class="op">=</span> netCDF4.num2date(wave_time_var[:], wave_time_var.units, only_use_cftime_datetimes<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make an empty pandas dataframe</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>wave_df <span class="op">=</span> pd.DataFrame()</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill it with SST and the date time it was collected</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">'wave'</span>] <span class="op">=</span> wave</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">'date_time'</span>] <span class="op">=</span> wave_time</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make date_time column a pandas date_time</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">'date_time'</span>] <span class="op">=</span> pd.to_datetime(wave_df[<span class="st">'date_time'</span>]) </span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -480,6 +538,7 @@ filling off</code></pre>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out year from datetime</span></span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>wave_df[<span class="st">'year'</span>] <span class="op">=</span> wave_df[<span class="st">'date_time'</span>].dt.year</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>The next two code chunks let you view the newly created sea surface temperature and wave height dataframes</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect data</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sst_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -690,12 +749,17 @@ filling off</code></pre>
 </tr>
 </tbody>
 </table>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop unused columns from ENSO data</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>enso <span class="op">=</span> enso.drop(enso.columns[[<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>]], axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># rename columns</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>enso <span class="op">=</span> enso.rename(columns<span class="op">=</span>{<span class="st">"YR"</span>:<span class="st">"year"</span>, <span class="st">"MON"</span>:<span class="st">"month"</span>, <span class="st">"ANOM.3"</span>: <span class="st">"enso_anom"</span>})</span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>enso.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -745,6 +809,10 @@ filling off</code></pre>
 <section id="harvet-buoy-visualization" class="level4">
 <h4 class="anchored" data-anchor-id="harvet-buoy-visualization">Harvet buoy visualization</h4>
 <p>We started by visualizing the full dataset to inform our further analysis. Based on the data gaps shown in the plot, we decided to begin our analysis at 1997.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot here to see what the data looks like</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>f, (pHs, pSst) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>)) </span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>pSst.plot(sst_df.date, sst_df.sst, linewidth <span class="op">=</span> <span class="fl">0.5</span>)</span>
@@ -752,6 +820,7 @@ filling off</code></pre>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Harvest Buoy"</span>, fontsize<span class="op">=</span><span class="dv">30</span>, y <span class="op">=</span> <span class="fl">2.3</span>)</span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>pHs.set_ylabel(<span class="st">'Wave Height, m'</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>pSst.set_ylabel(<span class="st">'SST, C'</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>Text(0, 0.5, 'SST, C')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -766,6 +835,10 @@ filling off</code></pre>
 <p>Next we <code>assign()</code> an arbitrary day value of 1 in order to make a date with <code>pd.to_datetime()</code> function</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>enso <span class="op">=</span> enso.assign(day <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>enso[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(enso[[<span class="st">'year'</span>, <span class="st">'month'</span>, <span class="st">'day'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose color gradient here: https://matplotlib.org/stable/tutorials/colors/colormaps.html </span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>colourmap <span class="op">=</span> cm.get_cmap(<span class="st">'magma'</span>)</span>
@@ -784,6 +857,7 @@ filling off</code></pre>
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>                     color<span class="op">=</span>colourmap(normalize(yy[i]))</span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>                     ,alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
 <span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="output_51_0.png" class="img-fluid figure-img"></p>
@@ -815,9 +889,14 @@ filling off</code></pre>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>sst_monthly <span class="op">=</span> sst_df.groupby([<span class="st">'month'</span>, <span class="st">'year'</span>]).agg({<span class="st">'sst'</span>: <span class="st">'mean'</span>})</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>wave_monthly <span class="op">=</span> wave_df.groupby([<span class="st">'month'</span>, <span class="st">'year'</span>]).agg({<span class="st">'wave'</span>: <span class="st">'mean'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect Data</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sst_monthly.head())</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wave_monthly.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>                  sst
 month year           
 1     1999  13.194914
@@ -1040,6 +1119,10 @@ month year
 </tr>
 </tbody>
 </table>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rename columns</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.rename(columns <span class="op">=</span> {<span class="st">'sst'</span>:<span class="st">'buoy_sst_anom'</span>, <span class="st">'wave'</span>:<span class="st">'buoy_wave_anom'</span>})</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1054,8 +1137,14 @@ month year
 <span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># set the index for plotting</span></span>
 <span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.set_index(<span class="st">'date'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>buoy_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1122,6 +1211,10 @@ month year
 <div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>buoy_df <span class="op">=</span> buoy_df.drop([<span class="st">"month"</span>, <span class="st">"year"</span>, <span class="st">"day"</span>], axis<span class="op">=</span><span class="dv">1</span>).reset_index()</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>enso <span class="op">=</span> enso.drop([<span class="st">"year"</span>, <span class="st">"month"</span>, <span class="st">"day"</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>anom_df <span class="op">=</span> buoy_df.set_index(<span class="st">'date'</span>).join(enso.set_index(<span class="st">'date'</span>)).reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot sst and wave height anomaly from buoy along with ENSO sst anomaly</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>f, (bwa, bsa, esa ) <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>))</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1139,6 +1232,7 @@ month year
 <span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>esa.fill_between(anom_df.date, anom_df.enso_anom,  <span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.30</span>)</span>
 <span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>esa.axhline(<span class="dv">0</span>,color<span class="op">=</span><span class="st">'red'</span>)</span>
 <span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>esa.set_ylabel(<span class="st">'ENSO Anomaly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>Text(0, 0.5, 'ENSO Anomaly')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1253,6 +1347,10 @@ Notes:
 [1] R² is computed without centering (uncentered) since the model does not contain a constant.
 [2] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
 <p><strong>Visualize model results</strong></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>m, b <span class="op">=</span> np.polyfit(anom_df.enso_anom, anom_df.buoy_sst_anom, <span class="dv">1</span>)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">5</span>))</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(anom_df.enso_anom, anom_df.buoy_sst_anom)</span>
@@ -1260,6 +1358,7 @@ Notes:
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Buoy SST Anomaly ~ ENSO SST Anomaly'</span>)</span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Buoy SST Anomaly'</span>)</span>
 <span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'ENSO SST Anomaly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>Text(0.5, 0, 'ENSO SST Anomaly')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1267,6 +1366,10 @@ Notes:
 <figcaption>png</figcaption>
 </figure>
 </div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>m, b <span class="op">=</span> np.polyfit(anom_df.enso_anom, anom_df.buoy_wave_anom, <span class="dv">1</span>)</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">5</span>))</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(anom_df.enso_anom, anom_df.buoy_wave_anom)</span>
@@ -1274,6 +1377,7 @@ Notes:
 <span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Buoy Wave Anomaly ~ ENSO SST Anomaly'</span>)</span>
 <span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Buoy Wave Anomaly'</span>)</span>
 <span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'ENSO SST Anomaly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>Text(0.5, 0, 'ENSO SST Anomaly')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1281,6 +1385,10 @@ Notes:
 <figcaption>png</figcaption>
 </figure>
 </div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>m, b <span class="op">=</span> np.polyfit(anom_df.buoy_sst_anom, anom_df.buoy_wave_anom, <span class="dv">1</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">5</span>))</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(anom_df.buoy_sst_anom, anom_df.buoy_wave_anom)</span>
@@ -1288,6 +1396,7 @@ Notes:
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Buoy Wave Anomaly ~ Buoy SST Anomaly'</span>)</span>
 <span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Buoy Wave Anomaly'</span>)</span>
 <span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Buoy SST Anomaly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>Text(0.5, 0, 'Buoy SST Anomaly')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1298,7 +1407,7 @@ Notes:
 </section>
 <section id="results" class="level4">
 <h4 class="anchored" data-anchor-id="results">Results</h4>
-<p>Our model shows a positive correlation between ENSO sea surface temperature anomaly and Santa Barbara sea surface temperature anomaly. The model output indicates that this correlation is statistically significant based on the p-value, but the low \(R^2\) value of 0.282 estimates that temperature near the equator only accounts for approximately 28% of the variability in sea surface temperature near Santa Barbara.Buoy height wave anomaly only has a slight positive correlation with ENSO sea surface temperature anomaly, but these results were not statistically significant due to a p-value &gt; 0.05. The model for buoy wave height vs.&nbsp;buoy sea surface temperature was statistically significant (p-value &lt; 0.05, but based on the \(R^2\) value, buoy sea surface temperature anomaly accounts for only 3.5% of the variability observed in wave height..</p>
+<p>Our model shows a positive correlation between ENSO sea surface temperature anomaly and Santa Barbara sea surface temperature anomaly. The model output indicates that this correlation is statistically significant based on the p-value, but the low <span class="math inline">\(R^2\)</span> value of 0.282 estimates that temperature near the equator only accounts for approximately 28% of the variability in sea surface temperature near Santa Barbara.Buoy height wave anomaly only has a slight positive correlation with ENSO sea surface temperature anomaly, but these results were not statistically significant due to a p-value &gt; 0.05. The model for buoy wave height vs.&nbsp;buoy sea surface temperature was statistically significant (p-value &lt; 0.05, but based on the <span class="math inline">\(R^2\)</span> value, buoy sea surface temperature anomaly accounts for only 3.5% of the variability observed in wave height..</p>
 </section>
 <section id="future-work" class="level4">
 <h4 class="anchored" data-anchor-id="future-work">Future Work</h4>
@@ -1315,7 +1424,6 @@ Notes:
 </ol>
 <p><strong>Buoy Data citation:</strong> Data furnished by the Coastal Data Information Program (CDIP), Integrative Oceanography Division, operated by the Scripps Institution of Oceanography, under the sponsorship of the U.S. Army Corps of Engineers and the California Department of Parks and Recreation</p>
 <p><strong>ENSO Data citation:</strong> Data made publicly available by the National Weather Service’s Climate Prediction Center. The data used: Monthly ERSSTv5 (1991-2020 base period) Niño 3.4 (5°North-5°South)(170-120°West)</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -1459,7 +1567,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = true;
+  const darkModeDefault = false;
   let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {

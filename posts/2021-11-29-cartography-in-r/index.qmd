@@ -43,10 +43,6 @@ library(ggspatial)
 
 Use `marmap::getNOAA.bathy()` to load New Zealand bathymetry and elevation data directly from NOAA database and convert `bathy` object to `dataframe` for ggplot.
 
-<details>
-<summary>Show code</summary>
-
-
 ``` r
 nz_df <- marmap::getNOAA.bathy(
   lon1 = 162,
@@ -61,14 +57,7 @@ nz_df <- marmap::getNOAA.bathy(
               filter(layer <= 0)
 ```
 
-
-</details>
-
 Read in New Zealand coastlines with `sf::read_sf()` to read the shapefile containing the New Zealand coastline.
-
-<details>
-<summary>Show code</summary>
-
 
 ``` r
 nz_coast <- sf::read_sf(
@@ -76,16 +65,9 @@ nz_coast <- sf::read_sf(
   )
 ```
 
-
-</details>
-
 ### Plot Data
 
 Use `ggplot()` to plot New Zealand coastline, bathymetric raster, and depth contours.
-
-<details>
-<summary>Show code</summary>
-
 
 ``` r
 ggplot() +
@@ -115,10 +97,4 @@ Map created by Cullen Molitor, Shelby Smith, and Amber McEldowney at the UCSB Br
         plot.caption = element_text(hjust = 0))
 ```
 
-
-</details>
-
 <img src="figures/New-Zealand-plot-1.png" width="720" />
-
-``` {.r .distill-force-highlighting-css}
-```

@@ -20,6 +20,9 @@ categories:
 
 The following code is adapted from a Google Earth Engine [JavaScript tutorial](https://developers.google.com/earth-engine/tutorials/community/modis-ndvi-time-series-animation). The code was translated into python and reproduced with several color palettes. The python code is found on the [CropMOSAIKS GitHub](https://github.com/cropmosaiks/NDVI_Images).
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 import ee
 import geemap
@@ -27,6 +30,11 @@ import os
 import glob
 from PIL import Image
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 # Initialize google earth engine
@@ -47,6 +55,11 @@ region = ee.Geometry.Polygon(
 )
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Add day-of-year (DOY) property to each image.
 def clip_and_get_day_of_year(img):
@@ -55,12 +68,22 @@ def clip_and_get_day_of_year(img):
     return img.set('doy', doy)
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Apply median reduction among matching DOY collections.
 def match_day_of_year_and_reduce(img):
     doyCol = ee.ImageCollection.fromImages(img.get('doy_matches'))
     return doyCol.reduce(ee.Reducer.median())
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 natural = [
@@ -85,6 +108,11 @@ cividis = [
 ]
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Define visualization parameters.
 vis_params = {
@@ -98,10 +126,20 @@ vis_params = {
 }
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 img_collection = img_collection.map(clip_and_get_day_of_year)
 img_dates = img_collection.aggregate_array('system:index').getInfo()
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 start_yr = int(img_dates[0][:4])
@@ -109,6 +147,11 @@ end_yr = int(img_dates[-1][:4])
 years = range(start_yr, end_yr + 1, 1)
 index_array = []
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 for year in years:
@@ -136,6 +179,11 @@ for year in years:
     geemap.download_ee_video(img_composite, vis_params, temp_file_name)
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 # filepaths
 fp_in = "animations/temp_*.gif"
@@ -150,6 +198,11 @@ img.save(fp = fp_out,
          duration = 100, 
          loop = 1)
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 geemap.add_text_to_gif(
@@ -168,7 +221,6 @@ geemap.add_text_to_gif(
 )
 ```
 
-![](ndvi.gif)
+</details>
 
-``` {.r .distill-force-highlighting-css}
-```
+![](ndvi.gif)

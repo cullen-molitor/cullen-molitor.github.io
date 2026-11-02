@@ -105,6 +105,9 @@ CDIP uses Waverider (Mark III) directional buoys manufactured by Datawell that a
 
 #### Import required packages
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 import netCDF4
 import numpy as np
@@ -118,6 +121,8 @@ from matplotlib import cm
 import matplotlib as mpl
 ```
 
+</details>
+
 #### Set parameters
 
 -   names of any directories where data are stored
@@ -128,10 +133,15 @@ The harvest buoy, CDIP station number of 071, was selected for our regional anal
 
 [Link to other buoy stations](https://cdip.ucsd.edu/m/deployment/station_view/)
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Type
 stn = '071'
 ```
+
+</details>
 
 #### Read in the data
 
@@ -219,6 +229,9 @@ print(data['sstSeaSurfaceTemperature'])
     current shape = (372015,)
     filling off
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Other Variables
 # data.variables
@@ -226,6 +239,8 @@ print(data['sstSeaSurfaceTemperature'])
 # Tp = data.variables['waveTp']
 # Dp = data.variables['waveDp'] 
 ```
+
+</details>
 
 #### Clean data
 
@@ -283,10 +298,18 @@ sst_df['month'] = sst_df['date_time'].dt.month
 sst_df['year'] = sst_df['date_time'].dt.year
 ```
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Use num2date on wave_time_var
 wave_time = netCDF4.num2date(wave_time_var[:], wave_time_var.units, only_use_cftime_datetimes=False)
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 # Make an empty pandas dataframe
@@ -296,6 +319,11 @@ wave_df = pd.DataFrame()
 wave_df['wave'] = wave
 wave_df['date_time'] = wave_time
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 # Make date_time column a pandas date_time
@@ -310,6 +338,8 @@ wave_df['month'] = wave_df['date_time'].dt.month
 # Pull out year from datetime
 wave_df['year'] = wave_df['date_time'].dt.year
 ```
+
+</details>
 
 The next two code chunks let you view the newly created sea surface temperature and wave height dataframes
 
@@ -365,6 +395,9 @@ enso.head()
   3   1950   4     23.63     -1.90   26.44   -1.14    26.90   -1.73    26.28     -1.54
   4   1950   5     22.68     -1.74   25.69   -1.57    27.73   -1.18    26.18     -1.75
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 # drop unused columns from ENSO data
 enso = enso.drop(enso.columns[[2, 3, 4, 5, 6, 7, 8]], axis=1)
@@ -373,6 +406,8 @@ enso = enso.drop(enso.columns[[2, 3, 4, 5, 6, 7, 8]], axis=1)
 enso = enso.rename(columns={"YR":"year", "MON":"month", "ANOM.3": "enso_anom"})
 enso.head()
 ```
+
+</details>
 
       year   month   enso_anom
   --- ------ ------- -----------
@@ -388,6 +423,9 @@ enso.head()
 
 We started by visualizing the full dataset to inform our further analysis. Based on the data gaps shown in the plot, we decided to begin our analysis at 1997.
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Plot here to see what the data looks like
 f, (pHs, pSst) = plt.subplots(2, 1, sharex=True, figsize=(15,10)) 
@@ -397,6 +435,8 @@ plt.title("Harvest Buoy", fontsize=30, y = 2.3)
 pHs.set_ylabel('Wave Height, m', fontsize=18)
 pSst.set_ylabel('SST, C', fontsize=18)
 ```
+
+</details>
 
     Text(0, 0.5, 'SST, C')
 
@@ -412,6 +452,9 @@ Next we `assign()` an arbitrary day value of 1 in order to make a date with `pd.
 enso = enso.assign(day = 1)
 enso['date'] = pd.to_datetime(enso[['year', 'month', 'day']])
 ```
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 # Choose color gradient here: https://matplotlib.org/stable/tutorials/colors/colormaps.html 
@@ -433,6 +476,8 @@ for i in range(npts - 1):
                      ,alpha=0.6)
 plt.show()
 ```
+
+</details>
 
 ![png](output_51_0.png)
 
@@ -471,11 +516,16 @@ sst_monthly = sst_df.groupby(['month', 'year']).agg({'sst': 'mean'})
 wave_monthly = wave_df.groupby(['month', 'year']).agg({'wave': 'mean'})
 ```
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Inspect Data
 print(sst_monthly.head())
 print(wave_monthly.head())
 ```
+
+</details>
 
                       sst
     month year           
@@ -557,6 +607,9 @@ buoy_df.head()
   3   1       2002   -0.756777   0.053433
   4   1       2003   0.660365    -0.123065
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 # rename columns
 buoy_df = buoy_df.rename(columns = {'sst':'buoy_sst_anom', 'wave':'buoy_wave_anom'})
@@ -574,10 +627,17 @@ buoy_df = buoy_df.sort_values(by=['date'])
 buoy_df = buoy_df.set_index('date')
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Inspect
 buoy_df.head()
 ```
+
+</details>
 
                month   year   buoy_sst_anom   buoy_wave_anom   day
   ------------ ------- ------ --------------- ---------------- -----
@@ -599,6 +659,9 @@ enso = enso.drop(["year", "month", "day"], axis = 1)
 anom_df = buoy_df.set_index('date').join(enso.set_index('date')).reset_index()
 ```
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Plot sst and wave height anomaly from buoy along with ENSO sst anomaly
 f, (bwa, bsa, esa ) = plt.subplots(3, 1, sharex=True, figsize=(15,10))
@@ -618,6 +681,8 @@ esa.fill_between(anom_df.date, anom_df.enso_anom,  0, alpha=0.30)
 esa.axhline(0,color='red')
 esa.set_ylabel('ENSO Anomaly')
 ```
+
+</details>
 
     Text(0, 0.5, 'ENSO Anomaly')
 
@@ -750,6 +815,9 @@ print(results.summary())
 
 **Visualize model results**
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 m, b = np.polyfit(anom_df.enso_anom, anom_df.buoy_sst_anom, 1)
 plt.figure(figsize = (10, 5))
@@ -760,9 +828,14 @@ plt.ylabel('Buoy SST Anomaly')
 plt.xlabel('ENSO SST Anomaly')
 ```
 
+</details>
+
     Text(0.5, 0, 'ENSO SST Anomaly')
 
 ![png](output_81_1.png)
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 m, b = np.polyfit(anom_df.enso_anom, anom_df.buoy_wave_anom, 1)
@@ -774,9 +847,14 @@ plt.ylabel('Buoy Wave Anomaly')
 plt.xlabel('ENSO SST Anomaly')
 ```
 
+</details>
+
     Text(0.5, 0, 'ENSO SST Anomaly')
 
 ![png](output_82_1.png)
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 m, b = np.polyfit(anom_df.buoy_sst_anom, anom_df.buoy_wave_anom, 1)
@@ -788,13 +866,15 @@ plt.ylabel('Buoy Wave Anomaly')
 plt.xlabel('Buoy SST Anomaly')
 ```
 
+</details>
+
     Text(0.5, 0, 'Buoy SST Anomaly')
 
 ![png](output_83_1.png)
 
 #### Results
 
-Our model shows a positive correlation between ENSO sea surface temperature anomaly and Santa Barbara sea surface temperature anomaly. The model output indicates that this correlation is statistically significant based on the p-value, but the low \\(R\^2\\) value of 0.282 estimates that temperature near the equator only accounts for approximately 28% of the variability in sea surface temperature near Santa Barbara.Buoy height wave anomaly only has a slight positive correlation with ENSO sea surface temperature anomaly, but these results were not statistically significant due to a p-value \> 0.05. The model for buoy wave height vs. buoy sea surface temperature was statistically significant (p-value \< 0.05, but based on the \\(R\^2\\) value, buoy sea surface temperature anomaly accounts for only 3.5% of the variability observed in wave height..
+Our model shows a positive correlation between ENSO sea surface temperature anomaly and Santa Barbara sea surface temperature anomaly. The model output indicates that this correlation is statistically significant based on the p-value, but the low $R^2$ value of 0.282 estimates that temperature near the equator only accounts for approximately 28% of the variability in sea surface temperature near Santa Barbara.Buoy height wave anomaly only has a slight positive correlation with ENSO sea surface temperature anomaly, but these results were not statistically significant due to a p-value \> 0.05. The model for buoy wave height vs. buoy sea surface temperature was statistically significant (p-value \< 0.05, but based on the $R^2$ value, buoy sea surface temperature anomaly accounts for only 3.5% of the variability observed in wave height..
 
 #### Future Work
 
@@ -811,6 +891,3 @@ References used to create this tutorial include:
 **Buoy Data citation:** Data furnished by the Coastal Data Information Program (CDIP), Integrative Oceanography Division, operated by the Scripps Institution of Oceanography, under the sponsorship of the U.S. Army Corps of Engineers and the California Department of Parks and Recreation
 
 **ENSO Data citation:** Data made publicly available by the National Weather Service's Climate Prediction Center. The data used: Monthly ERSSTv5 (1991-2020 base period) Niño 3.4 (5°North-5°South)(170-120°West)
-
-``` {.r .distill-force-highlighting-css}
-```

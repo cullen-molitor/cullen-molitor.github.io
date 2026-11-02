@@ -20,22 +20,45 @@ categories:
 
 The following code is adapted from a Google Earth Engine [JavaScript tutorial](https://developers.google.com/earth-engine/tutorials/community/modis-ndvi-time-series-animation). The code was translated into python, made static, and reproduced with several color palettes. The python code is found on the [CropMOSAIKS GitHub](https://github.com/cropmosaiks/NDVI_Images).
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 import ee
 from IPython.display import Image
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 ee.Initialize()
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 ndvi = ee.ImageCollection('MODIS/006/MOD13A2').select('NDVI')
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 mask = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017').filter(ee.Filter.eq('wld_rgn', 'Africa'))
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 region = ee.Geometry.Polygon(
@@ -50,17 +73,37 @@ region = ee.Geometry.Polygon(
 )
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 ndvi = ndvi.filterDate('2013-01-01', '2014-01-01')
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 ndvi = ndvi.reduce(ee.Reducer.median())
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 ndvi = ndvi.clip(mask)
 ```
+
+</details>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 natural = [
@@ -85,6 +128,11 @@ cividis = [
   ]
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 #  # Closer to True color
 visParams = {
@@ -97,12 +145,22 @@ visParams = {
 }
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 url = ndvi.getThumbUrl(visParams)
 Image(url=url, embed=True, format = 'png')
 ```
 
+</details>
+
 ![](output_11_0.png)
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 # # Viridis
@@ -116,12 +174,22 @@ visParams = {
 }
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 url = ndvi.getThumbUrl(visParams)
 Image(url=url, embed=True, format = 'png')
 ```
 
+</details>
+
 ![](output_13_0.png)
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 visParams = {
@@ -134,12 +202,22 @@ visParams = {
 }
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 url = ndvi.getThumbUrl(visParams)
 Image(url=url, embed=True, format = 'png')
 ```
 
+</details>
+
 ![](output_15_0.png)
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 visParams = {
@@ -152,12 +230,16 @@ visParams = {
 }
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 url = ndvi.getThumbUrl(visParams)
 Image(url=url, embed=True, format = 'png')
 ```
 
-![](output_17_0.png)
+</details>
 
-``` {.r .distill-force-highlighting-css}
-```
+![](output_17_0.png)

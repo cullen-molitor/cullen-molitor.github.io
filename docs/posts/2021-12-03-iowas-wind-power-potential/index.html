@@ -73,11 +73,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-86daaaaad7353f9cc0c554efc1dd6d94.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f8dc6eab18fde03278982b0b35885446.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f8dc6eab18fde03278982b0b35885446.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f58410fdad43ccd61b771e076d184ba0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-fac110a418399a2b9e30eb7011908357.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-dark-fac110a418399a2b9e30eb7011908357.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -265,6 +265,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="import-modules" class="level2">
 <h2 class="anchored" data-anchor-id="import-modules">Import Modules</h2>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlalchemy <span class="im">as</span> sa</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -272,9 +276,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> ctx</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="database-connection" class="level2">
 <h2 class="anchored" data-anchor-id="database-connection">Database Connection</h2>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pg_uri_template <span class="op">=</span> <span class="st">'postgresql+psycopg2://</span><span class="sc">{user}</span><span class="st">:</span><span class="sc">{pwd}</span><span class="st">@</span><span class="sc">{host}</span><span class="st">/</span><span class="sc">{db_name}</span><span class="st">'</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>db_uri <span class="op">=</span> pg_uri_template.<span class="bu">format</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    drivername<span class="op">=</span><span class="st">'postgresql+psycopg2'</span>,</span>
@@ -284,6 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    db_name <span class="op">=</span> <span class="st">'osmiowa'</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>engine <span class="op">=</span> sa.create_engine(db_uri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="data-details" class="level2">
 <h2 class="anchored" data-anchor-id="data-details">Data Details</h2>
@@ -294,6 +304,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="query-database" class="level1">
 <h1>Query Database</h1>
 <p>Residential Scenario 1 (3H)</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sql_buildings_residential_1 <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -307,7 +321,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">OR </span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">    place = 'town'</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Residential Scenario 2 (10H)</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sql_buildings_residential_2 <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -323,7 +342,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">OR</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">    place = 'town'</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Non-residential (3H)</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sql_buildings_nonresidential <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -335,7 +359,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">NOT IN </span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">    ('yes', 'residential', 'apartments', 'house', 'static_caravan', 'detached')</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Airports</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sql_airports <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -345,7 +374,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE </span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">    aeroway IS NOT NULL</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Military Bases</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sql_military <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -357,7 +391,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="st">OR </span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="st">    landuse = 'military'</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Railways and Roads</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sql_railways_n_roads <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -376,7 +415,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="st">    ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'road',</span></span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="st">    'primary', 'primary_link', 'secondary', 'secondary_link'))</span></span>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Nature Reserves, Parks, and Wetlands</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sql_nature <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -392,7 +436,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="st">IN </span></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="st">    ('wetland')</span></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Rivers</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sql_rivers <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -404,7 +453,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="st">IN </span></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="st">    ('river')</span></span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Lakes</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sql_lakes <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
@@ -416,7 +470,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">IN </span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="st">    ('lake', 'reservoir', 'pond')</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Power Lines</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sql_powerlines <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -426,7 +485,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE </span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">    power IS NOT NULL</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Power Plants</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sql_powerplants <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
@@ -436,7 +500,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE </span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st">    power IS NOT NULL</span></span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Wind Turbines</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sql_turbines <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
@@ -448,10 +517,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">AND </span></span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">    "generator:source" IN ('wind')</span></span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <section id="merge-subqueries" class="level2">
 <h2 class="anchored" data-anchor-id="merge-subqueries">Merge Subqueries</h2>
 <section id="scenario-1" class="level3">
 <h3 class="anchored" data-anchor-id="scenario-1">Scenario 1</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sql_siting_constraints <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ss">f"""</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_buildings_residential_1<span class="sc">}</span><span class="ss"> </span></span>
@@ -477,9 +551,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_turbines<span class="sc">}</span></span>
 <span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
 <span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>siting_constraints <span class="op">=</span> gpd.read_postgis(sql_siting_constraints, con <span class="op">=</span> engine, geom_col <span class="op">=</span> <span class="st">'way'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="scenario-2" class="level3">
 <h3 class="anchored" data-anchor-id="scenario-2">Scenario 2</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sql_siting_constraints_2 <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ss">f"""</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_buildings_residential_2<span class="sc">}</span><span class="ss"> </span></span>
@@ -505,25 +584,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>sql_turbines<span class="sc">}</span></span>
 <span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
 <span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>siting_constraints_2 <span class="op">=</span> gpd.read_postgis(sql_siting_constraints_2, con <span class="op">=</span> engine, geom_col <span class="op">=</span> <span class="st">'way'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>siting_constraints.plot(ax <span class="op">=</span> ax, markersize <span class="op">=</span> <span class="fl">.1</span>, color <span class="op">=</span> <span class="st">"purple"</span>, alpha <span class="op">=</span> <span class="fl">.5</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, color <span class="op">=</span> <span class="st">'dimgray'</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Siting Constraints (Scenario 1)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>ax.ticklabel_format(scilimits <span class="op">=</span>  [<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>])</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span><span class="st">"EPSG:26975"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="output_40_0.png" class="img-fluid"></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>siting_constraints_2.plot(ax <span class="op">=</span> ax, markersize <span class="op">=</span> <span class="fl">.1</span>, color <span class="op">=</span> <span class="st">"purple"</span>, alpha <span class="op">=</span> <span class="fl">.5</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, color <span class="op">=</span> <span class="st">'dimgray'</span>)</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Siting Constraints (Scenario 2)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ax.ticklabel_format(scilimits <span class="op">=</span>  [<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>])</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span><span class="st">"EPSG:26975"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="output_41_0.png" class="img-fluid"></p>
 </section>
 </section>
 <section id="wind-data" class="level2">
 <h2 class="anchored" data-anchor-id="wind-data">Wind Data</h2>
 <p>The table wind_cells_10000 contains 10 km2 square polygons with associated average annual wind speeds (m s-1), arranged to cover Iowa in a ragged grid.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sql_wind_speeds <span class="op">=</span> <span class="op">\</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT * </span></span>
@@ -533,6 +627,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="st">    wind_speed IS NOT NULL</span></span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>wind_speeds <span class="op">=</span> gpd.read_postgis(sql_wind_speeds, con <span class="op">=</span> engine, geom_col <span class="op">=</span> <span class="st">'geom'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 </section>
 <section id="results" class="level1">
@@ -541,36 +636,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="scenario-1-1">Scenario #1</h2>
 <section id="subtract-siting-constraints-from-wind-cells" class="level3">
 <h3 class="anchored" data-anchor-id="subtract-siting-constraints-from-wind-cells">Subtract Siting Constraints from Wind Cells</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>suitable_cells <span class="op">=</span> wind_speeds.overlay(siting_constraints, how <span class="op">=</span> <span class="st">'difference'</span>, keep_geom_type <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="plot-suitable-wind-cells" class="level3">
 <h3 class="anchored" data-anchor-id="plot-suitable-wind-cells">Plot Suitable Wind Cells</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>suitable_cells.plot(ax <span class="op">=</span> ax, markersize <span class="op">=</span> <span class="fl">.1</span>, color <span class="op">=</span> <span class="st">"purple"</span>, alpha <span class="op">=</span> <span class="fl">.5</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, color <span class="op">=</span> <span class="st">'dimgray'</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Suitable Areas (Scenario 1)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>ax.ticklabel_format(scilimits <span class="op">=</span>  [<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>])</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span><span class="st">"EPSG:26975"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="output_47_0.png" class="img-fluid"></p>
 </section>
 <section id="find-number-of-turbines" class="level3">
 <h3 class="anchored" data-anchor-id="find-number-of-turbines">Find Number of Turbines</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>rotor_5x <span class="op">=</span> math.pi <span class="op">*</span> (<span class="dv">136</span> <span class="op">*</span> <span class="dv">5</span>) <span class="op">**</span> <span class="dv">2</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>suitable_cells[<span class="st">"area"</span>] <span class="op">=</span> suitable_cells[<span class="st">'geom'</span>].area</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>suitable_cells[<span class="st">"number_wind_turbines"</span>] <span class="op">=</span> suitable_cells[<span class="st">'geom'</span>].area <span class="op">/</span> rotor_5x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>total_wind_turbines <span class="op">=</span> suitable_cells[<span class="st">"number_wind_turbines"</span>].<span class="bu">sum</span>()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The total number of turbines in scenario 1 is:"</span>, <span class="bu">round</span>(total_wind_turbines))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>The total number of turbines in scenario 1 is: 57286</code></pre>
 </section>
 <section id="power-production" class="level3">
 <h3 class="anchored" data-anchor-id="power-production">Power production</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>suitable_cells[<span class="st">'energy_per_turbine'</span>] <span class="op">=</span> <span class="fl">2.6</span> <span class="op">*</span> suitable_cells[<span class="st">'wind_speed'</span>] <span class="op">-</span> <span class="dv">5</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>suitable_cells[<span class="st">'power_per_cell'</span>] <span class="op">=</span> suitable_cells[<span class="st">'energy_per_turbine'</span>] <span class="op">*</span> suitable_cells[<span class="st">'number_wind_turbines'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="total-power-production" class="level3">
 <h3 class="anchored" data-anchor-id="total-power-production">Total Power Production</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>total_scenario_1 <span class="op">=</span> suitable_cells[<span class="st">'power_per_cell'</span>].<span class="bu">sum</span>()</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The total power produced in scenario 1 is:"</span>, <span class="bu">round</span>(total_scenario_1), <span class="st">"GWH/year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>The total power produced in scenario 1 is: 1064159 GWH/year</code></pre>
 </section>
 </section>
@@ -578,32 +703,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="scenario-2-1">Scenario #2</h2>
 <section id="subtract-siting-constraints-from-wind-cells-1" class="level3">
 <h3 class="anchored" data-anchor-id="subtract-siting-constraints-from-wind-cells-1">Subtract Siting Constraints from Wind Cells</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>suitable_cells_2 <span class="op">=</span> wind_speeds.overlay(siting_constraints_2, how <span class="op">=</span> <span class="st">'difference'</span>, keep_geom_type <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="plot-suitable-wind-cells-1" class="level3">
 <h3 class="anchored" data-anchor-id="plot-suitable-wind-cells-1">Plot Suitable Wind Cells</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>suitable_cells_2.plot(ax <span class="op">=</span> ax, markersize <span class="op">=</span> <span class="fl">.1</span>, color <span class="op">=</span> <span class="st">"purple"</span>, alpha <span class="op">=</span> <span class="fl">.5</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, color <span class="op">=</span> <span class="st">'dimgray'</span>)</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Suitable Areas (Scenario 2)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>ax.ticklabel_format(scilimits <span class="op">=</span>  [<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>])</span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span><span class="st">"EPSG:26975"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="output_58_0.png" class="img-fluid"></p>
 </section>
 <section id="find-number-of-turbines-1" class="level3">
 <h3 class="anchored" data-anchor-id="find-number-of-turbines-1">Find Number of Turbines</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>rotor_5x <span class="op">=</span> math.pi <span class="op">*</span> (<span class="dv">136</span> <span class="op">*</span> <span class="dv">5</span>) <span class="op">**</span> <span class="dv">2</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>suitable_cells_2[<span class="st">"area"</span>] <span class="op">=</span> suitable_cells_2[<span class="st">'geom'</span>].area</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>suitable_cells_2[<span class="st">"number_wind_turbines"</span>] <span class="op">=</span> suitable_cells_2[<span class="st">'geom'</span>].area <span class="op">/</span> rotor_5x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>total_wind_turbines_2 <span class="op">=</span> suitable_cells_2[<span class="st">"number_wind_turbines"</span>].<span class="bu">sum</span>()</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The total number of turbines in scenario 2 is:"</span>, <span class="bu">round</span>(total_wind_turbines_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>The total number of turbines in scenario 2 is: 52055</code></pre>
 </section>
 <section id="power-production-1" class="level3">
 <h3 class="anchored" data-anchor-id="power-production-1">Power Production</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>suitable_cells_2[<span class="st">'energy_per_turbine'</span>] <span class="op">=</span> <span class="fl">2.6</span> <span class="op">*</span> suitable_cells_2[<span class="st">'wind_speed'</span>] <span class="op">-</span> <span class="dv">5</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>suitable_cells_2[<span class="st">'power_per_cell'</span>] <span class="op">=</span> suitable_cells_2[<span class="st">'energy_per_turbine'</span>] <span class="op">*</span> suitable_cells_2[<span class="st">'number_wind_turbines'</span>]</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>wind_speeds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -686,10 +836,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="total-power-production-1" class="level3">
 <h3 class="anchored" data-anchor-id="total-power-production-1">Total Power Production</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>total_scenario_2 <span class="op">=</span> suitable_cells_2[<span class="st">'power_per_cell'</span>].<span class="bu">sum</span>()</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The total power produced in scenario 2 is:"</span>, <span class="bu">round</span>(total_scenario_2), <span class="st">" GWH/year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>The total power produced in scenario 2 is: 967009  GWH/year</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -833,7 +987,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = true;
+  const darkModeDefault = false;
   let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {

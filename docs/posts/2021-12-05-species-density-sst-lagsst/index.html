@@ -73,11 +73,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-86daaaaad7353f9cc0c554efc1dd6d94.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f8dc6eab18fde03278982b0b35885446.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f8dc6eab18fde03278982b0b35885446.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f58410fdad43ccd61b771e076d184ba0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-fac110a418399a2b9e30eb7011908357.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-dark-fac110a418399a2b9e30eb7011908357.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,6 +107,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles/site.css">
 <meta property="og:title" content="Effect of ENSO on Kelp Forest Species – Cullen Molitor">
@@ -259,18 +288,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of California biogegeographic provinces (<a href="https://cullen-molitor.github.io/posts/2022-01-22-channel-islands-sst/">source</a>).</div>
 <p><br>
 </p>
-<p>The El Niño Southern Oscillation (<a href="https://www.climate.gov/news-features/blogs/enso/what-el-ni%C3%B1o%E2%80%93southern-oscillation-enso-nutshell">ENSO</a>) is measured primarily by the Oceanic Niño Index which calculates a SST <a href="https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_change.shtml">anomaly value</a> value each month going back to 1950. These values are derived from SST in the equatorial pacific (\(\pm5^{\circ}\) latitude, \(120^{\circ}-170^{\circ}W\) longitude). The patterns of SST in this region are responsible for driving certain global weather and climate patterns. Despite the distance from this region, ENSO has a large effect on the oceanographic conditions of the SCB and the Channel Islands. This effect includes an influence on local SST as well as the strength and direction of ocean currents. These effects are known to influence the distribution and abundance of certain marine species (<a href="https://www.frontiersin.org/articles/10.3389/fmars.2019.00497">Day 2018</a>, <a href="https://www.nature.com/articles/s41598-020-77885-3">Freedman 2020</a>).</p>
+<p>The El Niño Southern Oscillation (<a href="https://www.climate.gov/news-features/blogs/enso/what-el-ni%C3%B1o%E2%80%93southern-oscillation-enso-nutshell">ENSO</a>) is measured primarily by the Oceanic Niño Index which calculates a SST <a href="https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_change.shtml">anomaly value</a> value each month going back to 1950. These values are derived from SST in the equatorial pacific (<span class="math inline">\(\pm5^{\circ}\)</span> latitude, <span class="math inline">\(120^{\circ}-170^{\circ}W\)</span> longitude). The patterns of SST in this region are responsible for driving certain global weather and climate patterns. Despite the distance from this region, ENSO has a large effect on the oceanographic conditions of the SCB and the Channel Islands. This effect includes an influence on local SST as well as the strength and direction of ocean currents. These effects are known to influence the distribution and abundance of certain marine species (<a href="https://www.frontiersin.org/articles/10.3389/fmars.2019.00497">Day 2018</a>, <a href="https://www.nature.com/articles/s41598-020-77885-3">Freedman 2020</a>).</p>
 <p>This analysis takes a shotgun approach to investigate which species are sensitive to either warm-water or cold-water events by using a series of species-level dynamic linear models with lag SST anomalies as predictor variables. These models will provide a broad overview of which species are affected, how they are affected, and whether or not the affect is statistically significant. This will inform our understanding of how species distribution and population ranges might be affected by changing oceanographic conditions due to climate change.</p>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
 <p>The Kelp Forest Monitoring (KFM) program at Channel Islands National Park has been collecting abundance and size distribution data of more than 170 species since 1982 (sampled annually). The park currently samples 33 sites at the five islands in the National Park. This data is publicly available and was requested and issued under a <a href="https://irma.nps.gov/RPRS/">scientific research and collecting permit</a> (permit #: CHIS-2020-SCI-0006). These data are collected using scuba surveys where the biologists attempt to minimize their impact on the reef by using non-invasive sampling methods. This means that animals are counted in situ and no rocks are overturned or species removed. This inevitably biases the data towards adult populations of certain invertebrates that utilize crevice habitat during development as they will be hidden from direct observation.</p>
-<p>The fish data is collected in (#\(/m^3\)). In order to assure that all data are in the same units, only measurements of invertebrate and algae density (#\(/m^2\)) are retained. This takes the total number of species with density data from 151 down to 35. Using species density, we can identify trends in abundance observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density.</p>
+<p>The fish data is collected in (#<span class="math inline">\(/m^3\)</span>). In order to assure that all data are in the same units, only measurements of invertebrate and algae density (#<span class="math inline">\(/m^2\)</span>) are retained. This takes the total number of species with density data from 151 down to 35. Using species density, we can identify trends in abundance observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density.</p>
 <p>Below we read in ENSO data and calculate yearly mean anomalies before making 5 new columns with corresponding lag values. We then load in the species density data and filter out fish and 2 species which are exceedingly rare and do not have enough data to model. This leaves us with 33 species to model, all with the same units.</p>
-<details>
-<summary>
-Show code
-</summary>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
@@ -304,17 +329,12 @@ Show code
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"wakame, juvenile"</span>, </span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"white abalone"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(oni_yearly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </section>
 <section id="analysis" class="level1">
 <h1>Analysis</h1>
 <p>This analysis will use a general model formula of lm(Mean_Density ~ SST_Anom + SST_Anom_1 + SST_Anom_2 + SST_Anom_3 + SST_Anom_4 + SST_Anom_5) applied to density data grouped by each species scientific name. These five lag periods will show how a species is affected within the same year, and for the next five years following anomalous warm or cold water. We expect recruitment of certain species will either increases or decreases following warmer than usual or colder than usual ocean temperatures. Given what we know about the life cycle of many marine species, it is reasonable to assume these effects would not be detected by non-invasive sampling techniques for 1-5 years following anomalous temperatures.</p>
 <p>This analysis is simplified to detect trends in a large number of species and does not take into account the effect of biogeography. This also does not consider the impact of marine protected areas (MPAs) which potentially buffer the ecological community from the effects of abiotic factors such as SST. MPAs could also have an effect from increased predation to some of these species, potentially limiting their abundance.</p>
 <p>The cumulative effect on all species will be plotted. Then the results will be filtered to only include significant affects and sorted by the estimated slope of their relationship. The two species with the most positive slope and the two with the most negative slope will have their coefficients plotted over the lag periods.</p>
-<details>
-<summary>
-Show code
-</summary>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Results_lag <span class="ot">&lt;-</span> density <span class="sc">%&gt;%</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(ScientificName) <span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
@@ -324,7 +344,6 @@ Show code
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        ))) <span class="sc">%&gt;%</span> </span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">significant =</span> <span class="fu">ifelse</span>(p.value <span class="sc">&lt;=</span> .<span class="dv">05</span>, <span class="st">"yes"</span>, <span class="st">"no"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
@@ -436,7 +455,6 @@ Show code
 <p>Miller, K. A., Engle, J. M., Uwai, S., &amp; Kawai, H. (2007). First report of the asian seaweed sargassum filicinum harvey (fucales) in california, usa. Biological Invasions, (9), 609-613.</p>
 <p>Wernberg, T. S. et al.&nbsp;Climate-driven regime shift of a temperate marine ecosystem. Science 353, 169–172 (2016).</p>
 <p>Zacharias, Mark, and David J. Kushner. 2006. “Sea temperature and wave height as predictors of population size structure and density of Megastraea (Lithopoma) undosa: Implications for fishery management.” Bulletin of Marine Science 79.1: 71-82.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -578,7 +596,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = true;
+  const darkModeDefault = false;
   let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {

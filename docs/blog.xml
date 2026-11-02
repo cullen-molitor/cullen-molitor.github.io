@@ -177,7 +177,7 @@
 </blockquote>
 <p><img src="https://cullen-molitor.github.io/posts/2022-09-10-tidal-flats/jitze_couperus_cargill_flats_flickr.jpg" class="img-fluid"></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp; <em>The interface of coastal development with tidal flat habitat off Redwood City, California (Photo: <a href="https://www.flickr.com/photos/jitze1942/5244615529/in/photolist-8Zs2tF-2mcBSEz-2mbaQWz-2eGrCBb-2mcR9AJ-riuRXd-2m9pjVX-dfpp5f-2ni8fyW-2maeZuS-237cW2k-2mbDn5Z-2mbfbXK-ZRJNMp-2mbvHuj-2mbaigy-2m9okJm-2m9KhCq-2ma4UN8-2maC7zZ-2m9H5Uu-2mb6sxZ-5A7XK2-SCXCLN-mEucZb-2mcJVgv-SCXCuA-5Q9qm-5qWU36-SCXCHG-r4fDrf-2maKF6K-2mbKNm7-2maWHYx-SCXC9f-of2jqp-PagPZo-24aBQVg-aMC5Jz-oJMgpT-9gsEyT-VRTZsv-P5Aez8-xsSKEo-3Yz3Si-YT1xo3-24Z2DH7-xbXZ3Q-qDc4vo-2kSmqmB">Jitze Couperus</a>)</em>.</p>
-<p>Tidal flats will affect the OHI global scores by adding additional layers to the habitat subgoal and carbon storage goal. The three new data layers created are tidal flat extent (measured in \(km^2\)), tidal flat trend (proportional change), and tidal flat condition (current status compared to historic status).</p>
+<p>Tidal flats will affect the OHI global scores by adding additional layers to the habitat subgoal and carbon storage goal. The three new data layers created are tidal flat extent (measured in <img src="https://latex.codecogs.com/png.latex?km%5E2">), tidal flat trend (proportional change), and tidal flat condition (current status compared to historic status).</p>
 <p>This post will give a brief explanation of tidal flat habitat, explore the new dataset, and demonstrate how to programmatically summarize the data in the R software environment. The goal of data summarization is to distill the large raster dataset into simple tabular data which can be integrated into the OHI annual analysis as new data layers for 2022 and beyond.</p>
 <section id="data-exploration" class="level2">
 <h2 class="anchored" data-anchor-id="data-exploration">Data exploration</h2>
@@ -334,7 +334,10 @@ font-style: inherit;">rast</span>() </span>
 <span id="cb2-3">image <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># print the raster metadata</span></span></code></pre></div>
-<p>Output (raster metadata)</p>
+<details>
+<summary>
+Output (raster metadata)
+</summary>
 <pre class="console"><code>class       : SpatRaster 
 dimensions  : 74213, 74213, 1  (nrow, ncol, nlyr)
 resolution  : 0.0002694946, 0.0002694946  (x, y)
@@ -342,17 +345,24 @@ extent      : -160, -140, -20, 0  (xmin, xmax, ymin, ymax)
 coord. ref. : lon/lat WGS 84 (EPSG:4326) 
 source      : -160_0.tif 
 name        : classification</code></pre>
-
+</details>
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">terra<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">freq</span>(image)</span></code></pre></div>
-<p>Output (frequency table)</p>
+<details>
+<summary>
+Output (frequency table)
+</summary>
 <pre class="console"><code>     layer value      count
 [1,]     1     0 5507569369</code></pre>
-
+</details>
 <p>Dang! All 0’s. This is most likely due to the spatial tile not intersecting any intertidal region. There will be many tiles over nothing but ocean or land. While not a satisfying result for our first data exploration, it is important to anticipate what you are looking for and what you might find. Lets take a look at this files spatial extent in relation to the global coastline to make sure that our results match what we now expect of it.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">library</span>(rnaturalearth)</span>
@@ -430,6 +440,7 @@ background-color: null;
 font-style: inherit;">fill =</span> <span class="cn" style="color: #8f5902;
 background-color: null;
 font-style: inherit;">NA</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2022-09-10-tidal-flats/plot_1.png" class="img-fluid"></p>
 <p>Looks like our intuition matches the result! This plot shows the extent only covers open ocean.</p>
 <p>Now lets examine another raster to see what kind of unique value we get.</p>
@@ -460,12 +471,19 @@ background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">freq</span>()</span></code></pre></div>
-<p>Output (frequency table)</p>
+<details>
+<summary>
+Output (frequency table)
+</summary>
 <pre class="console"><code>     layer value      count
 [1,]     1     0 5506916280
 [2,]     1     1     653089</code></pre>
-
+</details>
 <p>That is better! Now lets see where this file lands on the globe.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">extent_polygon <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> terra<span class="sc" style="color: #5E5E5E;
@@ -518,13 +536,14 @@ background-color: null;
 font-style: inherit;">fill =</span> <span class="cn" style="color: #8f5902;
 background-color: null;
 font-style: inherit;">NA</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2022-09-10-tidal-flats/plot_2.png" class="img-fluid"></p>
 <p>Now we can see that this tile falls along a section of coastline, and has both 0 and 1 values. Things look good so far.</p>
 </section>
 <section id="transforming-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="transforming-the-data">Transforming the data</h2>
-<p>Now that we know our files contain what we expect, and have seen a few outputs, it is time to design a workflow that will allow us to extract the information we want from the files. For OHI, our goal is to summarize the extent of habitat in each region, for each time step. Our ideal final product will have an extent measured in \(km^2\), the region ID, the year, and the habitat type.</p>
-<p>Even though each time step is broken into 108 files, the resolution still makes this data hard to work with. The <code>terra</code> package offers a solution to reduce resolution, often referred to as down-sampling. The function <code>terra::aggregate()</code> allows a user to specify how many pixels should be connected into one and what function to use on the pixels being aggregated. In our case we want to sum the pixels to retain all of the habitat information. We want to choose a resolution that will allow us to continue using the rasters for analysis without bogging down our computer. We chose to down-sample to ~1 \(km^2\) resolution by choosing 30 pixels as our aggregation factor. Our function then looks like:</p>
+<p>Now that we know our files contain what we expect, and have seen a few outputs, it is time to design a workflow that will allow us to extract the information we want from the files. For OHI, our goal is to summarize the extent of habitat in each region, for each time step. Our ideal final product will have an extent measured in <img src="https://latex.codecogs.com/png.latex?km%5E2">, the region ID, the year, and the habitat type.</p>
+<p>Even though each time step is broken into 108 files, the resolution still makes this data hard to work with. The <code>terra</code> package offers a solution to reduce resolution, often referred to as down-sampling. The function <code>terra::aggregate()</code> allows a user to specify how many pixels should be connected into one and what function to use on the pixels being aggregated. In our case we want to sum the pixels to retain all of the habitat information. We want to choose a resolution that will allow us to continue using the rasters for analysis without bogging down our computer. We chose to down-sample to ~1 <img src="https://latex.codecogs.com/png.latex?km%5E2"> resolution by choosing 30 pixels as our aggregation factor. Our function then looks like:</p>
 <div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1">down_sampled_image <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> terra<span class="sc" style="color: #5E5E5E;
@@ -547,8 +566,12 @@ font-style: inherit;">fun =</span> sum, </span>
 background-color: null;
 font-style: inherit;">na.rm =</span> T</span>
 <span id="cb10-6">)</span></code></pre></div>
-<p>The true resolution in \(km^2\) can be found with a bit of simple math, 30 meters by 30 pixels is 900 meters to a side, and squaring that gives our new pixel dimensions of \(900 x 900\) meters. We then divide these new dimensions by by a pixel with an area of 1 \(km^2\): \[\frac{900 * 900}{1,000 * 1,000} = .81 \text{ }km^2\] Using 33 pixels would have brought us closer to 1 \(km^2\), but this brings the image to a reasonable size, and in general we would like to keep the resolution as high as possible.</p>
-<p>Our next goal is to convert pixel counts into area. If the native raster cells are 30 x 30 meters, then a raster cell with a value of 1 would be equivalent to 0.0009 \(km^2\) habitat area. This can be found by multiplying the pixel dimensions together and dividing by a pixel with an area of 1 \(km^2\): \[\frac{30 * 30}{1,000 * 1,000} = 0.0009 \text{ }km^2\] The simplest way to convert to area in this scenario is to simply multiply our down-sampled raster by 0.0009.</p>
+<p>The true resolution in <img src="https://latex.codecogs.com/png.latex?km%5E2"> can be found with a bit of simple math, 30 meters by 30 pixels is 900 meters to a side, and squaring that gives our new pixel dimensions of <img src="https://latex.codecogs.com/png.latex?900%20%5Ctimes%20900"> meters. We then divide these new dimensions by by a pixel with an area of 1 <img src="https://latex.codecogs.com/png.latex?km%5E2">:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B900%20*%20900%7D%7B1,000%20*%201,000%7D%20=%20.81%20%5Ctext%7B%20%7Dkm%5E2%0A"></p>
+<p>Using 33 pixels would have brought us closer to 1 <img src="https://latex.codecogs.com/png.latex?km%5E2">, but this brings the image to a reasonable size, and in general we would like to keep the resolution as high as possible.</p>
+<p>Our next goal is to convert pixel counts into area. If the native raster cells are 30 x 30 meters, then a raster cell with a value of 1 would be equivalent to 0.0009 <img src="https://latex.codecogs.com/png.latex?km%5E2"> habitat area. This can be found by multiplying the pixel dimensions together and dividing by a pixel with an area of 1 <img src="https://latex.codecogs.com/png.latex?km%5E2">:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B30%20*%2030%7D%7B1,000%20*%201,000%7D%20=%200.0009%20%5Ctext%7B%20%7Dkm%5E2%0A"></p>
+<p>The simplest way to convert to area in this scenario is to simply multiply our down-sampled raster by 0.0009.</p>
 <div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">down_sampled_image <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> down_sampled_image <span class="sc" style="color: #5E5E5E;
@@ -569,14 +592,17 @@ font-style: inherit;">digits =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">6</span></span>
 <span id="cb12-4">) </span></code></pre></div>
-<p>Output (frequency table)</p>
+<details>
+<summary>
+Output (frequency table)
+</summary>
 <pre class="console"><code>     layer  value   count
 [1,]     1 0.0000 6117245
 [2,]     1 0.0009      61
 [3,]     1 0.0018      59
 (cropped for brevity)</code></pre>
-
-<p>Results look good! Just as expected, we now have raster cells at ~1 \(km^2\) resolution, with cell values representing the area in \(km^2\) of tidal flat habitat. In this case there are 61 cells which contained a single cell of tidal flat, prior to aggregation, 59 which had two, and so on.</p>
+</details>
+<p>Results look good! Just as expected, we now have raster cells at ~1 <img src="https://latex.codecogs.com/png.latex?km%5E2"> resolution, with cell values representing the area in <img src="https://latex.codecogs.com/png.latex?km%5E2"> of tidal flat habitat. In this case there are 61 cells which contained a single cell of tidal flat, prior to aggregation, 59 which had two, and so on.</p>
 <p>Now we need to extract the values that fall with each OHI region polygon. To do this we use another package new to OHI, <code>exactextractr</code>. As we saw in the previous post on soft bottom habitat analysis, this package allows us to extract values from polygons and return an estimate if a polygon goes through a raster cell. This is handy to implement after aggregation as it allows us to maintain a higher level of precision. The <code>raster::extract()</code> function will only include a cell if the center of the cell falls inside a polygon. Our shapefile has separate polygons for all regions’ EEZ’s and for their land area. We want to use both because our data primarily goes through the intersection of these two polygons.</p>
 <p>The first thing we need to do is <a href="https://oceanhealthindex.org/global-scores/data-download/">download</a> the OHI region <a href="https://mazu.nceas.ucsb.edu/data/">polygon file</a>.</p>
 <div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><span class="fu" style="color: #4758AB;
@@ -1217,7 +1243,6 @@ font-style: inherit;">"tidal_flat_extent.csv"</span>))</span></code></pre></div>
 <li><p>R Core Team (2022). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p></li>
 <li><p>Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). “Welcome to the tidyverse.” <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a>.</p></li>
 </ul>
-<div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -1261,7 +1286,6 @@ font-style: inherit;">"tidal_flat_extent.csv"</span>))</span></code></pre></div>
 <p>Baylis Lab, University of California, Santa Barbara</p>
 <p>Zambia Statistics Agency</p>
 <p>Microsoft Planetary Computer: Caleb Robinson, Tom Augsburger</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -1306,7 +1330,6 @@ font-style: inherit;">"tidal_flat_extent.csv"</span>))</span></code></pre></div>
 <h4 class="anchored" data-anchor-id="poster-submission">Poster submission</h4>
 <p><img src="https://cullen-molitor.github.io/posts/2022-04-23-new-horizons/New_Horizons_Conference_Poster_Final_1.png" style="width:99.0%"></p>
 <p>Please feel free to contact my team at <strong>cp-cropmosaiks.bren.ucsb.edu</strong> or inspect our code in our github organization, <a href="https://github.com/cropmosaiks">cropMOSAIKS</a>. Thanks!</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -1336,6 +1359,10 @@ font-style: inherit;">"tidal_flat_extent.csv"</span>))</span></code></pre></div>
 <section id="ndvi-animated-images" class="level1">
 <h1>NDVI Animated Images</h1>
 <p>The following code is adapted from a Google Earth Engine <a href="https://developers.google.com/earth-engine/tutorials/community/modis-ndvi-time-series-animation">JavaScript tutorial</a>. The code was translated into python and reproduced with several color palettes. The python code is found on the <a href="https://github.com/cropmosaiks/NDVI_Images">CropMOSAIKS GitHub</a>.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> ee</span>
@@ -1353,6 +1380,11 @@ background-color: null;
 font-style: inherit;">from</span> PIL <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> Image</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Initialize google earth engine</span></span>
@@ -1423,6 +1455,11 @@ font-style: inherit;">None</span>, <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">False</span></span>
 <span id="cb2-16">)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Add day-of-year (DOY) property to each image.</span></span>
@@ -1450,6 +1487,11 @@ background-color: null;
 font-style: inherit;">set</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'doy'</span>, doy)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Apply median reduction among matching DOY collections.</span></span>
@@ -1468,6 +1510,11 @@ font-weight: bold;
 font-style: inherit;">return</span> doyCol.<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">reduce</span>(ee.Reducer.median())</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">natural <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [</span>
@@ -1632,6 +1679,11 @@ font-style: inherit;">"#F2DA50FF"</span>, <span class="st" style="color: #20794D
 background-color: null;
 font-style: inherit;">"#FFEA46FF"</span></span>
 <span id="cb5-20">]</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Define visualization parameters.</span></span>
@@ -1670,6 +1722,11 @@ font-style: inherit;">9000.0</span>,</span>
 background-color: null;
 font-style: inherit;">'palette'</span>: magma</span>
 <span id="cb6-10">}</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">img_collection <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> img_collection.<span class="bu" style="color: null;
@@ -1680,6 +1737,11 @@ background-color: null;
 font-style: inherit;">=</span> img_collection.aggregate_array(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'system:index'</span>).getInfo()</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">start_yr <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="bu" style="color: null;
@@ -1714,6 +1776,11 @@ font-style: inherit;">1</span>)</span>
 <span id="cb8-4">index_array <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> []</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
@@ -1823,6 +1890,11 @@ background-color: null;
 font-style: inherit;">.gif"</span></span>
 <span id="cb9-22">    </span>
 <span id="cb9-23">    geemap.download_ee_video(img_composite, vis_params, temp_file_name)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># filepaths</span></span>
@@ -1883,6 +1955,11 @@ background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">geemap.add_text_to_gif(</span>
 <span id="cb11-2">    in_gif <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1943,8 +2020,8 @@ font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span></span>
 <span id="cb11-14">)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2022-01-23-cropmosaiks-animated-ndvi/ndvi.gif" class="img-fluid"></p>
-<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -1973,6 +2050,10 @@ font-style: inherit;">0</span></span>
 <section id="ndvi-static-images" class="level1">
 <h1>NDVI Static Images</h1>
 <p>The following code is adapted from a Google Earth Engine <a href="https://developers.google.com/earth-engine/tutorials/community/modis-ndvi-time-series-animation">JavaScript tutorial</a>. The code was translated into python, made static, and reproduced with several color palettes. The python code is found on the <a href="https://github.com/cropmosaiks/NDVI_Images">CropMOSAIKS GitHub</a>.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> ee</span>
@@ -1981,7 +2062,17 @@ background-color: null;
 font-style: inherit;">from</span> IPython.display <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> Image</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">ee.Initialize()</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">ndvi <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ee.ImageCollection(<span class="st" style="color: #20794D;
@@ -1989,6 +2080,11 @@ background-color: null;
 font-style: inherit;">'MODIS/006/MOD13A2'</span>).select(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'NDVI'</span>)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">mask <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ee.FeatureCollection(<span class="st" style="color: #20794D;
@@ -2000,6 +2096,11 @@ background-color: null;
 font-style: inherit;">'wld_rgn'</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Africa'</span>))</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">region <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ee.Geometry.Polygon(</span>
@@ -2036,6 +2137,11 @@ font-style: inherit;">38.1446395611524</span>]</span>
 <span id="cb5-8">      ]</span>
 <span id="cb5-9">  ]</span>
 <span id="cb5-10">)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">ndvi <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ndvi.filterDate(<span class="st" style="color: #20794D;
@@ -2043,14 +2149,29 @@ background-color: null;
 font-style: inherit;">'2013-01-01'</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'2014-01-01'</span>)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">ndvi <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ndvi.<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">reduce</span>(ee.Reducer.median())</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">ndvi <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ndvi.clip(mask)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">natural <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [</span>
@@ -2215,6 +2336,11 @@ font-style: inherit;">"#F2DA50FF"</span>, <span class="st" style="color: #20794D
 background-color: null;
 font-style: inherit;">"#FFEA46FF"</span></span>
 <span id="cb9-20">  ]</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">#  # Closer to True color</span></span>
@@ -2248,6 +2374,11 @@ font-style: inherit;">1</span>,</span>
 background-color: null;
 font-style: inherit;">'palette'</span>: natural</span>
 <span id="cb10-9">}</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ndvi.getThumbUrl(visParams)</span>
@@ -2264,7 +2395,12 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'png'</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2022-01-22-cropmosaiks-team-graphics/output_11_0.png" class="img-fluid"></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># # Viridis</span></span>
@@ -2298,6 +2434,11 @@ font-style: inherit;">1</span>,</span>
 background-color: null;
 font-style: inherit;">'palette'</span>: viridis</span>
 <span id="cb12-9">}</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ndvi.getThumbUrl(visParams)</span>
@@ -2314,7 +2455,12 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'png'</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2022-01-22-cropmosaiks-team-graphics/output_13_0.png" class="img-fluid"></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">visParams <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
@@ -2345,6 +2491,11 @@ font-style: inherit;">1</span>,</span>
 background-color: null;
 font-style: inherit;">'palette'</span>: magma</span>
 <span id="cb14-8">}</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ndvi.getThumbUrl(visParams)</span>
@@ -2361,7 +2512,12 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'png'</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2022-01-22-cropmosaiks-team-graphics/output_15_0.png" class="img-fluid"></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">visParams <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
@@ -2392,6 +2548,11 @@ font-style: inherit;">1</span>,</span>
 background-color: null;
 font-style: inherit;">'palette'</span>: cividis</span>
 <span id="cb16-8">}</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ndvi.getThumbUrl(visParams)</span>
@@ -2408,8 +2569,8 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'png'</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2022-01-22-cropmosaiks-team-graphics/output_17_0.png" class="img-fluid"></p>
-<div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -3848,7 +4009,6 @@ font-style: inherit;">last_animation</span>())</span>
 <span id="cb7-58">}</span></code></pre></div>
 </details>
 <p><img src="https://cullen-molitor.github.io/posts/2022-01-22-channel-islands-sst/sst.gif" class="img-fluid"></p>
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -3883,18 +4043,14 @@ font-style: inherit;">last_animation</span>())</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of California biogegeographic provinces (<a href="https://cullen-molitor.github.io/posts/2022-01-22-channel-islands-sst/">source</a>).</div>
 <p><br>
 </p>
-<p>The El Niño Southern Oscillation (<a href="https://www.climate.gov/news-features/blogs/enso/what-el-ni%C3%B1o%E2%80%93southern-oscillation-enso-nutshell">ENSO</a>) is measured primarily by the Oceanic Niño Index which calculates a SST <a href="https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_change.shtml">anomaly value</a> value each month going back to 1950. These values are derived from SST in the equatorial pacific (\(\pm5^{\circ}\) latitude, \(120^{\circ}-170^{\circ}W\) longitude). The patterns of SST in this region are responsible for driving certain global weather and climate patterns. Despite the distance from this region, ENSO has a large effect on the oceanographic conditions of the SCB and the Channel Islands. This effect includes an influence on local SST as well as the strength and direction of ocean currents. These effects are known to influence the distribution and abundance of certain marine species (<a href="https://www.frontiersin.org/articles/10.3389/fmars.2019.00497">Day 2018</a>, <a href="https://www.nature.com/articles/s41598-020-77885-3">Freedman 2020</a>).</p>
+<p>The El Niño Southern Oscillation (<a href="https://www.climate.gov/news-features/blogs/enso/what-el-ni%C3%B1o%E2%80%93southern-oscillation-enso-nutshell">ENSO</a>) is measured primarily by the Oceanic Niño Index which calculates a SST <a href="https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_change.shtml">anomaly value</a> value each month going back to 1950. These values are derived from SST in the equatorial pacific (<img src="https://latex.codecogs.com/png.latex?%5Cpm5%5E%7B%5Ccirc%7D"> latitude, <img src="https://latex.codecogs.com/png.latex?120%5E%7B%5Ccirc%7D-170%5E%7B%5Ccirc%7DW"> longitude). The patterns of SST in this region are responsible for driving certain global weather and climate patterns. Despite the distance from this region, ENSO has a large effect on the oceanographic conditions of the SCB and the Channel Islands. This effect includes an influence on local SST as well as the strength and direction of ocean currents. These effects are known to influence the distribution and abundance of certain marine species (<a href="https://www.frontiersin.org/articles/10.3389/fmars.2019.00497">Day 2018</a>, <a href="https://www.nature.com/articles/s41598-020-77885-3">Freedman 2020</a>).</p>
 <p>This analysis takes a shotgun approach to investigate which species are sensitive to either warm-water or cold-water events by using a series of species-level dynamic linear models with lag SST anomalies as predictor variables. These models will provide a broad overview of which species are affected, how they are affected, and whether or not the affect is statistically significant. This will inform our understanding of how species distribution and population ranges might be affected by changing oceanographic conditions due to climate change.</p>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
 <p>The Kelp Forest Monitoring (KFM) program at Channel Islands National Park has been collecting abundance and size distribution data of more than 170 species since 1982 (sampled annually). The park currently samples 33 sites at the five islands in the National Park. This data is publicly available and was requested and issued under a <a href="https://irma.nps.gov/RPRS/">scientific research and collecting permit</a> (permit #: CHIS-2020-SCI-0006). These data are collected using scuba surveys where the biologists attempt to minimize their impact on the reef by using non-invasive sampling methods. This means that animals are counted in situ and no rocks are overturned or species removed. This inevitably biases the data towards adult populations of certain invertebrates that utilize crevice habitat during development as they will be hidden from direct observation.</p>
-<p>The fish data is collected in (#\(/m^3\)). In order to assure that all data are in the same units, only measurements of invertebrate and algae density (#\(/m^2\)) are retained. This takes the total number of species with density data from 151 down to 35. Using species density, we can identify trends in abundance observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density.</p>
+<p>The fish data is collected in (#<img src="https://latex.codecogs.com/png.latex?/m%5E3">). In order to assure that all data are in the same units, only measurements of invertebrate and algae density (#<img src="https://latex.codecogs.com/png.latex?/m%5E2">) are retained. This takes the total number of species with density data from 151 down to 35. Using species density, we can identify trends in abundance observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density.</p>
 <p>Below we read in ENSO data and calculate yearly mean anomalies before making 5 new columns with corresponding lag values. We then load in the species density data and filter out fish and 2 species which are exceedingly rare and do not have enough data to model. This leaves us with 33 species to model, all with the same units.</p>
-<details>
-<summary>
-Show code
-</summary>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Load libraries</span></span>
@@ -4068,17 +4224,12 @@ background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">left_join</span>(oni_yearly)</span></code></pre></div>
-</details>
 </section>
 <section id="analysis" class="level1">
 <h1>Analysis</h1>
 <p>This analysis will use a general model formula of lm(Mean_Density ~ SST_Anom + SST_Anom_1 + SST_Anom_2 + SST_Anom_3 + SST_Anom_4 + SST_Anom_5) applied to density data grouped by each species scientific name. These five lag periods will show how a species is affected within the same year, and for the next five years following anomalous warm or cold water. We expect recruitment of certain species will either increases or decreases following warmer than usual or colder than usual ocean temperatures. Given what we know about the life cycle of many marine species, it is reasonable to assume these effects would not be detected by non-invasive sampling techniques for 1-5 years following anomalous temperatures.</p>
 <p>This analysis is simplified to detect trends in a large number of species and does not take into account the effect of biogeography. This also does not consider the impact of marine protected areas (MPAs) which potentially buffer the ecological community from the effects of abiotic factors such as SST. MPAs could also have an effect from increased predation to some of these species, potentially limiting their abundance.</p>
 <p>The cumulative effect on all species will be plotted. Then the results will be filtered to only include significant affects and sorted by the estimated slope of their relationship. The two species with the most positive slope and the two with the most negative slope will have their coefficients plotted over the lag periods.</p>
-<details>
-<summary>
-Show code
-</summary>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">Results_lag <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> density <span class="sc" style="color: #5E5E5E;
@@ -4150,7 +4301,6 @@ background-color: null;
 font-style: inherit;">"yes"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"no"</span>))</span></code></pre></div>
-</details>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
@@ -4515,7 +4665,6 @@ font-style: inherit;">.data =</span> warm)</span></code></pre></div>
 <p>Miller, K. A., Engle, J. M., Uwai, S., &amp; Kawai, H. (2007). First report of the asian seaweed sargassum filicinum harvey (fucales) in california, usa. Biological Invasions, (9), 609-613.</p>
 <p>Wernberg, T. S. et al.&nbsp;Climate-driven regime shift of a temperate marine ecosystem. Science 353, 169–172 (2016).</p>
 <p>Zacharias, Mark, and David J. Kushner. 2006. “Sea temperature and wave height as predictors of population size structure and density of Megastraea (Lithopoma) undosa: Implications for fishery management.” Bulletin of Marine Science 79.1: 71-82.</p>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -4624,6 +4773,10 @@ Marie Rivers, UC Santa Barbara (<a href="mailto:mrivers@bren.ucsb.edu" class="em
 <h3 class="anchored" data-anchor-id="buoy-dataset-inputoutput">Buoy Dataset Input/Output</h3>
 <section id="import-required-packages" class="level4">
 <h4 class="anchored" data-anchor-id="import-required-packages">Import required packages</h4>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> netCDF4</span>
@@ -4666,6 +4819,7 @@ background-color: null;
 font-style: inherit;">import</span> matplotlib <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">as</span> mpl</span></code></pre></div>
+</details>
 </section>
 <section id="set-parameters" class="level4">
 <h4 class="anchored" data-anchor-id="set-parameters">Set parameters</h4>
@@ -4676,6 +4830,10 @@ font-style: inherit;">as</span> mpl</span></code></pre></div>
 </ul>
 <p>The harvest buoy, CDIP station number of 071, was selected for our regional analysis of the Santa Barbara Coast.</p>
 <p><a href="https://cdip.ucsd.edu/m/deployment/station_view/">Link to other buoy stations</a></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Type</span></span>
@@ -4684,6 +4842,7 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'071'</span></span></code></pre></div>
+</details>
 </section>
 <section id="read-in-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="read-in-the-data">Read in the data</h4>
@@ -4782,6 +4941,10 @@ float32 sstSeaSurfaceTemperature(sstTime)
 unlimited dimensions: 
 current shape = (372015,)
 filling off</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Other Variables</span></span>
@@ -4797,6 +4960,7 @@ font-style: inherit;"># Tp = data.variables['waveTp']</span></span>
 <span id="cb13-5"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Dp = data.variables['waveDp'] </span></span></code></pre></div>
+</details>
 <section id="clean-data" class="level4">
 <h4 class="anchored" data-anchor-id="clean-data">Clean data</h4>
 <p>Thanks to the data processing methods used by CDIP, the downloaded datafiles did not require much actual cleaning. Since the sea surface temperature and wave height variables had different timestamps associated with each measurements we pulled out these variables for use in creating new dataframes that were used as an intermediate step in our overall analysis</p>
@@ -4913,6 +5077,10 @@ background-color: null;
 font-style: inherit;">=</span> sst_df[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'date_time'</span>].dt.year</span></code></pre></div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Use num2date on wave_time_var</span></span>
@@ -4923,6 +5091,11 @@ background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">False</span>)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Make an empty pandas dataframe</span></span>
@@ -4943,6 +5116,11 @@ background-color: null;
 font-style: inherit;">'date_time'</span>] <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> wave_time</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Make date_time column a pandas date_time</span></span>
@@ -4986,6 +5164,7 @@ background-color: null;
 font-style: inherit;">=</span> wave_df[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'date_time'</span>].dt.year</span></code></pre></div>
+</details>
 <p>The next two code chunks let you view the newly created sea surface temperature and wave height dataframes</p>
 <div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -5212,6 +5391,10 @@ font-style: inherit;">'python'</span>)</span>
 </tr>
 </tbody>
 </table>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># drop unused columns from ENSO data</span></span>
@@ -5258,6 +5441,7 @@ font-style: inherit;">"ANOM.3"</span>: <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"enso_anom"</span>})</span>
 <span id="cb24-6">enso.head()</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -5307,6 +5491,10 @@ font-style: inherit;">"enso_anom"</span>})</span>
 <section id="harvet-buoy-visualization" class="level4">
 <h4 class="anchored" data-anchor-id="harvet-buoy-visualization">Harvet buoy visualization</h4>
 <p>We started by visualizing the full dataset to inform our further analysis. Based on the data gaps shown in the plot, we decided to begin our analysis at 1997.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Plot here to see what the data looks like</span></span>
@@ -5362,6 +5550,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">18</span>)</span></code></pre></div>
+</details>
 <pre><code>Text(0, 0.5, 'SST, C')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -5392,6 +5581,10 @@ background-color: null;
 font-style: inherit;">'month'</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'day'</span>]])</span></code></pre></div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Choose color gradient here: https://matplotlib.org/stable/tutorials/colors/colormaps.html </span></span>
@@ -5470,6 +5663,7 @@ font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.6</span>)</span>
 <span id="cb28-18">plt.show()</span></code></pre></div>
+</details>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-04-modeling-enso-and-wave-height/output_51_0.png" class="img-fluid figure-img"></p>
@@ -5541,6 +5735,10 @@ background-color: null;
 font-style: inherit;">'wave'</span>: <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'mean'</span>})</span></code></pre></div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Inspect Data</span></span>
@@ -5550,6 +5748,7 @@ font-style: inherit;">print</span>(sst_monthly.head())</span>
 <span id="cb31-3"><span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(wave_monthly.head())</span></code></pre></div>
+</details>
 <pre><code>                  sst
 month year           
 1     1999  13.194914
@@ -5812,6 +6011,10 @@ font-style: inherit;">=</span> buoy_df.reset_index()</span>
 </tr>
 </tbody>
 </table>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># rename columns</span></span>
@@ -5874,10 +6077,16 @@ background-color: null;
 font-style: inherit;">=</span> buoy_df.set_index(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'date'</span>)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Inspect</span></span>
 <span id="cb38-2">buoy_df.head()</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -5974,6 +6183,10 @@ background-color: null;
 font-style: inherit;">'date'</span>).join(enso.set_index(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'date'</span>)).reset_index()</span></code></pre></div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb41" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Plot sst and wave height anomaly from buoy along with ENSO sst anomaly</span></span>
@@ -6051,6 +6264,7 @@ font-style: inherit;">'red'</span>)</span>
 <span id="cb41-17">esa.set_ylabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'ENSO Anomaly'</span>)</span></code></pre></div>
+</details>
 <pre><code>Text(0, 0.5, 'ENSO Anomaly')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -6205,6 +6419,10 @@ Notes:
 [1] R² is computed without centering (uncentered) since the model does not contain a constant.
 [2] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
 <p><strong>Visualize model results</strong></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1">m, b <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.polyfit(anom_df.enso_anom, anom_df.buoy_sst_anom, <span class="dv" style="color: #AD0000;
@@ -6236,6 +6454,7 @@ font-style: inherit;">'Buoy SST Anomaly'</span>)</span>
 <span id="cb50-7">plt.xlabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'ENSO SST Anomaly'</span>)</span></code></pre></div>
+</details>
 <pre><code>Text(0.5, 0, 'ENSO SST Anomaly')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -6243,6 +6462,10 @@ font-style: inherit;">'ENSO SST Anomaly'</span>)</span></code></pre></div>
 <figcaption>png</figcaption>
 </figure>
 </div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1">m, b <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.polyfit(anom_df.enso_anom, anom_df.buoy_wave_anom, <span class="dv" style="color: #AD0000;
@@ -6274,6 +6497,7 @@ font-style: inherit;">'Buoy Wave Anomaly'</span>)</span>
 <span id="cb52-7">plt.xlabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'ENSO SST Anomaly'</span>)</span></code></pre></div>
+</details>
 <pre><code>Text(0.5, 0, 'ENSO SST Anomaly')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -6281,6 +6505,10 @@ font-style: inherit;">'ENSO SST Anomaly'</span>)</span></code></pre></div>
 <figcaption>png</figcaption>
 </figure>
 </div>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb54" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1">m, b <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.polyfit(anom_df.buoy_sst_anom, anom_df.buoy_wave_anom, <span class="dv" style="color: #AD0000;
@@ -6312,6 +6540,7 @@ font-style: inherit;">'Buoy Wave Anomaly'</span>)</span>
 <span id="cb54-7">plt.xlabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Buoy SST Anomaly'</span>)</span></code></pre></div>
+</details>
 <pre><code>Text(0.5, 0, 'Buoy SST Anomaly')</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -6322,7 +6551,7 @@ font-style: inherit;">'Buoy SST Anomaly'</span>)</span></code></pre></div>
 </section>
 <section id="results" class="level4">
 <h4 class="anchored" data-anchor-id="results">Results</h4>
-<p>Our model shows a positive correlation between ENSO sea surface temperature anomaly and Santa Barbara sea surface temperature anomaly. The model output indicates that this correlation is statistically significant based on the p-value, but the low \(R^2\) value of 0.282 estimates that temperature near the equator only accounts for approximately 28% of the variability in sea surface temperature near Santa Barbara.Buoy height wave anomaly only has a slight positive correlation with ENSO sea surface temperature anomaly, but these results were not statistically significant due to a p-value &gt; 0.05. The model for buoy wave height vs.&nbsp;buoy sea surface temperature was statistically significant (p-value &lt; 0.05, but based on the \(R^2\) value, buoy sea surface temperature anomaly accounts for only 3.5% of the variability observed in wave height..</p>
+<p>Our model shows a positive correlation between ENSO sea surface temperature anomaly and Santa Barbara sea surface temperature anomaly. The model output indicates that this correlation is statistically significant based on the p-value, but the low <img src="https://latex.codecogs.com/png.latex?R%5E2"> value of 0.282 estimates that temperature near the equator only accounts for approximately 28% of the variability in sea surface temperature near Santa Barbara.Buoy height wave anomaly only has a slight positive correlation with ENSO sea surface temperature anomaly, but these results were not statistically significant due to a p-value &gt; 0.05. The model for buoy wave height vs.&nbsp;buoy sea surface temperature was statistically significant (p-value &lt; 0.05, but based on the <img src="https://latex.codecogs.com/png.latex?R%5E2"> value, buoy sea surface temperature anomaly accounts for only 3.5% of the variability observed in wave height..</p>
 </section>
 <section id="future-work" class="level4">
 <h4 class="anchored" data-anchor-id="future-work">Future Work</h4>
@@ -6339,7 +6568,6 @@ font-style: inherit;">'Buoy SST Anomaly'</span>)</span></code></pre></div>
 </ol>
 <p><strong>Buoy Data citation:</strong> Data furnished by the Coastal Data Information Program (CDIP), Integrative Oceanography Division, operated by the Scripps Institution of Oceanography, under the sponsorship of the U.S. Army Corps of Engineers and the California Department of Parks and Recreation</p>
 <p><strong>ENSO Data citation:</strong> Data made publicly available by the National Weather Service’s Climate Prediction Center. The data used: Monthly ERSSTv5 (1991-2020 base period) Niño 3.4 (5°North-5°South)(170-120°West)</p>
-<div class="sourceCode" id="cb56" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -6888,7 +7116,6 @@ background-color: null;
 font-style: inherit;">theme_minimal</span>()</span></code></pre></div>
 </details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-04-effect-of-enso-on-coral-reefs/figures/unnamed-chunk-4-1.png" width="864"></p>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -6924,6 +7151,10 @@ font-style: inherit;">theme_minimal</span>()</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="locate-a-precipitation-dataset">2. Locate A Precipitation Dataset</h3>
 <p>Take a look through the Google Earth Engine <a href="https://developers.google.com/earth-engine/datasets">data catalog</a>.</p>
 <p>I chose the the ERA5 Daily Aggregates dataset because my other choice Global Precipitation Measurement (GPM) v6 kept exceeding my user memory limit. I also investigated many other datasets (test_1 to test_5 files) but I did not really like how a few of them looked in comparison. I think the ERA5 Daily Aggregates suited my needs quite well and showed the scope of the storm event I was looking at quite well. It feels a bit like cheating, but I really did try to use other datasets. This dataset also gives reasonable spatial resolution.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Import packages</span></span>
@@ -6954,6 +7185,11 @@ font-style: inherit;">from</span> IPython.display <span class="im" style="color:
 background-color: null;
 font-style: inherit;">import</span> Image</span>
 <span id="cb1-8">ee.Initialize()</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">gdat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ee.ImageCollection(<span class="st" style="color: #20794D;
@@ -6981,6 +7217,7 @@ font-style: inherit;">sum</span>()<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
 <span id="cb2-5">prdflt.getInfo()</span></code></pre></div>
+</details>
 <pre><code>{'type': 'Image',
  'bands': [{'id': 'total_precipitation',
    'data_type': {'type': 'PixelType', 'precision': 'double'},
@@ -6990,6 +7227,10 @@ font-style: inherit;">;</span></span>
 <section id="plot-a-time-series-of-precipitation" class="level3">
 <h3 class="anchored" data-anchor-id="plot-a-time-series-of-precipitation">3. Plot a Time Series of Precipitation</h3>
 <p>Let’s do a new type of analysis on the data: the creation of a time series.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">ar_lon <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -7021,6 +7262,7 @@ font-style: inherit;">=</span> pd.DataFrame(ar_pr_ts)</span>
 <span id="cb4-7"><span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(df)</span></code></pre></div>
+</details>
 <pre><code>              0          1          2              3                    4
 0            id  longitude   latitude           time  total_precipitation
 1      19790102 -123.99895  40.796989   284083200000                    0
@@ -7035,6 +7277,10 @@ font-style: inherit;">print</span>(df)</span></code></pre></div>
 15165  20200709 -123.99895  40.796989  1594252800000             0.000015
 
 [15166 rows x 5 columns]</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">headers <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> df.loc[<span class="dv" style="color: #AD0000;
@@ -7045,12 +7291,17 @@ font-style: inherit;"># Assign the first entry in the data frame to a variable c
 <span id="cb6-2"><span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(headers) </span></code></pre></div>
+</details>
 <pre><code>0                     id
 1              longitude
 2               latitude
 3                   time
 4    total_precipitation
 Name: 0, dtype: object</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">df <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pd.DataFrame(df.values[<span class="dv" style="color: #AD0000;
@@ -7064,6 +7315,7 @@ font-style: inherit;"># Make a new data frame out of the old one, but assigning 
 <span id="cb8-3"><span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(df)  </span></code></pre></div>
+</details>
 <pre><code>0            id  longitude   latitude           time total_precipitation
 0      19790102 -123.99895  40.796989   284083200000                   0
 1      19790103 -123.99895  40.796989   284169600000                   0
@@ -7078,6 +7330,10 @@ font-style: inherit;">print</span>(df)  </span></code></pre></div>
 15164  20200709 -123.99895  40.796989  1594252800000            0.000015
 
 [15165 rows x 5 columns]</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">df[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'datetime'</span>] <span class="op" style="color: #5E5E5E;
@@ -7090,6 +7346,7 @@ font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'ms'</span>)</span>
 <span id="cb10-2">df</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -7205,6 +7462,10 @@ font-style: inherit;">'ms'</span>)</span>
 </tbody>
 </table>
 <p>15165 rows × 6 columns</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">plt.figure(figsize <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
@@ -7251,12 +7512,17 @@ background-color: null;
 font-style: inherit;">0</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.12</span>)</span></code></pre></div>
+</details>
 <pre><code>(0.0, 0.12)</code></pre>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-04-precipitation-and-ndvi/output_19_1.png" class="img-fluid"></p>
 </section>
 <section id="make-some-maps-of-interesting-times" class="level3">
 <h3 class="anchored" data-anchor-id="make-some-maps-of-interesting-times">4. Make Some Maps of Interesting Times</h3>
 <p>I chose to take the sum of the time period I examined in order to look at how much precipitation there was over the Mad River watershed. The sum of the values also lets you see the total amount of precipitation over the entire time period of the storm event. My map shows heavy precipitation over the Pacific, making landfall in northern California and Oregon, while staying to the north and largely avoiding Nevada.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Base map</span></span>
@@ -7321,7 +7587,12 @@ font-style: inherit;">0.3</span>)</span>
 background-color: null;
 font-style: inherit;"># Plot map</span></span>
 <span id="cb13-12">Map</span></code></pre></div>
+</details>
 <pre><code>Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">pt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ee.Geometry.Point([<span class="op" style="color: #5E5E5E;
@@ -7391,12 +7662,17 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'png'</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-04-precipitation-and-ndvi/output_26_0.png" class="img-fluid"></p>
 </section>
 <section id="plot-landsat-ndvi-for-the-region" class="level3">
 <h3 class="anchored" data-anchor-id="plot-landsat-ndvi-for-the-region">5. Plot Landsat NDVI for the Region</h3>
 <p>The precipitation analysis discussed above provides useful context for identifying interesting weather events for a particular region. Now let’s see what (if any!) effect changes in weather patterns have had on the landscape, using Landsat imagery.</p>
 <p>I was able to see a slight difference in the two images. It is unclear to me if the long term average includes more cloud cover and is therefore less bright/vivid, or if the rain increased the vegetation. If I had to guess I would say that there was not a very noticeable change because I chose an area that is already very wet and productive.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">land_8 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ee.ImageCollection(<span class="st" style="color: #20794D;
@@ -7441,7 +7717,12 @@ font-style: inherit;">=</span>(nir.subtract(red)).divide((nir.add(red))).rename(
 background-color: null;
 font-style: inherit;">'NDVI'</span>)</span>
 <span id="cb16-8">ndvi</span></code></pre></div>
+</details>
 <pre><code>&lt;ee.image.Image at 0x22d22b1b280&gt;</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">ndviParams <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
@@ -7466,6 +7747,11 @@ font-style: inherit;">'white'</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'green'</span>]</span>
 <span id="cb18-4">             }</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">#  Interactive only, no saved output</span></span>
@@ -7488,7 +7774,12 @@ font-style: inherit;">8</span>)</span>
 background-color: null;
 font-style: inherit;">'NDVI'</span>)</span>
 <span id="cb19-4">Map_NDVI</span></code></pre></div>
+</details>
 <pre><code>Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">pt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ee.Geometry.Point([<span class="op" style="color: #5E5E5E;
@@ -7550,7 +7841,12 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'png'</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-04-precipitation-and-ndvi/output_37_0.png" class="img-fluid"></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">land_8_least_cld_flt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> land_8_pt.<span class="bu" style="color: null;
@@ -7585,7 +7881,12 @@ font-style: inherit;">=</span> (nir_2.subtract(red_2)).divide((nir_2.add(red_2))
 background-color: null;
 font-style: inherit;">'NDVI'</span>)</span>
 <span id="cb22-6">ndvi_2</span></code></pre></div>
+</details>
 <pre><code>&lt;ee.image.Image at 0x22d220f6820&gt;</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">#  Interactive only, no saved output</span></span>
@@ -7608,7 +7909,12 @@ font-style: inherit;">8</span>)</span>
 background-color: null;
 font-style: inherit;">'NDVI'</span>)</span>
 <span id="cb24-4">Map_NDVI_flt</span></code></pre></div>
+</details>
 <pre><code>Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1">pt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ee.Geometry.Point([<span class="op" style="color: #5E5E5E;
@@ -7670,8 +7976,8 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'png'</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-04-precipitation-and-ndvi/output_42_0.png" class="img-fluid"></p>
-<div class="sourceCode" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -7699,6 +8005,10 @@ font-style: inherit;">'png'</span>)</span></code></pre></div>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>Import Modules</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> geopandas <span class="im" style="color: #00769E;
@@ -7756,7 +8066,12 @@ font-style: inherit;">import</span> Polygon</span>
 <span id="cb1-13"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">%</span>matplotlib inline</span></code></pre></div>
+</details>
 <p>Set Parameters and constants</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">shoreline_shapefile  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -7791,14 +8106,20 @@ background-color: null;
 font-style: inherit;">4326</span>   <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># WGS 84 (use as default CRS for incoming latlon)</span></span></code></pre></div>
+</details>
 </section>
 <section id="load-data" class="level2">
 <h2 class="anchored" data-anchor-id="load-data">Load Data</h2>
 <p>Dominica Shape File</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">dominica_shp <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> gpd.read_file(shoreline_shapefile)</span>
 <span id="cb3-2">dominica_shp.head()</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -7818,10 +8139,15 @@ font-style: inherit;">=</span> gpd.read_file(shoreline_shapefile)</span>
 </tbody>
 </table>
 <p>Set CRS to <a href="https://epsg.io/2002">EPSG 2002</a></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">dominica_shp <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> dominica_shp.to_crs(projected_EPSG)</span>
 <span id="cb4-2">dominica_shp.crs</span></code></pre></div>
+</details>
 <pre><code>&lt;Projected CRS: EPSG:2002&gt;
 Name: Dominica 1945 / British West Indies Grid
 Axis Info [cartesian]:
@@ -7839,6 +8165,10 @@ Datum: Dominica 1945
 </section>
 <section id="plot-dominica" class="level2">
 <h2 class="anchored" data-anchor-id="plot-dominica">Plot Dominica</h2>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize<span class="op" style="color: #5E5E5E;
@@ -7893,15 +8223,21 @@ font-style: inherit;">"None"</span>)</span>
 <span id="cb6-6">ctx.add_basemap(ax, crs<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>projected_EPSG)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_15_0.png" class="img-fluid"></p>
 </section>
 <section id="load-data-1" class="level2">
 <h2 class="anchored" data-anchor-id="load-data-1">Load Data</h2>
 <p>Whale Sightings</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">whales <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> gpd.read_file(whales_CSV)</span>
 <span id="cb7-2">whales</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -8006,6 +8342,10 @@ font-style: inherit;">=</span> gpd.read_file(whales_CSV)</span>
 </table>
 <p>4893 rows × 5 columns</p>
 <p>Create GeoDataFrame</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">points <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> gpd.points_from_xy(whales[<span class="st" style="color: #20794D;
@@ -8023,7 +8363,12 @@ font-style: inherit;">=</span> points)</span>
 <span id="cb8-3">whales_gdf <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> whales_gdf.to_crs(projected_EPSG)</span></code></pre></div>
+</details>
 <p>Plot Whale Sightings</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize <span class="op" style="color: #5E5E5E;
@@ -8103,10 +8448,15 @@ font-style: inherit;">5</span>])</span>
 <span id="cb9-9">ctx.add_basemap(ax, crs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> projected_EPSG)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_24_0.png" class="img-fluid"></p>
 </section>
 <section id="create-grid" class="level2">
 <h2 class="anchored" data-anchor-id="create-grid">Create Grid</h2>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">xmin, ymin, xmax, ymax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> whales_gdf.total_bounds</span>
@@ -8193,7 +8543,12 @@ background-color: null;
 font-style: inherit;">=</span> grid[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'geometry'</span>])</span></code></pre></div>
+</details>
 <p>Plot Grid</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">grid.plot(facecolor <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -8209,9 +8564,14 @@ background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>)</span></code></pre></div>
+</details>
 <pre><code>&lt;AxesSubplot:&gt;</code></pre>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_36_1.png" class="img-fluid"></p>
 <p>Extract Whale Habitat</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">whale_grid <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> grid.sjoin(whales_gdf, how<span class="op" style="color: #5E5E5E;
@@ -8219,7 +8579,12 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"inner"</span>)</span></code></pre></div>
+</details>
 <p>Plot whale sighting grid cells</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">whale_grid.plot(facecolor <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -8235,10 +8600,15 @@ background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">.75</span>)</span></code></pre></div>
+</details>
 <pre><code>&lt;AxesSubplot:&gt;</code></pre>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_40_1.png" class="img-fluid"></p>
 <section id="summarise-whale-counts" class="level3">
 <h3 class="anchored" data-anchor-id="summarise-whale-counts">Summarise Whale Counts</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">grid[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'count'</span>] <span class="op" style="color: #5E5E5E;
@@ -8255,7 +8625,12 @@ background-color: null;
 font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">20</span>]</span></code></pre></div>
+</details>
 <p>Plot Whale Habitat</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">grid.plot(facecolor <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -8271,27 +8646,42 @@ background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">.75</span>)</span></code></pre></div>
+</details>
 <pre><code>&lt;AxesSubplot:&gt;</code></pre>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_46_1.png" class="img-fluid"></p>
 </section>
 <section id="create-unary-union" class="level3">
 <h3 class="anchored" data-anchor-id="create-unary-union">Create Unary Union</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">grid_union <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> grid.unary_union</span>
 <span id="cb19-2">grid_union</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_49_0.svg" class="img-fluid"></p>
 </section>
 </section>
 <section id="create-vessel-speed-reduction-zone" class="level2">
 <h2 class="anchored" data-anchor-id="create-vessel-speed-reduction-zone">Create Vessel Speed Reduction Zone</h2>
 <p>The vessel speed reduction zone is determined by the whale habitat areas in which more than 20 whales were observed per 2,000 m².</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">grid_convex <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> grid_union.convex_hull</span>
 <span id="cb20-2">grid_convex</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_52_0.svg" class="img-fluid"></p>
 <p>Make GeoDataFrame</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">whale_habitat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> gpd.GeoDataFrame(index <span class="op" style="color: #5E5E5E;
@@ -8303,7 +8693,12 @@ background-color: null;
 font-style: inherit;">=</span> [grid_convex], crs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> projected_EPSG)</span></code></pre></div>
+</details>
 <p>Plot</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize <span class="op" style="color: #5E5E5E;
@@ -8376,7 +8771,12 @@ font-style: inherit;">5</span>])</span>
 <span id="cb22-8">ctx.add_basemap(ax, crs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> projected_EPSG)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_56_0.png" class="img-fluid"></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1">whale_habitat_diff <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> whale_habitat.difference(dominica_shp)</span>
@@ -8386,6 +8786,7 @@ font-style: inherit;">=</span> gpd.GeoDataFrame(geometry <span class="op" style=
 background-color: null;
 font-style: inherit;">=</span> whale_habitat_diff)</span>
 <span id="cb23-3">whale_habitat</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -8400,6 +8801,10 @@ font-style: inherit;">=</span> whale_habitat_diff)</span>
 </tr>
 </tbody>
 </table>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize <span class="op" style="color: #5E5E5E;
@@ -8472,8 +8877,14 @@ font-style: inherit;">5</span>])</span>
 <span id="cb24-8">ctx.add_basemap(ax, crs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> projected_EPSG)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_58_0.png" class="img-fluid"></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1">whale_habitat</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -8491,6 +8902,10 @@ font-style: inherit;">=</span> projected_EPSG)</span></code></pre></div>
 </section>
 <section id="load-ais-vessel-data" class="level2">
 <h2 class="anchored" data-anchor-id="load-ais-vessel-data">Load AIS Vessel Data</h2>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1">vessels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> gpd.read_file(vessels_CSV)</span>
@@ -8519,6 +8934,7 @@ font-style: inherit;">=</span> pd.to_datetime(vessels_gdf[<span class="st" style
 background-color: null;
 font-style: inherit;">'TIMESTAMP'</span>])</span>
 <span id="cb26-6">vessels_gdf</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -8636,6 +9052,10 @@ font-style: inherit;">'TIMESTAMP'</span>])</span>
 <p>617262 rows × 6 columns</p>
 <section id="select-vessels-inside-whale-habitat" class="level3">
 <h3 class="anchored" data-anchor-id="select-vessels-inside-whale-habitat">Select Vessels Inside Whale Habitat</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1">vessels_whale <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> vessels_gdf.sjoin(whale_habitat, how <span class="op" style="color: #5E5E5E;
@@ -8644,6 +9064,7 @@ font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'inner'</span>)</span>
 <span id="cb27-2">vessels_whale</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -8774,6 +9195,10 @@ font-style: inherit;">'inner'</span>)</span>
 </section>
 <section id="plot-vessel-data" class="level3">
 <h3 class="anchored" data-anchor-id="plot-vessel-data">Plot Vessel Data</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize <span class="op" style="color: #5E5E5E;
@@ -8850,11 +9275,16 @@ font-style: inherit;">5</span>])</span>
 <span id="cb28-8">ctx.add_basemap(ax, crs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> projected_EPSG)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_74_0.png" class="img-fluid"></p>
 </section>
 </section>
 <section id="calculate-vessel-speeds" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-vessel-speeds">Calculate Vessel Speeds</h2>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1">vessels_whale_sorted <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> vessels_whale.sort_values([<span class="st" style="color: #20794D;
@@ -8963,8 +9393,13 @@ background-color: null;
 font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>]</span></code></pre></div>
+</details>
 <section id="plot-vessels-travelling-over-10-knots" class="level3">
 <h3 class="anchored" data-anchor-id="plot-vessels-travelling-over-10-knots">Plot Vessels travelling over 10 knots</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize <span class="op" style="color: #5E5E5E;
@@ -9041,12 +9476,17 @@ font-style: inherit;">5</span>])</span>
 <span id="cb30-8">ctx.add_basemap(ax, crs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> projected_EPSG)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-protecting-whales-from-ships/output_97_0.png" class="img-fluid"></p>
 </section>
 </section>
 <section id="impact-of-a-10-knot-speed-reduction-zone" class="level2">
 <h2 class="anchored" data-anchor-id="impact-of-a-10-knot-speed-reduction-zone">Impact of a 10 knot Speed Reduction Zone</h2>
 <p>We calculated that ship vessel traffic would be slowed by 2 minutes per mile on average. Over the course of the year, this equated to approximately 28 days of increased shipping time.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">num_days <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> vw_matched[<span class="st" style="color: #20794D;
@@ -9066,8 +9506,18 @@ background-color: null;
 font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">24</span></span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1">num_days</span></code></pre></div>
+</details>
 <pre><code>27.9423247732646</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1">mean_time_lost <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> vw_matched[<span class="st" style="color: #20794D;
@@ -9077,9 +9527,14 @@ background-color: null;
 font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">60</span></span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1">mean_time_lost</span></code></pre></div>
+</details>
 <pre><code>1.8906563139508044</code></pre>
-<div class="sourceCode" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -10232,7 +10687,6 @@ font-style: inherit;">FALSE</span></span>
 </details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-houston-blackout-analysis-2021/figures/unnamed-chunk-11-1.png" width="624"></p>
 <p>We thought it would be interesting to compare the median incomes of households affected by the blackout, to median incomes in Houston in general, but because the blackouts seem to have occured in a more metropolitan area, it is likely the incomes are skewed higher for that area, and it does not give a clear indication of whether median income had an effect on whether or not a household experienced a blackout.</p>
-<div class="sourceCode" id="cb47" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -10257,6 +10711,10 @@ font-style: inherit;">FALSE</span></span>
 
 <section id="import-modules" class="level2">
 <h2 class="anchored" data-anchor-id="import-modules">Import Modules</h2>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> sqlalchemy <span class="im" style="color: #00769E;
@@ -10288,9 +10746,14 @@ font-style: inherit;">import</span> math</span>
 <span id="cb1-7"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">%</span>matplotlib inline</span></code></pre></div>
+</details>
 </section>
 <section id="database-connection" class="level2">
 <h2 class="anchored" data-anchor-id="database-connection">Database Connection</h2>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">pg_uri_template <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -10354,6 +10817,7 @@ font-style: inherit;">'osmiowa'</span></span>
 <span id="cb2-9">engine <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> sa.create_engine(db_uri)</span></code></pre></div>
+</details>
 </section>
 <section id="data-details" class="level2">
 <h2 class="anchored" data-anchor-id="data-details">Data Details</h2>
@@ -10364,6 +10828,10 @@ font-style: inherit;">=</span> sa.create_engine(db_uri)</span></code></pre></div
 <section id="query-database" class="level1">
 <h1>Query Database</h1>
 <p>Residential Scenario 1 (3H)</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">sql_buildings_residential_1 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10405,7 +10873,12 @@ font-style: inherit;">    place = 'town'</span></span>
 <span id="cb3-13"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Residential Scenario 2 (10H)</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">sql_buildings_residential_2 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10453,7 +10926,12 @@ font-style: inherit;">    place = 'town'</span></span>
 <span id="cb4-15"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Non-residential (3H)</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">sql_buildings_nonresidential <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10489,7 +10967,12 @@ font-style: inherit;">    ('yes', 'residential', 'apartments', 'house', 'static_
 <span id="cb5-11"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Airports</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">sql_airports <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10519,7 +11002,12 @@ font-style: inherit;">    aeroway IS NOT NULL</span></span>
 <span id="cb6-9"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Military Bases</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">sql_military <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10555,7 +11043,12 @@ font-style: inherit;">    landuse = 'military'</span></span>
 <span id="cb7-11"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Railways and Roads</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">sql_railways_n_roads <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10612,7 +11105,12 @@ font-style: inherit;">    'primary', 'primary_link', 'secondary', 'secondary_lin
 <span id="cb8-18"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Nature Reserves, Parks, and Wetlands</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">sql_nature <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10660,7 +11158,12 @@ font-style: inherit;">    ('wetland')</span></span>
 <span id="cb9-15"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Rivers</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">sql_rivers <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10696,7 +11199,12 @@ font-style: inherit;">    ('river')</span></span>
 <span id="cb10-11"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Lakes</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">sql_lakes <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10732,7 +11240,12 @@ font-style: inherit;">    ('lake', 'reservoir', 'pond')</span></span>
 <span id="cb11-11"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Power Lines</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">sql_powerlines <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10762,7 +11275,12 @@ font-style: inherit;">    power IS NOT NULL</span></span>
 <span id="cb12-9"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Power Plants</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">sql_powerplants <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10792,7 +11310,12 @@ font-style: inherit;">    power IS NOT NULL</span></span>
 <span id="cb13-9"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <p>Wind Turbines</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">sql_turbines <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10828,10 +11351,15 @@ font-style: inherit;">    "generator:source" IN ('wind')</span></span>
 <span id="cb14-11"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"""</span></span></code></pre></div>
+</details>
 <section id="merge-subqueries" class="level2">
 <h2 class="anchored" data-anchor-id="merge-subqueries">Merge Subqueries</h2>
 <section id="scenario-1" class="level3">
 <h3 class="anchored" data-anchor-id="scenario-1">Scenario 1</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">sql_siting_constraints <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -10953,9 +11481,14 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'way'</span>)</span></code></pre></div>
+</details>
 </section>
 <section id="scenario-2" class="level3">
 <h3 class="anchored" data-anchor-id="scenario-2">Scenario 2</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">sql_siting_constraints_2 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -11077,6 +11610,11 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'way'</span>)</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize<span class="op" style="color: #5E5E5E;
@@ -11129,7 +11667,12 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"EPSG:26975"</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/output_40_0.png" class="img-fluid"></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize<span class="op" style="color: #5E5E5E;
@@ -11182,12 +11725,17 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"EPSG:26975"</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/output_41_0.png" class="img-fluid"></p>
 </section>
 </section>
 <section id="wind-data" class="level2">
 <h2 class="anchored" data-anchor-id="wind-data">Wind Data</h2>
 <p>The table wind_cells_10000 contains 10 km2 square polygons with associated average annual wind speeds (m s-1), arranged to cover Iowa in a ragged grid.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">sql_wind_speeds <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
@@ -11223,6 +11771,7 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'geom'</span>)</span></code></pre></div>
+</details>
 </section>
 </section>
 <section id="results" class="level1">
@@ -11231,6 +11780,10 @@ font-style: inherit;">'geom'</span>)</span></code></pre></div>
 <h2 class="anchored" data-anchor-id="scenario-1-1">Scenario #1</h2>
 <section id="subtract-siting-constraints-from-wind-cells" class="level3">
 <h3 class="anchored" data-anchor-id="subtract-siting-constraints-from-wind-cells">Subtract Siting Constraints from Wind Cells</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">suitable_cells <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> wind_speeds.overlay(siting_constraints, how <span class="op" style="color: #5E5E5E;
@@ -11242,9 +11795,14 @@ background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">False</span>)</span></code></pre></div>
+</details>
 </section>
 <section id="plot-suitable-wind-cells" class="level3">
 <h3 class="anchored" data-anchor-id="plot-suitable-wind-cells">Plot Suitable Wind Cells</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize<span class="op" style="color: #5E5E5E;
@@ -11297,10 +11855,15 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"EPSG:26975"</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/output_47_0.png" class="img-fluid"></p>
 </section>
 <section id="find-number-of-turbines" class="level3">
 <h3 class="anchored" data-anchor-id="find-number-of-turbines">Find Number of Turbines</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">rotor_5x <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> math.pi <span class="op" style="color: #5E5E5E;
@@ -11332,6 +11895,11 @@ background-color: null;
 font-style: inherit;">'geom'</span>].area <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> rotor_5x</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1">total_wind_turbines <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> suitable_cells[<span class="st" style="color: #20794D;
@@ -11346,10 +11914,15 @@ background-color: null;
 font-style: inherit;">"The total number of turbines in scenario 1 is:"</span>, <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">round</span>(total_wind_turbines))</span></code></pre></div>
+</details>
 <pre><code>The total number of turbines in scenario 1 is: 57286</code></pre>
 </section>
 <section id="power-production" class="level3">
 <h3 class="anchored" data-anchor-id="power-production">Power production</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1">suitable_cells[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'energy_per_turbine'</span>] <span class="op" style="color: #5E5E5E;
@@ -11376,9 +11949,14 @@ background-color: null;
 font-style: inherit;">*</span> suitable_cells[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'number_wind_turbines'</span>]</span></code></pre></div>
+</details>
 </section>
 <section id="total-power-production" class="level3">
 <h3 class="anchored" data-anchor-id="total-power-production">Total Power Production</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1">total_scenario_1 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> suitable_cells[<span class="st" style="color: #20794D;
@@ -11395,6 +11973,7 @@ background-color: null;
 font-style: inherit;">round</span>(total_scenario_1), <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"GWH/year"</span>)</span></code></pre></div>
+</details>
 <pre><code>The total power produced in scenario 1 is: 1064159 GWH/year</code></pre>
 </section>
 </section>
@@ -11402,6 +11981,10 @@ font-style: inherit;">"GWH/year"</span>)</span></code></pre></div>
 <h2 class="anchored" data-anchor-id="scenario-2-1">Scenario #2</h2>
 <section id="subtract-siting-constraints-from-wind-cells-1" class="level3">
 <h3 class="anchored" data-anchor-id="subtract-siting-constraints-from-wind-cells-1">Subtract Siting Constraints from Wind Cells</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1">suitable_cells_2 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> wind_speeds.overlay(siting_constraints_2, how <span class="op" style="color: #5E5E5E;
@@ -11413,9 +11996,14 @@ background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">False</span>)</span></code></pre></div>
+</details>
 </section>
 <section id="plot-suitable-wind-cells-1" class="level3">
 <h3 class="anchored" data-anchor-id="plot-suitable-wind-cells-1">Plot Suitable Wind Cells</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1">fig, ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(figsize<span class="op" style="color: #5E5E5E;
@@ -11468,10 +12056,15 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"EPSG:26975"</span>)</span></code></pre></div>
+</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-12-03-iowas-wind-power-potential/output_58_0.png" class="img-fluid"></p>
 </section>
 <section id="find-number-of-turbines-1" class="level3">
 <h3 class="anchored" data-anchor-id="find-number-of-turbines-1">Find Number of Turbines</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1">rotor_5x <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> math.pi <span class="op" style="color: #5E5E5E;
@@ -11503,6 +12096,11 @@ background-color: null;
 font-style: inherit;">'geom'</span>].area <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> rotor_5x</span></code></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">total_wind_turbines_2 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> suitable_cells_2[<span class="st" style="color: #20794D;
@@ -11517,10 +12115,15 @@ background-color: null;
 font-style: inherit;">"The total number of turbines in scenario 2 is:"</span>, <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">round</span>(total_wind_turbines_2))</span></code></pre></div>
+</details>
 <pre><code>The total number of turbines in scenario 2 is: 52055</code></pre>
 </section>
 <section id="power-production-1" class="level3">
 <h3 class="anchored" data-anchor-id="power-production-1">Power Production</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1">suitable_cells_2[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'energy_per_turbine'</span>] <span class="op" style="color: #5E5E5E;
@@ -11548,6 +12151,7 @@ font-style: inherit;">*</span> suitable_cells_2[<span class="st" style="color: #
 background-color: null;
 font-style: inherit;">'number_wind_turbines'</span>]</span>
 <span id="cb33-3">wind_speeds</span></code></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -11630,6 +12234,10 @@ font-style: inherit;">'number_wind_turbines'</span>]</span>
 </section>
 <section id="total-power-production-1" class="level3">
 <h3 class="anchored" data-anchor-id="total-power-production-1">Total Power Production</h3>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1">total_scenario_2 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> suitable_cells_2[<span class="st" style="color: #20794D;
@@ -11646,8 +12254,8 @@ background-color: null;
 font-style: inherit;">round</span>(total_scenario_2), <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">" GWH/year"</span>)</span></code></pre></div>
+</details>
 <pre><code>The total power produced in scenario 2 is: 967009  GWH/year</code></pre>
-<div class="sourceCode" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>
@@ -11704,10 +12312,6 @@ font-style: inherit;">library</span>(ggspatial)</span></code></pre></div>
 <section id="load-data" class="level3">
 <h3 class="anchored" data-anchor-id="load-data">Load Data</h3>
 <p>Use <code>marmap::getNOAA.bathy()</code> to load New Zealand bathymetry and elevation data directly from NOAA database and convert <code>bathy</code> object to <code>dataframe</code> for ggplot.</p>
-<details>
-<summary>
-Show code
-</summary>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">nz_df <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> marmap<span class="sc" style="color: #5E5E5E;
@@ -11775,12 +12379,7 @@ background-color: null;
 font-style: inherit;">&lt;=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>)</span></code></pre></div>
-</details>
 <p>Read in New Zealand coastlines with <code>sf::read_sf()</code> to read the shapefile containing the New Zealand coastline.</p>
-<details>
-<summary>
-Show code
-</summary>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">nz_coast <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> sf<span class="sc" style="color: #5E5E5E;
@@ -11792,15 +12391,10 @@ font-style: inherit;">read_sf</span>(</span>
 background-color: null;
 font-style: inherit;">"data/nz-coastlines-and-islands-polygons-topo-150k.shp"</span></span>
 <span id="cb3-3">  )</span></code></pre></div>
-</details>
 </section>
 <section id="plot-data" class="level3">
 <h3 class="anchored" data-anchor-id="plot-data">Plot Data</h3>
 <p>Use <code>ggplot()</code> to plot New Zealand coastline, bathymetric raster, and depth contours.</p>
-<details>
-<summary>
-Show code
-</summary>
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">ggplot</span>() <span class="sc" style="color: #5E5E5E;
@@ -12006,9 +12600,7 @@ background-color: null;
 font-style: inherit;">hjust =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>))</span></code></pre></div>
-</details>
 <p><img src="https://cullen-molitor.github.io/posts/2021-11-29-cartography-in-r/figures/New-Zealand-plot-1.png" width="720"></p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code></pre></div>
 
 
 </section>

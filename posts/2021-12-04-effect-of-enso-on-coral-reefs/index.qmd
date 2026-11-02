@@ -127,6 +127,3 @@ ggplot2::ggplot() +
 </details>
 
 <img src="figures/unnamed-chunk-4-1.png" width="864" />
-
-``` {.r .distill-force-highlighting-css}
-```

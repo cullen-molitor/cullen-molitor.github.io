@@ -43,6 +43,3 @@ Baylis Lab, University of California, Santa Barbara
 Zambia Statistics Agency
 
 Microsoft Planetary Computer: Caleb Robinson, Tom Augsburger
-
-``` {.r .distill-force-highlighting-css}
-```

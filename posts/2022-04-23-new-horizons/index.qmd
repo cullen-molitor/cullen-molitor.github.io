@@ -39,6 +39,3 @@ The environmental and social impacts of climate change are disproportionately di
 <img src="New_Horizons_Conference_Poster_Final_1.png" style="width:99.0%" />
 
 Please feel free to contact my team at **cp-cropmosaiks.bren.ucsb.edu** or inspect our code in our github organization, [cropMOSAIKS](https://github.com/cropmosaiks). Thanks!
-
-``` {.r .distill-force-highlighting-css}
-```

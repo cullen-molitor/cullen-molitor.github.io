@@ -27,6 +27,9 @@ Take a look through the Google Earth Engine [data catalog](https://developers.go
 
 I chose the the ERA5 Daily Aggregates dataset because my other choice Global Precipitation Measurement (GPM) v6 kept exceeding my user memory limit. I also investigated many other datasets (test_1 to test_5 files) but I did not really like how a few of them looked in comparison. I think the ERA5 Daily Aggregates suited my needs quite well and showed the scope of the storm event I was looking at quite well. It feels a bit like cheating, but I really did try to use other datasets. This dataset also gives reasonable spatial resolution.
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 # Import packages
 import ee
@@ -38,6 +41,11 @@ from IPython.display import Image
 ee.Initialize()
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 gdat = ee.ImageCollection('ECMWF/ERA5/DAILY')
 gdat_prop = gdat.propertyNames().getInfo()
@@ -45,6 +53,8 @@ pr = gdat.select('total_precipitation')
 prdflt = pr.filter(ee.Filter.date('2019-02-24', '2019-02-28')).sum();
 prdflt.getInfo()
 ```
+
+</details>
 
     {'type': 'Image',
      'bands': [{'id': 'total_precipitation',
@@ -56,6 +66,9 @@ prdflt.getInfo()
 
 Let's do a new type of analysis on the data: the creation of a time series.
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 ar_lon = -124
 ar_lat = 40.8
@@ -65,6 +78,8 @@ ar_pr_ts = pr.getRegion(ar_poi, scale).getInfo()
 df = pd.DataFrame(ar_pr_ts)
 print(df)
 ```
+
+</details>
 
                   0          1          2              3                    4
     0            id  longitude   latitude           time  total_precipitation
@@ -81,10 +96,15 @@ print(df)
 
     [15166 rows x 5 columns]
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 headers = df.loc[0]     # Assign the first entry in the data frame to a variable called "headers"
 print(headers) 
 ```
+
+</details>
 
     0                     id
     1              longitude
@@ -93,11 +113,16 @@ print(headers)
     4    total_precipitation
     Name: 0, dtype: object
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 df = pd.DataFrame(df.values[1:], columns=headers)      
 # Make a new data frame out of the old one, but assigning the names we just retrieved as actual column headers
 print(df)  
 ```
+
+</details>
 
     0            id  longitude   latitude           time total_precipitation
     0      19790102 -123.99895  40.796989   284083200000                   0
@@ -114,10 +139,15 @@ print(df)
 
     [15165 rows x 5 columns]
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 df['datetime'] = pd.to_datetime(df['time'], unit = 'ms')
 df
 ```
+
+</details>
 
           id         longitude    latitude    time            total_precipitation   datetime
   ------- ---------- ------------ ----------- --------------- --------------------- ------------
@@ -135,6 +165,9 @@ df
 
 15165 rows × 6 columns
 
+<details>
+<summary>Show code</summary>
+
 ``` python
 plt.figure(figsize = (10, 6), dpi = 300)    # create a new figure, set size and resolution (dpi)
 plt.plot(df['datetime'],df['total_precipitation'])   # add data to the plot
@@ -144,6 +177,8 @@ plt.ylabel('Precip (m)', fontsize=14)
 plt.ylim(0, 0.12)
 ```
 
+</details>
+
     (0.0, 0.12)
 
 ![](output_19_1.png)
@@ -151,6 +186,9 @@ plt.ylim(0, 0.12)
 ### 4. Make Some Maps of Interesting Times
 
 I chose to take the sum of the time period I examined in order to look at how much precipitation there was over the Mad River watershed. The sum of the values also lets you see the total amount of precipitation over the entire time period of the storm event. My map shows heavy precipitation over the Pacific, making landfall in northern California and Oregon, while staying to the north and largely avoiding Nevada.
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 # Base map
@@ -167,7 +205,12 @@ Map.addLayer(prdflt, VIS_PREC,'total precipitation',opacity=0.3)
 Map
 ```
 
+</details>
+
     Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 pt = ee.Geometry.Point([-124.3652, 40.2922])
@@ -179,6 +222,8 @@ url = prdflt.getThumbUrl({
 Image(url=url, embed=True, format = 'png')
 ```
 
+</details>
+
 ![](output_26_0.png)
 
 ### 5. Plot Landsat NDVI for the Region
@@ -186,6 +231,9 @@ Image(url=url, embed=True, format = 'png')
 The precipitation analysis discussed above provides useful context for identifying interesting weather events for a particular region. Now let's see what (if any!) effect changes in weather patterns have had on the landscape, using Landsat imagery.
 
 I was able to see a slight difference in the two images. It is unclear to me if the long term average includes more cloud cover and is therefore less bright/vivid, or if the rain increased the vegetation. If I had to guess I would say that there was not a very noticeable change because I chose an area that is already very wet and productive.
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 land_8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA')
@@ -198,7 +246,12 @@ ndvi=(nir.subtract(red)).divide((nir.add(red))).rename('NDVI')
 ndvi
 ```
 
+</details>
+
     <ee.image.Image at 0x22d22b1b280>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 ndviParams = {'min': -1, 
@@ -207,6 +260,11 @@ ndviParams = {'min': -1,
              }
 ```
 
+</details>
+
+<details>
+<summary>Show code</summary>
+
 ``` python
 #  Interactive only, no saved output
 Map_NDVI = geemap.Map(center=[40.8, -124], zoom=8)
@@ -214,7 +272,12 @@ Map_NDVI.addLayer(ndvi, ndviParams,'NDVI')
 Map_NDVI
 ```
 
+</details>
+
     Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 pt = ee.Geometry.Point([-124.3652, 40.2922])
@@ -226,7 +289,12 @@ url = ndvi.getThumbUrl({
 Image(url=url, embed=True, format = 'png')
 ```
 
+</details>
+
 ![](output_37_0.png)
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 land_8_least_cld_flt = land_8_pt.filter('CLOUD_COVER < 20')
@@ -237,7 +305,12 @@ ndvi_2 = (nir_2.subtract(red_2)).divide((nir_2.add(red_2))).rename('NDVI')
 ndvi_2
 ```
 
+</details>
+
     <ee.image.Image at 0x22d220f6820>
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 #  Interactive only, no saved output
@@ -246,7 +319,12 @@ Map_NDVI_flt.addLayer(ndvi_2, ndviParams,'NDVI')
 Map_NDVI_flt
 ```
 
+</details>
+
     Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…
+
+<details>
+<summary>Show code</summary>
 
 ``` python
 pt = ee.Geometry.Point([-124.3652, 40.2922])
@@ -258,7 +336,6 @@ url = ndvi_2.getThumbUrl({
 Image(url=url, embed=True, format = 'png')
 ```
 
-![](output_42_0.png)
+</details>
 
-``` {.r .distill-force-highlighting-css}
-```
+![](output_42_0.png)

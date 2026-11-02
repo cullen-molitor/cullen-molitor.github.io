@@ -26,7 +26,7 @@ California's Northern Channel Islands sit at the transition between two biogeogr
 
 \
 
-The El Niño Southern Oscillation ([ENSO](https://www.climate.gov/news-features/blogs/enso/what-el-ni%C3%B1o%E2%80%93southern-oscillation-enso-nutshell)) is measured primarily by the Oceanic Niño Index which calculates a SST [anomaly value](https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_change.shtml) value each month going back to 1950. These values are derived from SST in the equatorial pacific (\\(\\pm5\^{\\circ}\\) latitude, \\(120\^{\\circ}-170\^{\\circ}W\\) longitude). The patterns of SST in this region are responsible for driving certain global weather and climate patterns. Despite the distance from this region, ENSO has a large effect on the oceanographic conditions of the SCB and the Channel Islands. This effect includes an influence on local SST as well as the strength and direction of ocean currents. These effects are known to influence the distribution and abundance of certain marine species ([Day 2018](https://www.frontiersin.org/articles/10.3389/fmars.2019.00497), [Freedman 2020](https://www.nature.com/articles/s41598-020-77885-3)).
+The El Niño Southern Oscillation ([ENSO](https://www.climate.gov/news-features/blogs/enso/what-el-ni%C3%B1o%E2%80%93southern-oscillation-enso-nutshell)) is measured primarily by the Oceanic Niño Index which calculates a SST [anomaly value](https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_change.shtml) value each month going back to 1950. These values are derived from SST in the equatorial pacific ($\pm5^{\circ}$ latitude, $120^{\circ}-170^{\circ}W$ longitude). The patterns of SST in this region are responsible for driving certain global weather and climate patterns. Despite the distance from this region, ENSO has a large effect on the oceanographic conditions of the SCB and the Channel Islands. This effect includes an influence on local SST as well as the strength and direction of ocean currents. These effects are known to influence the distribution and abundance of certain marine species ([Day 2018](https://www.frontiersin.org/articles/10.3389/fmars.2019.00497), [Freedman 2020](https://www.nature.com/articles/s41598-020-77885-3)).
 
 This analysis takes a shotgun approach to investigate which species are sensitive to either warm-water or cold-water events by using a series of species-level dynamic linear models with lag SST anomalies as predictor variables. These models will provide a broad overview of which species are affected, how they are affected, and whether or not the affect is statistically significant. This will inform our understanding of how species distribution and population ranges might be affected by changing oceanographic conditions due to climate change.
 
@@ -34,13 +34,9 @@ This analysis takes a shotgun approach to investigate which species are sensitiv
 
 The Kelp Forest Monitoring (KFM) program at Channel Islands National Park has been collecting abundance and size distribution data of more than 170 species since 1982 (sampled annually). The park currently samples 33 sites at the five islands in the National Park. This data is publicly available and was requested and issued under a [scientific research and collecting permit](https://irma.nps.gov/RPRS/) (permit #: CHIS-2020-SCI-0006). These data are collected using scuba surveys where the biologists attempt to minimize their impact on the reef by using non-invasive sampling methods. This means that animals are counted in situ and no rocks are overturned or species removed. This inevitably biases the data towards adult populations of certain invertebrates that utilize crevice habitat during development as they will be hidden from direct observation.
 
-The fish data is collected in (#\\(/m\^3\\)). In order to assure that all data are in the same units, only measurements of invertebrate and algae density (#\\(/m\^2\\)) are retained. This takes the total number of species with density data from 151 down to 35. Using species density, we can identify trends in abundance observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density.
+The fish data is collected in (#$/m^3$). In order to assure that all data are in the same units, only measurements of invertebrate and algae density (#$/m^2$) are retained. This takes the total number of species with density data from 151 down to 35. Using species density, we can identify trends in abundance observed over multiple El Niño (warm-water) and La Niña (cold-water) events. Using a dynamic linear model with lag independent variables we can see the effect of sea surface temperature anomalies during and in the years following these events on species density.
 
 Below we read in ENSO data and calculate yearly mean anomalies before making 5 new columns with corresponding lag values. We then load in the species density data and filter out fish and 2 species which are exceedingly rare and do not have enough data to model. This leaves us with 33 species to model, all with the same units.
-
-<details>
-<summary>Show code</summary>
-
 
 ``` r
 # Load libraries
@@ -78,9 +74,6 @@ density <-  # Read in Density data
   dplyr::left_join(oni_yearly)
 ```
 
-
-</details>
-
 # Analysis
 
 This analysis will use a general model formula of lm(Mean_Density \~ SST_Anom + SST_Anom_1 + SST_Anom_2 + SST_Anom_3 + SST_Anom_4 + SST_Anom_5) applied to density data grouped by each species scientific name. These five lag periods will show how a species is affected within the same year, and for the next five years following anomalous warm or cold water. We expect recruitment of certain species will either increases or decreases following warmer than usual or colder than usual ocean temperatures. Given what we know about the life cycle of many marine species, it is reasonable to assume these effects would not be detected by non-invasive sampling techniques for 1-5 years following anomalous temperatures.
@@ -88,10 +81,6 @@ This analysis will use a general model formula of lm(Mean_Density \~ SST_Anom + 
 This analysis is simplified to detect trends in a large number of species and does not take into account the effect of biogeography. This also does not consider the impact of marine protected areas (MPAs) which potentially buffer the ecological community from the effects of abiotic factors such as SST. MPAs could also have an effect from increased predation to some of these species, potentially limiting their abundance.
 
 The cumulative effect on all species will be plotted. Then the results will be filtered to only include significant affects and sorted by the estimated slope of their relationship. The two species with the most positive slope and the two with the most negative slope will have their coefficients plotted over the lag periods.
-
-<details>
-<summary>Show code</summary>
-
 
 ``` r
 Results_lag <- density %>% 
@@ -104,9 +93,6 @@ Results_lag <- density %>%
   dplyr::filter(term != "(Intercept)") %>% 
   dplyr::mutate(significant = ifelse(p.value <= .05, "yes", "no"))
 ```
-
-
-</details>
 
 # Results
 
@@ -244,6 +230,3 @@ Miller, K. A., Engle, J. M., Uwai, S., & Kawai, H. (2007). First report of the a
 Wernberg, T. S. et al. Climate-driven regime shift of a temperate marine ecosystem. Science 353, 169--172 (2016).
 
 Zacharias, Mark, and David J. Kushner. 2006. "Sea temperature and wave height as predictors of population size structure and density of Megastraea (Lithopoma) undosa: Implications for fishery management." Bulletin of Marine Science 79.1: 71-82.
-
-``` {.r .distill-force-highlighting-css}
-```

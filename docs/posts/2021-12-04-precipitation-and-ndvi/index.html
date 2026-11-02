@@ -73,11 +73,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-86daaaaad7353f9cc0c554efc1dd6d94.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f8dc6eab18fde03278982b0b35885446.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f8dc6eab18fde03278982b0b35885446.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f58410fdad43ccd61b771e076d184ba0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-fac110a418399a2b9e30eb7011908357.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-dark-fac110a418399a2b9e30eb7011908357.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -252,6 +252,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="locate-a-precipitation-dataset">2. Locate A Precipitation Dataset</h3>
 <p>Take a look through the Google Earth Engine <a href="https://developers.google.com/earth-engine/datasets">data catalog</a>.</p>
 <p>I chose the the ERA5 Daily Aggregates dataset because my other choice Global Precipitation Measurement (GPM) v6 kept exceeding my user memory limit. I also investigated many other datasets (test_1 to test_5 files) but I did not really like how a few of them looked in comparison. I think the ERA5 Daily Aggregates suited my needs quite well and showed the scope of the storm event I was looking at quite well. It feels a bit like cheating, but I really did try to use other datasets. This dataset also gives reasonable spatial resolution.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ee</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geemap</span>
@@ -260,11 +264,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ee.Initialize()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gdat <span class="op">=</span> ee.ImageCollection(<span class="st">'ECMWF/ERA5/DAILY'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>gdat_prop <span class="op">=</span> gdat.propertyNames().getInfo()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pr <span class="op">=</span> gdat.select(<span class="st">'total_precipitation'</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>prdflt <span class="op">=</span> pr.<span class="bu">filter</span>(ee.Filter.date(<span class="st">'2019-02-24'</span>, <span class="st">'2019-02-28'</span>)).<span class="bu">sum</span>()<span class="op">;</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>prdflt.getInfo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>{'type': 'Image',
  'bands': [{'id': 'total_precipitation',
    'data_type': {'type': 'PixelType', 'precision': 'double'},
@@ -274,6 +284,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="plot-a-time-series-of-precipitation" class="level3">
 <h3 class="anchored" data-anchor-id="plot-a-time-series-of-precipitation">3. Plot a Time Series of Precipitation</h3>
 <p>Let’s do a new type of analysis on the data: the creation of a time series.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ar_lon <span class="op">=</span> <span class="op">-</span><span class="dv">124</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ar_lat <span class="op">=</span> <span class="fl">40.8</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ar_poi <span class="op">=</span> ee.Geometry.Point(ar_lon, ar_lat)</span>
@@ -281,6 +295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ar_pr_ts <span class="op">=</span> pr.getRegion(ar_poi, scale).getInfo()</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(ar_pr_ts)</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>              0          1          2              3                    4
 0            id  longitude   latitude           time  total_precipitation
 1      19790102 -123.99895  40.796989   284083200000                    0
@@ -295,17 +310,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 15165  20200709 -123.99895  40.796989  1594252800000             0.000015
 
 [15166 rows x 5 columns]</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> df.loc[<span class="dv">0</span>]     <span class="co"># Assign the first entry in the data frame to a variable called "headers"</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(headers) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>0                     id
 1              longitude
 2               latitude
 3                   time
 4    total_precipitation
 Name: 0, dtype: object</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(df.values[<span class="dv">1</span>:], columns<span class="op">=</span>headers)      </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a new data frame out of the old one, but assigning the names we just retrieved as actual column headers</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>0            id  longitude   latitude           time total_precipitation
 0      19790102 -123.99895  40.796989   284083200000                   0
 1      19790103 -123.99895  40.796989   284169600000                   0
@@ -320,8 +345,13 @@ Name: 0, dtype: object</code></pre>
 15164  20200709 -123.99895  40.796989  1594252800000            0.000015
 
 [15165 rows x 5 columns]</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'datetime'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'time'</span>], unit <span class="op">=</span> <span class="st">'ms'</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -437,18 +467,27 @@ Name: 0, dtype: object</code></pre>
 </tbody>
 </table>
 <p>15165 rows × 6 columns</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">6</span>), dpi <span class="op">=</span> <span class="dv">300</span>)    <span class="co"># create a new figure, set size and resolution (dpi)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot(df[<span class="st">'datetime'</span>],df[<span class="st">'total_precipitation'</span>])   <span class="co"># add data to the plot</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Arcata Rainfall'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Date'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Precip (m)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="fl">0.12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>(0.0, 0.12)</code></pre>
 <p><img src="output_19_1.png" class="img-fluid"></p>
 </section>
 <section id="make-some-maps-of-interesting-times" class="level3">
 <h3 class="anchored" data-anchor-id="make-some-maps-of-interesting-times">4. Make Some Maps of Interesting Times</h3>
 <p>I chose to take the sum of the time period I examined in order to look at how much precipitation there was over the Mad River watershed. The sum of the values also lets you see the total amount of precipitation over the entire time period of the storm event. My map shows heavy precipitation over the Pacific, making landfall in northern California and Oregon, while staying to the north and largely avoiding Nevada.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base map</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Map <span class="op">=</span> geemap.Map(center<span class="op">=</span>[<span class="fl">40.8</span>,<span class="op">-</span><span class="dv">124</span>], zoom<span class="op">=</span><span class="dv">6</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Min and Max</span></span>
@@ -461,7 +500,12 @@ Name: 0, dtype: object</code></pre>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>Map.addLayer(prdflt, VIS_PREC,<span class="st">'total precipitation'</span>,opacity<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot map</span></span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>Map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pt <span class="op">=</span> ee.Geometry.Point([<span class="op">-</span><span class="fl">124.3652</span>, <span class="fl">40.2922</span>])</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>roi <span class="op">=</span> pt.<span class="bu">buffer</span>(<span class="dv">1600000</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a URL to the styled image for a region around Mendocino County CA.</span></span>
@@ -469,12 +513,17 @@ Name: 0, dtype: object</code></pre>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'min'</span>: <span class="dv">0</span>, <span class="st">'max'</span>: <span class="fl">.02</span>, <span class="st">'dimensions'</span>: <span class="dv">512</span>, <span class="st">'region'</span>: roi, <span class="st">'opacity'</span>: <span class="fl">0.3</span>,</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'palette'</span>: [<span class="st">'#FFFFFF'</span>, <span class="st">'#00FFFF'</span>, <span class="st">'#0080FF'</span>, <span class="st">'#DA00FF'</span>, <span class="st">'#FFA400'</span>, <span class="st">'#FF0000'</span>]})</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>Image(url<span class="op">=</span>url, embed<span class="op">=</span><span class="va">True</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">'png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="output_26_0.png" class="img-fluid"></p>
 </section>
 <section id="plot-landsat-ndvi-for-the-region" class="level3">
 <h3 class="anchored" data-anchor-id="plot-landsat-ndvi-for-the-region">5. Plot Landsat NDVI for the Region</h3>
 <p>The precipitation analysis discussed above provides useful context for identifying interesting weather events for a particular region. Now let’s see what (if any!) effect changes in weather patterns have had on the landscape, using Landsat imagery.</p>
 <p>I was able to see a slight difference in the two images. It is unclear to me if the long term average includes more cloud cover and is therefore less bright/vivid, or if the rain increased the vegetation. If I had to guess I would say that there was not a very noticeable change because I chose an area that is already very wet and productive.</p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>land_8 <span class="op">=</span> ee.ImageCollection(<span class="st">'LANDSAT/LC08/C01/T1_TOA'</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>pt <span class="op">=</span> ee.Geometry.Point([<span class="op">-</span><span class="dv">124</span>, <span class="fl">40.8</span>])   <span class="co"># Point corresponding to Arcata, CA</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>land_8_pt <span class="op">=</span> land_8.filterBounds(pt)</span>
@@ -483,16 +532,31 @@ Name: 0, dtype: object</code></pre>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>nir <span class="op">=</span> land_8_least_cld.select(<span class="st">'B5'</span>)</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>ndvi<span class="op">=</span>(nir.subtract(red)).divide((nir.add(red))).rename(<span class="st">'NDVI'</span>)</span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>ndvi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>&lt;ee.image.Image at 0x22d22b1b280&gt;</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ndviParams <span class="op">=</span> {<span class="st">'min'</span>: <span class="op">-</span><span class="dv">1</span>, </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">'max'</span>: <span class="dv">1</span>, </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">'palette'</span>: [<span class="st">'blue'</span>, <span class="st">'white'</span>, <span class="st">'green'</span>]</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>             }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Interactive only, no saved output</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Map_NDVI <span class="op">=</span> geemap.Map(center<span class="op">=</span>[<span class="fl">40.8</span>, <span class="op">-</span><span class="dv">124</span>], zoom<span class="op">=</span><span class="dv">8</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>Map_NDVI.addLayer(ndvi, ndviParams,<span class="st">'NDVI'</span>)</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>Map_NDVI</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pt <span class="op">=</span> ee.Geometry.Point([<span class="op">-</span><span class="fl">124.3652</span>, <span class="fl">40.2922</span>])</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>roi <span class="op">=</span> pt.<span class="bu">buffer</span>(<span class="dv">120000</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a URL to the styled image for a region around Mendocino County CA.</span></span>
@@ -500,19 +564,34 @@ Name: 0, dtype: object</code></pre>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'min'</span>: <span class="op">-</span><span class="dv">1</span>, <span class="st">'max'</span>: <span class="dv">1</span>, <span class="st">'dimensions'</span>: <span class="dv">512</span>, <span class="st">'region'</span>: roi,</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'palette'</span>: [<span class="st">'blue'</span>, <span class="st">'white'</span>, <span class="st">'green'</span>]})</span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>Image(url<span class="op">=</span>url, embed<span class="op">=</span><span class="va">True</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">'png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="output_37_0.png" class="img-fluid"></p>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>land_8_least_cld_flt <span class="op">=</span> land_8_pt.<span class="bu">filter</span>(<span class="st">'CLOUD_COVER &lt; 20'</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>land_8_least_cld_flt_dt <span class="op">=</span> land_8_least_cld_flt.<span class="bu">filter</span>(ee.Filter.date(<span class="st">'2019-01-01'</span>, <span class="st">'2019-04-28'</span>)).mean()<span class="op">;</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>red_2 <span class="op">=</span> land_8_least_cld_flt_dt.select(<span class="st">'B4'</span>)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>nir_2 <span class="op">=</span> land_8_least_cld_flt_dt.select(<span class="st">'B5'</span>)</span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>ndvi_2 <span class="op">=</span> (nir_2.subtract(red_2)).divide((nir_2.add(red_2))).rename(<span class="st">'NDVI'</span>)</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>ndvi_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>&lt;ee.image.Image at 0x22d220f6820&gt;</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Interactive only, no saved output</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Map_NDVI_flt <span class="op">=</span> geemap.Map(center<span class="op">=</span>[<span class="fl">40.8</span>, <span class="op">-</span><span class="dv">124</span>], zoom<span class="op">=</span><span class="dv">8</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>Map_NDVI_flt.addLayer(ndvi_2, ndviParams,<span class="st">'NDVI'</span>)</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>Map_NDVI_flt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>Map(center=[40.8, -124], controls=(WidgetControl(options=['position', 'transparent_bg'], widget=HBox(children=…</code></pre>
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pt <span class="op">=</span> ee.Geometry.Point([<span class="op">-</span><span class="fl">124.3652</span>, <span class="fl">40.2922</span>])</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>roi <span class="op">=</span> pt.<span class="bu">buffer</span>(<span class="dv">120000</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a URL to the styled image for a region around Mendocino County CA.</span></span>
@@ -520,8 +599,8 @@ Name: 0, dtype: object</code></pre>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'min'</span>: <span class="op">-</span><span class="dv">1</span>, <span class="st">'max'</span>: <span class="dv">1</span>, <span class="st">'dimensions'</span>: <span class="dv">512</span>, <span class="st">'region'</span>: roi,</span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'palette'</span>: [<span class="st">'blue'</span>, <span class="st">'white'</span>, <span class="st">'green'</span>]})</span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>Image(url<span class="op">=</span>url, embed<span class="op">=</span><span class="va">True</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">'png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="output_42_0.png" class="img-fluid"></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r distill-force-highlighting-css code-with-copy"><code class="sourceCode r"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -664,7 +743,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = true;
+  const darkModeDefault = false;
   let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
